@@ -1,18 +1,70 @@
 ﻿
 @{
-    Layout = null;
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    <div> 
+
+<div class="nav-tabs-custom">
+
+    <div class="tabs">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="#tab1" id="aLista" data-toggle="tab">Listagem</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#tab2" id="aCadastro" data-toggle="tab">Registro</a>
+            </li>
+        </ul>
+
     </div>
-</body>
-</html>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tab1">
+            <table id="tbTipoVenda" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                <thead>
+                    <tr>
+                        <td>Ação</td>
+                        <td>Tipo Venda</td>
+                    </tr>
+                </thead>
+
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+
+
+        <div class="tab-pane" id="tab2">
+            <div class="card">
+
+                <div class="card-body">
+                    <form id="formularioValidation" name="formularioValidation">
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="txtDescricaoTipoVenda">Descrição</label>
+                                <input id="txtDescricaoTipoVenda" class="form-control" type="text">
+                            </div>
+
+                            <div class="col-md-2">
+                                <label for="switch6">Default Venda</label>
+                                <div class="d-flex align-items-center">
+                                    <input type="checkbox" id="switch6" switch="primary" checked>
+                                    <label for="switch6" data-on-label="SIM" data-off-label="NAO"></label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="~/Scripts/jsPaginas/jsTipoVenda.js"></script>
