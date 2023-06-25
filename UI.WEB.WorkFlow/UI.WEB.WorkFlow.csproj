@@ -78,6 +78,7 @@
     <Compile Include="Financeiro\FormaPagamentoWorkFlow.cs" />
     <Compile Include="Outros\BaseWeb.cs" />
     <Compile Include="Outros\DBComando.cs" />
+    <Compile Include="Outros\ListasGenericasWorkFlow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilitarios\GrupoUsuarioWorkFlow.cs" />
     <Compile Include="Utilitarios\UsuarioWorkFlow.cs" />

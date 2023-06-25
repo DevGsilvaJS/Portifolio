@@ -135,11 +135,13 @@
     <Compile Include="Controllers\ConvenioController.cs" />
     <Compile Include="Controllers\EntradaEstoqueController.cs" />
     <Compile Include="Controllers\FormaPagamentoController.cs" />
+    <Compile Include="Controllers\FornecedorController.cs" />
     <Compile Include="Controllers\GrupoUsuarioController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LancamentoCaixaController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LojasController.cs" />
+    <Compile Include="Controllers\ProdutoController.cs" />
     <Compile Include="Controllers\TipoVendaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\VendaController.cs" />
@@ -179,12 +181,14 @@
     <Content Include="Scripts\jsPaginas\jsConvenio.js" />
     <Content Include="Scripts\jsPaginas\jsEntradaEstoque.js" />
     <Content Include="Scripts\jsPaginas\jsFormaPagamento.js" />
+    <Content Include="Scripts\jsPaginas\jsFornecedor.js" />
     <Content Include="Scripts\jsPaginas\jsGrupoUsuario.js" />
     <Content Include="Scripts\jsPaginas\jsHome.js" />
     <Content Include="Scripts\jsPaginas\jsIndicacao.js" />
     <Content Include="Scripts\jsPaginas\jsLancamentoCaixa.js" />
     <Content Include="Scripts\jsPaginas\jsLogin.js" />
     <Content Include="Scripts\jsPaginas\jsLojas.js" />
+    <Content Include="Scripts\jsPaginas\jsProduto.js" />
     <Content Include="Scripts\jsPaginas\jsSistema.js" />
     <Content Include="Scripts\jsPaginas\jsTipoVenda.js" />
     <Content Include="Scripts\jsPaginas\jsTransferenciaEstoque.js" />
@@ -1257,6 +1261,9 @@
     <Content Include="Views\Cliente\Index.cshtml" />
     <Content Include="Views\BaixaVencimento\Index.cshtml" />
     <Content Include="Views\BaixaRapida\Index.cshtml" />
+    <Content Include="Views\Produto\Index.cshtml" />
+    <Content Include="Views\Vendedor\Index.cshtml" />
+    <Content Include="Views\Fornecedor\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1283,7 +1290,6 @@
     <Folder Include="Template\assets\libs\pdfmake\src\" />
     <Folder Include="Template\assets\libs\raphael\dev\test\" />
     <Folder Include="Template\assets\libs\table-edits\src\" />
-    <Folder Include="Views\Vendedor\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

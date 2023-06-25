@@ -41,9 +41,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Estoque\Atributos\Caracteristicas\EntityCorNumericaProduto.cs" />
+    <Compile Include="Estoque\Atributos\Caracteristicas\EntityCorProduto.cs" />
+    <Compile Include="Estoque\Atributos\Caracteristicas\EntityFabricanteProduto.cs" />
+    <Compile Include="Estoque\Atributos\Caracteristicas\EntityGrifeProduto.cs" />
+    <Compile Include="Estoque\Atributos\Caracteristicas\EntityGrupoProduto.cs" />
+    <Compile Include="Estoque\Atributos\Caracteristicas\EntityModeloProduto.cs" />
+    <Compile Include="Estoque\Atributos\Caracteristicas\EntitySublinha1Produto.cs" />
+    <Compile Include="Estoque\Atributos\Caracteristicas\EntitySublinha2Produto.cs" />
+    <Compile Include="Estoque\Atributos\Caracteristicas\EntityTamanhoProduto.cs" />
+    <Compile Include="Estoque\Atributos\EntityAtributosProduto.cs" />
     <Compile Include="Estoque\EntityEntradaEstoque.cs" />
     <Compile Include="Estoque\EntityFornecedor.cs" />
     <Compile Include="Estoque\EntityInventario.cs" />
+    <Compile Include="Estoque\Atributos\Caracteristicas\EntityLinhaProduto.cs" />
     <Compile Include="Estoque\EntityProduto.cs" />
     <Compile Include="Estoque\EntitySaidaEstoque.cs" />
     <Compile Include="Estoque\EntityTransferenciaEstoque.cs" />
@@ -53,6 +64,9 @@
     <Compile Include="Financeiro\EntityContasPagar.cs" />
     <Compile Include="Financeiro\EntityContasReceber.cs" />
     <Compile Include="Financeiro\EntityFormaPagamento.cs" />
+    <Compile Include="Financeiro\Tabelas Auxiliares\EntityCentroCusto.cs" />
+    <Compile Include="Financeiro\Tabelas Auxiliares\EntityPlanoContas.cs" />
+    <Compile Include="Fiscal\Tabelas Auxiliares\EntityNCM.cs" />
     <Compile Include="Outros\EntityTelefone.cs" />
     <Compile Include="Outros\EntityEmail.cs" />
     <Compile Include="Outros\EntityEndereco.cs" />
@@ -68,5 +82,6 @@
     <Compile Include="Vendas\TabelasAuxiliares\EntityLojas.cs" />
     <Compile Include="Vendas\TabelasAuxiliares\EntityVendedor.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

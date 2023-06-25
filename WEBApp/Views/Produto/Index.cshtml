@@ -1,0 +1,181 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-12">
+        <!-- Custom Tabs -->
+        <div class="nav-tabs-custom">
+            <div class="box-header with-border">
+                <h3 class="box-title">Produto</h3>
+            </div>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#tab1" id="aLista" data-toggle="tab">Listagem</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#tab2" id="aCadastro" data-toggle="tab">Registro</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab1">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table id="tbProduto" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                                <thead>
+                                    <tr>
+                                        <th>Ação</th>
+                                        <th>Sequencial</th>
+                                        <th>Descrição</th>
+                                        <th>Tipo de Produto</th>
+                                        <th>Grife</th>
+                                        <th>Fantasia</th>
+                                        <th>Dt. Cadastro</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.tab-pane -->
+                <div class="tab-pane" id="tab2">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <div class="row">
+
+                                <div class="col-md-3">
+                                    <label>Sequencial</label>
+                                    <input type="text" class="form-control" id="txtSequencial" disabled>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Tipo de Produto</label>
+                                    <select id="sslTipoProduto" class="form-control">
+                                        <option value="0">RECEITUARIO</option>
+                                        <option value="1">SOLAR</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>NCM</label>
+                                    <select id="sslNCM" class="form-control" name="sslNCM">
+                                        <option></option>
+                                        <option></option>
+                                        <option> </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Descrição</label>
+                                        <input type="text" class="form-control" id="txtDescricao" style="text-transform: uppercase">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Descrição NF</label>
+                                        <input type="text" class="form-control" id="txtDescricaoNF" style="text-transform: uppercase">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Fornecedor</label>
+                                    <select name="select" id="ddlFornecedorID" class="form-control">
+                                        <option value="valor1">Valor 1</option>
+                                        <option value="valor2">Valor 2</option>
+                                        <option value="valor3">Valor 3</option>
+                                        <option value="valor3">Valor 3</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <br />
+                                    <div class="iCheck-helper">
+                                        <label>
+                                            <input type="checkbox" id="ckcControlEstoque" checked> Controla Estoque
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <br />
+                                    <div class="iCheck-helper">
+                                        <label>
+                                            <input type="checkbox" id="ckcItemVendido" checked> Item Vendido
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <br />
+                                    <div class="iCheck-helper">
+                                        <label>
+                                            <input type="checkbox" id="ckcAceitaEstoqueNegativo"> Aceita Estoque Negativo
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card">
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Referencia da cor</label>
+                                    <input type="text" class="form-control" id="txtReferenciaCor" style="text-transform: uppercase">
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label>Características</label>
+                                    <input type="text" class="form-control" id="txtCaracteristica" style="text-transform: uppercase">
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label>Perfil de Uso</label>
+                                    <input type="text" class="form-control" id="txtPerfil" style="text-transform: uppercase">
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label>Tamanho do aro</label>
+                                    <input type="text" class="form-control" id="txtTamanhoAro" style="text-transform: uppercase">
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label>Linha/Material</label>
+                                    <input type="text" class="form-control" id="txtMaterial" style="text-transform: uppercase">
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label>Marca/Grife</label>
+                                    <input type="text" class="form-control" id="txtGrife" style="text-transform: uppercase">
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Modelo/Referência</label>
+                                    <input type="text" class="form-control" id="txtReferencia" style="text-transform: uppercase">
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Cor Fisica</label>
+                                    <input type="text" class="form-control" id="txtCorFisica" style="text-transform: uppercase">
+                                </div>
+
+
+                                <div class="col-md-3">
+                                    <label>Fantasia</label>
+                                    <input type="text" class="form-control" id="txtFantasia" style="text-transform: uppercase">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/Scripts/jsPaginas/jsProduto.js"></script>
