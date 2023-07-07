@@ -12,7 +12,6 @@ $(document).ready(function () {
 });
 
 
-
 function jQueryInit() {
 
     fnCriaTela();
@@ -90,6 +89,19 @@ $(document).ready(function () {
         $(this).tab('show');
     });
 });
+
+$("#aCadastro").click(function () {
+    lsCentroCusto();
+    lsPlanoContas();
+})
+
+
+$("#btnBuscarCep").click(function () {
+    buscaCep($("#txtValorCep").val());
+})
+
+
+
 
 function fnEdicao() {
 
@@ -390,7 +402,7 @@ function lsPlanoContas() {
 
         type: "POST",
         contentType: "application/json",
-        url: "PlanoDeContas/ListarPlanos",
+        url: "Fornecedor/ComboPlanoContas",
         data: JSON.stringify(),
         dataType: "JSON",
         cache: false,
@@ -399,15 +411,16 @@ function lsPlanoContas() {
 
         },
         success: function (result) {
+            debugger;
 
             if (result != null) {
 
-                var ListaPlanos = result.lsPlanos;
+                var ListaPlanos = result.retorno;
 
                 var options = '<option value="0">Selecione o Plano de contas</option>';;
                 $.each(ListaPlanos, function (key, val) {
 
-                    options += '<option value="' + val.IDPLANOCONTAS + '">' + val.PLNDESCRICAO + '</option>';
+                    options += '<option value="' + val.PCTID + '">' + val.PCTDESCRICAO + '</option>';
                 });
 
                 $("#PlanoContasID").html(options);
@@ -431,7 +444,7 @@ function lsCentroCusto() {
 
         type: "POST",
         contentType: "application/json",
-        url: "CentroDeCusto/ListaCentroCusto",
+        url: "Fornecedor/ComboCentroCusto",
         data: JSON.stringify(),
         dataType: "JSON",
         cache: false,
@@ -443,11 +456,11 @@ function lsCentroCusto() {
             debugger;
 
             if (result != null) {
-                var ListaCDC = result.lsCentroCusto;
+                var ListaCDC = result.retorno;
                 var options = '<option value="0">Selecione o Plano de contas</option>';;
 
                 $.each(ListaCDC, function (key, val) {
-                    options += '<option value="' + val.IDCENTROCUSTO + '">' + val.CDCDESCRICAO + '</option>';
+                    options += '<option value="' + val.CCUID + '">' + val.CCUDESCRICAO + '</option>';
                 });
 
                 $("#CentroCustoID").html(options);
@@ -457,6 +470,28 @@ function lsCentroCusto() {
 
         },
         complete: function () {
+        }
+    });
+}
+
+function buscaCep(cep) {
+    $.ajax({
+        url: "https://viacep.com.br/ws/" + cep + "/json/",
+        dataType: "json",
+        success: function (data) {
+
+            if (data.erro) {
+                // Trate o caso em que o CEP informado é inválido
+            } else {
+                $("#txtLogradouro").val(data.logradouro);
+                $("#txtBairro").val(data.bairro);
+                $("#txtCidade").val(data.localidade);
+                $("#ddlUf").val(data.uf);
+                // Use os dados do endereço como quiser
+            }
+        },
+        error: function (xhr, status, error) {
+            // Trate os erros da requisição aqui
         }
     });
 }
