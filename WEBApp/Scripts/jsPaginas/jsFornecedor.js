@@ -68,18 +68,14 @@ function fnCriaTela() {
 
     fnListaDados();
 
-    //$("#txtCnpj").mask("99.999.999/9999-99");
-    //$("#txtBuscaCep").mask("99999-999");
+    $(document).ready(function () {
+        $('#txtTelefone').inputmask('(99) 9999-9999');
+        $('#txtCelular').inputmask('(99) 9999-9999');
+        $('#txtCnpj').inputmask('99.999.999/9999-99');
+        $('#txtIe').inputmask('99.999.999-9');
 
-    //$('#txtTel').mask('(00) 0000-00009');
-    //$('#txtTel').blur(function (event) {
-    //    if ($(this).val().length == 15) { // Celular com 9 dígitos + 2 dígitos DDD e 4 da máscara
-    //        $('#txtTel').mask('(00) 00000-0009');
-    //    } else {
-    //        $('#txtTel').mask('(00) 0000-00009');
-    //    }
-    //});
 
+    });
 
 }
 
@@ -99,9 +95,6 @@ $("#aCadastro").click(function () {
 $("#btnBuscarCep").click(function () {
     buscaCep($("#txtValorCep").val());
 })
-
-
-
 
 function fnEdicao() {
 
