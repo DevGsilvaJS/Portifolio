@@ -24,7 +24,7 @@ namespace UI.WEB.WorkFlow.Vendas.TabelasAuxiliares
 
             if (_ObjVendedor.TbPessoa.PESID > 0)
             {
-                AddListaSalvar(RetornaQueryUpdate(_ObjVendedor, "TB_PES_PESSOA"));
+                AddListaSalvar(RetornaQueryUpdate(_ObjVendedor.TbPessoa, "TB_PES_PESSOA"));
                 _ObjVendedor.PESID = _ObjVendedor.TbPessoa.PESID;
                 AddListaSalvar(RetornaQueryUpdate(_ObjVendedor, "TB_VND_VENDEDOR"));
 

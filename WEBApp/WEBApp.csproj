@@ -1267,7 +1267,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
     <Folder Include="Template\assets\libs\c3\src\" />
     <Folder Include="Template\assets\libs\chartist\scss\settings\" />
     <Folder Include="Template\assets\libs\flot-charts\examples\" />

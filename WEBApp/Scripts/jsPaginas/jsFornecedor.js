@@ -1,16 +1,11 @@
-﻿
-var oTabFornecedor = null;
+﻿var oTabFornecedor = null;
 var _Fornecedor = new Object();
 var STATUS = 'CONSULTA';
-
-
-
 
 $(document).ready(function () {
 
     jQueryInit();
 });
-
 
 function jQueryInit() {
 
@@ -87,14 +82,37 @@ $(document).ready(function () {
 });
 
 $("#aCadastro").click(function () {
+    STATUS = 'INSERCAO';
+    $("#btnSalvarFormulario").css('display', 'block');
     lsCentroCusto();
     lsPlanoContas();
+    fnRetornaSequencial();
 })
-
 
 $("#btnBuscarCep").click(function () {
     buscaCep($("#txtValorCep").val());
 })
+
+$(document).ready(function () {
+    $('#btnSalvarFormulario').on('click', function () {
+
+        switch (STATUS) {
+            case 'INSERCAO':
+                fnSalvaDados();
+                $("#aLista").tab('show');
+                fnListaDados();
+                break;
+            case 'ALTERACAO':
+          /*      fnAtualizarVendedor();*/
+                $("#aLista").tab('show');
+                fnListaDados();
+                break;
+            default:
+                break;
+        }
+    });
+});
+
 
 function fnEdicao() {
 
@@ -163,32 +181,38 @@ function fnListaDados() {
 
 function fnSalvaDados() {
 
-    _Fornecedor.FORFANTASIA = $("#txtFantasia").val();
-    _Fornecedor.FORRAZAO = $("#txtRazaoSocial").val();
-    _Fornecedor.FORCNPJ = $("#txtCnpj").val();
-    _Fornecedor.FORIE = $("#txtIe").val();
-    _Fornecedor.IDCENTROCUSTO = $("#CentroCustoID").val();
-    _Fornecedor.IDPLANOCONTAS = $("#PlanoContasID").val();
-    _Fornecedor.DDDTELEFONE = $("#txtDDDTelefone").val();
-    _Fornecedor.TELEFONE = $("#txtTelefone").val();
-    _Fornecedor.DDDCELULAR = $("#txtDDDCelular").val();
-    _Fornecedor.CELULAR = $("#txtCelular").val();
-    _Fornecedor.FOREMAIL = $("#txtEmail").val();
-    _Fornecedor.Fantasia = $("#dllRegimeTributario").val();
-    _Fornecedor.ENDCEP = $("#txtCep").val();
-    _Fornecedor.ENDUF = $("#ddlUf").val();
-    _Fornecedor.ENDCIDADE = $("#txtCidade").val();
-    _Fornecedor.ENDBAIRRO = $("#txtBairro").val();
-    _Fornecedor.ENDLOGRADOURO = $("#txtLogradouro").val();
-    _Fornecedor.ENDTIPOENDERECO = $("#ddlTipoEndereco").val();
-    _Fornecedor.ENDNUMERO = $("#txtNumero").val();
-    _Fornecedor.ENDCOMPLEMENTO = $("#txtComplemento").val();
+    _Fornecedor.FORSEQUENCIAL = $("#IDfornecedor").val();
+    _Fornecedor.TbPessoa.PESNOME = $("#txtFantasia").val();
+    _Fornecedor.TbPessoa.PESSOBRENOME = $("#txtRazaoSocial").val();
+    _Fornecedor.TbPessoa.PESDOCFEDERAL = cnpj;
+    _Fornecedor.TbPessoa.PESDOCESTADUAL = $("#txtIe").val();
+    _Fornecedor.TbCentroCusto.CCUID = $("#CentroCustoID").val();
+    _Fornecedor.TbPlanoContas.PCTID = $("#PlanoContasID").val();
+
+    var dddTelefone = $("#txtTelefone").val().replace(/[-() ]+/g, "").substring(0, 2);
+    var telefone = $("#txtTelefone").val().replace(/[-() ]+/g, "").slice(2);
+    _Fornecedor.TbTelefone.TELDDD = dddTelefone;
+    _Fornecedor.TbTelefone.TELNUMERO = telefone;
+
+    var dddCelular = $("#txtDDDCelular").val().replace(/[-() ]+/g, "").substring(0, 2);
+    var celular = $("#txtCelular").val().replace(/[-() ]+/g, "").slice(2);
+    _Fornecedor.TbTelefone.TELDDDC = dddCelular;
+    _Fornecedor.TbTelefone.TELCELULAR = celular;
+
+    _Fornecedor.TbEmail.EMLEMAIL = $("#txtEmail").val();
+    _Fornecedor.TbEndereco.EDNCEP = $("#txtCep").val();
+    _Fornecedor.TbEndereco.EDNUF = $("#ddlUf").val();
+    _Fornecedor.TbEndereco.EDNCIDADE = $("#txtCidade").val();
+    _Fornecedor.TbEndereco.EDNBAIRRO = $("#txtBairro").val();
+    _Fornecedor.TbEndereco.EDNLOGRADOURO = $("#txtLogradouro").val();
+    _Fornecedor.TbEndereco.EDNNUMERO = $("#txtNumero").val();
+    _Fornecedor.TbEndereco.EDNCOMPLEMENTO = $("#txtComplemento").val();
 
     $.ajax({
 
         type: "POST",
         contentType: "application/json",
-        url: "Fornecedor/InsertFornecedor",
+        url: "Fornecedor/GravarFornecedor",
         data: JSON.stringify(_Fornecedor),
         dataType: "JSON",
         cache: false,
@@ -485,6 +509,32 @@ function buscaCep(cep) {
         },
         error: function (xhr, status, error) {
             // Trate os erros da requisição aqui
+        }
+    });
+}
+
+function fnRetornaSequencial() {
+
+    $.ajax({
+
+        type: "GET",
+        url: "Fornecedor/RetornaSequencial",
+        data: {},
+        dataType: "JSON",
+        cache: false,
+        async: false,
+        beforeSend: function () {
+
+        },
+        success: function (result) {
+            debugger;
+
+            $("#IDfornecedor").val(result.retorno);
+
+        },
+        error: function (jqXHR, exception) {
+        },
+        complete: function () {
         }
     });
 }

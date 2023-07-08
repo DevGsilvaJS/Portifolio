@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using UI.WEB.Model.Estoque;
 using UI.WEB.Model.Financeiro.Tabelas_Auxiliares;
+using UI.WEB.WorkFlow.Estoque;
 using UI.WEB.WorkFlow.Outros;
 
 namespace WEBApp.Controllers
@@ -12,6 +14,7 @@ namespace WEBApp.Controllers
     {
 
         ListasGenericasWorkFlow wfListas = new ListasGenericasWorkFlow();
+        FornecedorWorkFlow wf = new FornecedorWorkFlow();
         // GET: Fornecedor
         public ActionResult Index()
         {
@@ -30,7 +33,6 @@ namespace WEBApp.Controllers
                 retorno = lista
             }, JsonRequestBehavior.AllowGet);
         }
-
         public JsonResult ComboPlanoContas()
         {
 
@@ -41,6 +43,30 @@ namespace WEBApp.Controllers
             return Json(new
             {
                 retorno = lista
+            }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult RetornaSequencial()
+        {
+
+            string retorno = "";
+
+            retorno = wf.RetornaSequencial();
+
+            return Json(new
+            {
+                retorno = retorno
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GravarFornecedor(EntityFornecedor ObjFornecedor)
+        {
+            string sRetorno = "NOTOK";
+
+            sRetorno = wf.GravarFornecedor(ObjFornecedor);
+
+            return Json(new
+            {
+                retorno = sRetorno
             }, JsonRequestBehavior.AllowGet);
         }
     }

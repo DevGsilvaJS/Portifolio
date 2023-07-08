@@ -7,6 +7,8 @@ namespace UI.WEB.Model.Estoque
     {
         public int FORID { get; set; }
         public int PESID { get; set; }
+        public int CCUID { get; set; }
+        public int PCTID { get; set; }
         public string FORSEQUENCIAL { get; set; }
         public string FOROBSERVACAO { get; set; }
         public string FORSITE { get; set; }
