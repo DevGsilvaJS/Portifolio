@@ -13,6 +13,13 @@ namespace UI.WEB.WorkFlow.Estoque
     public class FornecedorWorkFlow : BaseWeb
     {
         DBComando db = new DBComando();
+
+        public EntityFornecedor RetornaObjInclusao()
+        {
+            EntityFornecedor obj = new EntityFornecedor();
+
+            return obj;
+        }
         public string RetornaSequencial()
         {
             string retorno = "";
@@ -30,7 +37,6 @@ namespace UI.WEB.WorkFlow.Estoque
             db.FechaConexao(db.MinhaConexao());
             return retorno;
         }
-
         public string GravarFornecedor(EntityFornecedor ObjFornecedor)
         {
             string sRetorno = "";
@@ -90,29 +96,35 @@ namespace UI.WEB.WorkFlow.Estoque
                 {
                     ObjFornecedor.TbPessoa.PESID = RetornaSequencial("SEQ_PES");
                     AddListaSalvar(RetornaQueryInclusao(ObjFornecedor.TbPessoa, "TB_PES_PESSOA"));
-
                     ObjFornecedor.PESID = ObjFornecedor.TbPessoa.PESID;
+
+
+                    ObjFornecedor.FORID = RetornaSequencial("SEQ_FOR");
+                    ObjFornecedor.PESID = ObjFornecedor.TbPessoa.PESID;
+                    AddListaSalvar(RetornaQueryInclusao(ObjFornecedor, "TB_FOR_FORNECEDOR"));
 
                     if (!string.IsNullOrEmpty(ObjFornecedor.TbEmail.EMLEMAIL))
                     {
-                        ObjFornecedor.TbEmail.PESID = ObjFornecedor.TbPessoa.PESID;
+                        ObjFornecedor.TbEmail.EMLID = RetornaSequencial("SEQ_EML");
+                        ObjFornecedor.TbEmail.PESID = ObjFornecedor.TbPessoa.PESID;             
                         AddListaSalvar(RetornaQueryInclusao(ObjFornecedor.TbEmail, "TB_EML_EMAIL"));
                     }
 
                     if (!string.IsNullOrEmpty(ObjFornecedor.TbTelefone.TELNUMERO) || !string.IsNullOrEmpty(ObjFornecedor.TbTelefone.TELCELULAR))
                     {
+                        ObjFornecedor.TbTelefone.TELID = RetornaSequencial("SEQ_TEL");
                         ObjFornecedor.TbTelefone.PESID = ObjFornecedor.TbPessoa.PESID;
                         AddListaSalvar(RetornaQueryInclusao(ObjFornecedor.TbTelefone, "TB_TEL_TELEFONE"));
                     }
 
                     if (!string.IsNullOrEmpty(ObjFornecedor.TbEndereco.EDNLOGRADOURO))
                     {
-                        ObjFornecedor.TbTelefone.PESID = ObjFornecedor.TbPessoa.PESID;
+                        ObjFornecedor.TbEndereco.EDNID = RetornaSequencial("SEQ_EDN");
+                        ObjFornecedor.TbEndereco.PESID = ObjFornecedor.TbPessoa.PESID;                     
                         AddListaSalvar(RetornaQueryInclusao(ObjFornecedor.TbEndereco, "TB_EDN_ENDERECO"));
-                    }
+                    } 
 
-                    AddListaSalvar(RetornaQueryInclusao(ObjFornecedor.TbCentroCusto, "TB_CCU_CENTROCUSTO"));
-                    AddListaSalvar(RetornaQueryInclusao(ObjFornecedor.TbPlanoContas, "TB_PCT_PLANOCONTAS"));
+                    AddListaSalvar("UPDATE TB_PRV_PARAMETROSVALOR SET PRVVALOR = PRVVALOR + 1 WHERE PRVCAMPO = 'FORNECEDOR'");
 
                     sRetorno = ExecuteTransacao();
                 }
@@ -126,13 +138,12 @@ namespace UI.WEB.WorkFlow.Estoque
 
             return sRetorno;
         }
-
         public List<EntityFornecedor> ListarFornecedores()
         {
 
             List<EntityFornecedor> lista = new List<EntityFornecedor>();
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder(); 
 
             sb.AppendLine(" SELECT");
             sb.AppendLine("      PES.PESID");
