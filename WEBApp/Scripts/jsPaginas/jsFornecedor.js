@@ -52,26 +52,20 @@ function fnCriaTela() {
         "bAutoWidth": false,
         "aaSorting": [[1, "asc"]],
         "aoColumns": [
-            { sWidth: '15%', "bSortable": false },
-            { sWidth: '1%' },//Numero          
+            { sWidth: '8%', "bSortable": false },
+            { sWidth: '20%' },//Numero          
             { sWidth: '20%' },//Titulo
-            { sWidth: '10%' },//Titulo
-            { sWidth: '10%' },//Titulo           
-
+            { sWidth: '20%' },//Titulo
         ]
     });
 
     fnListaDados();
-
     $(document).ready(function () {
         $('#txtTelefone').inputmask('(99) 9999-9999');
-        $('#txtCelular').inputmask('(99) 9999-9999');
+        $('#txtCelular').inputmask('(99) 99999-9999');
         $('#txtCnpj').inputmask('99.999.999/9999-99');
         $('#txtIe').inputmask('99.999.999-9');
-
-
     });
-
 }
 
 $(document).ready(function () {
@@ -82,8 +76,10 @@ $(document).ready(function () {
 });
 
 $("#aCadastro").click(function () {
+    debugger;
     STATUS = 'INSERCAO';
     $("#btnSalvarFormulario").css('display', 'block');
+    fnRetornaObjInclusao();
     lsCentroCusto();
     lsPlanoContas();
     fnRetornaSequencial();
@@ -103,7 +99,7 @@ $(document).ready(function () {
                 fnListaDados();
                 break;
             case 'ALTERACAO':
-          /*      fnAtualizarVendedor();*/
+                /*      fnAtualizarVendedor();*/
                 $("#aLista").tab('show');
                 fnListaDados();
                 break;
@@ -112,6 +108,32 @@ $(document).ready(function () {
         }
     });
 });
+
+function fnRetornaObjInclusao() {
+
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "Fornecedor/RetornaObjInclusao",
+        dataType: "JSON",
+        cache: false,
+        async: false,
+        beforeSend: function () {
+
+        },
+        success: function (result) {
+
+            debugger;
+            _Fornecedor = result.retorno;
+
+        },
+        error: function (jqXHR, exception) {
+        },
+        complete: function () {
+        }
+    });
+
+}
 
 
 function fnEdicao() {
@@ -132,7 +154,7 @@ function fnListaDados() {
 
         type: "POST",
         contentType: "application/json",
-        url: "Fornecedor/listaFornecedor",
+        url: "Fornecedor/ListarFornecedores",
         data: {},
         dataType: "JSON",
         cache: false,
@@ -142,10 +164,11 @@ function fnListaDados() {
         },
         success: function (result) {
 
-            var Lista = result.lsFornecedor;
+            var Lista = result.lista;
             oTabFornecedor.clear().draw();
 
             var ListaFornecedor = new Array();
+            debugger;
 
 
             if (Lista.length > 0) {
@@ -153,17 +176,16 @@ function fnListaDados() {
                 for (var i = 0; i < Lista.length; i++) {
 
 
-                    var btnEditar = '<button id="' + Lista[i].IDFORNECEDOR +
+                    var btnEditar = '<button id="' + Lista[i].PESID +
                         '"  name="btnEdicao" type="button" class="btn  btn-primary" onClick="fnEditFornecedor(this)">Editar</button>';
 
-                    var btnExcluir = '<button id="' + Lista[i].IDFORNECEDOR +
+                    var btnExcluir = '<button id="' + Lista[i].PESID +
                         '"  name="btnDeletar" type="button" class="btn  btn-danger" onClick="FnDeletFornecedor(this)">Deletar</button>';
 
                     var Linha = [btnEditar + btnExcluir,
-                    Lista[i].IDFORNECEDOR,
-                    Lista[i].FORFANTASIA,
-                    Lista[i].FORCNPJ,
-                    Lista[i].FORIE,
+                    Lista[i].TbPessoa.PESNOME,
+                    Lista[i].TbPessoa.PESDOCFEDERAL,
+                    Lista[i].TbPessoa.PESDOCFEDERAL,
                     ];
                     ListaFornecedor[i] = Linha;
                 }
@@ -181,20 +203,24 @@ function fnListaDados() {
 
 function fnSalvaDados() {
 
+    debugger;
+
     _Fornecedor.FORSEQUENCIAL = $("#IDfornecedor").val();
+    _Fornecedor.CCUID = $("#CentroCustoID").val();
+    _Fornecedor.PCTID = $("#PlanoContasID").val();
+
     _Fornecedor.TbPessoa.PESNOME = $("#txtFantasia").val();
     _Fornecedor.TbPessoa.PESSOBRENOME = $("#txtRazaoSocial").val();
-    _Fornecedor.TbPessoa.PESDOCFEDERAL = cnpj;
-    _Fornecedor.TbPessoa.PESDOCESTADUAL = $("#txtIe").val();
-    _Fornecedor.TbCentroCusto.CCUID = $("#CentroCustoID").val();
-    _Fornecedor.TbPlanoContas.PCTID = $("#PlanoContasID").val();
+    _Fornecedor.TbPessoa.PESDOCFEDERAL = $("#txtCnpj").val().replace(/[^\d]/g, '');
+    _Fornecedor.TbPessoa.PESDOCESTADUAL = $("#txtIe").val().replace(/[^\d]/g, '');
+
 
     var dddTelefone = $("#txtTelefone").val().replace(/[-() ]+/g, "").substring(0, 2);
     var telefone = $("#txtTelefone").val().replace(/[-() ]+/g, "").slice(2);
     _Fornecedor.TbTelefone.TELDDD = dddTelefone;
     _Fornecedor.TbTelefone.TELNUMERO = telefone;
 
-    var dddCelular = $("#txtDDDCelular").val().replace(/[-() ]+/g, "").substring(0, 2);
+    var dddCelular = $("#txtCelular").val().replace(/[-() ]+/g, "").substring(0, 2);
     var celular = $("#txtCelular").val().replace(/[-() ]+/g, "").slice(2);
     _Fornecedor.TbTelefone.TELDDDC = dddCelular;
     _Fornecedor.TbTelefone.TELCELULAR = celular;

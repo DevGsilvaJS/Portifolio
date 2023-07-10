@@ -20,7 +20,18 @@ namespace WEBApp.Controllers
         {
             return View();
         }
+        public JsonResult RetornaObjInclusao()
+        {
 
+            EntityFornecedor ObjInclusao = new EntityFornecedor();
+
+            ObjInclusao = wf.RetornaObjInclusao();
+
+            return Json(new
+            {
+                retorno = ObjInclusao
+            }, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult ComboCentroCusto()
         {
 
@@ -55,6 +66,17 @@ namespace WEBApp.Controllers
             return Json(new
             {
                 retorno = retorno
+            }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult ListarFornecedores()
+        {
+            List<EntityFornecedor> lista = new List<EntityFornecedor>();
+
+            lista = wf.ListarFornecedores();
+
+            return Json(new
+            {
+                lista = lista
             }, JsonRequestBehavior.AllowGet);
         }
 
