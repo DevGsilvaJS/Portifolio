@@ -299,6 +299,8 @@ function fnListaDados() {
 }
 
 function fnEditarVendedor(idVendedor) {
+    debugger;
+    var a = idVendedor
 
     $.ajax({
         type: "GET",

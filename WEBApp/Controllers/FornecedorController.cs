@@ -79,6 +79,17 @@ namespace WEBApp.Controllers
                 lista = lista
             }, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult EditarFornecedor(int idFornecedor)
+        {
+            EntityFornecedor objFornecedor = new EntityFornecedor();
+
+            objFornecedor = wf.EditarFornecedor(idFornecedor);
+
+            return Json(new
+            {
+                objFornecedor = objFornecedor
+            }, JsonRequestBehavior.AllowGet);
+        }
 
         public JsonResult GravarFornecedor(EntityFornecedor ObjFornecedor)
         {

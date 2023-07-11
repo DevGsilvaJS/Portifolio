@@ -1,6 +1,7 @@
 ﻿var oTabFornecedor = null;
 var _Fornecedor = new Object();
 var STATUS = 'CONSULTA';
+var IDPRINCIPAL = null;
 
 $(document).ready(function () {
 
@@ -176,10 +177,10 @@ function fnListaDados() {
                 for (var i = 0; i < Lista.length; i++) {
 
 
-                    var btnEditar = '<button id="' + Lista[i].PESID +
-                        '"  name="btnEdicao" type="button" class="btn  btn-primary" onClick="fnEditFornecedor(this)">Editar</button>';
+                    var btnEditar = '<button id="' + Lista[i].TbPessoa.PESID +
+                        '"  name="btnEdicao" type="button" class="btn  btn-primary" onClick="fnEditarFornecedor(this)">Editar</button>';
 
-                    var btnExcluir = '<button id="' + Lista[i].PESID +
+                    var btnExcluir = '<button id="' + Lista[i].TbPessoa.PESID +
                         '"  name="btnDeletar" type="button" class="btn  btn-danger" onClick="FnDeletFornecedor(this)">Deletar</button>';
 
                     var Linha = [btnEditar + btnExcluir,
@@ -556,6 +557,58 @@ function fnRetornaSequencial() {
             debugger;
 
             $("#IDfornecedor").val(result.retorno);
+
+        },
+        error: function (jqXHR, exception) {
+        },
+        complete: function () {
+        }
+    });
+}
+
+function fnEditarFornecedor(idFornecedor) {
+
+    lsPlanoContas();
+    lsCentroCusto();
+
+    $.ajax({
+
+        type: "GET",
+        url: "Fornecedor/EditarFornecedor",
+        data: { idFornecedor: idFornecedor.id },
+        dataType: "JSON",
+        cache: false,
+        async: false,
+        beforeSend: function () {
+        },
+        success: function (result) {
+
+            debugger;
+            _Fornecedor = result.objFornecedor
+
+            IDPRINCIPAL = idFornecedor.id
+            $("#IDfornecedor").val(_Fornecedor.FORSEQUENCIAL);
+            $("#CentroCustoID").val(_Fornecedor.CCUID);
+            $("#PlanoContasID").val(_Fornecedor.PCTID);
+            $("#txtFantasia").val(_Fornecedor.TbPessoa.PESNOME);
+            $("#txtRazaoSocial").val(_Fornecedor.TbPessoa.PESSOBRENOME);
+            $("#txtCnpj").val(_Fornecedor.TbPessoa.PESDOCFEDERAL);
+            $("#txtIe").val(_Fornecedor.TbPessoa.PESDOCESTADUAL);
+            $("#txtTelefone").val(_Fornecedor.TbTelefone.TELDDD + _Fornecedor.TbTelefone.TELNUMERO);
+            $("#txtCelular").val(_Fornecedor.TbTelefone.TELDDDC + _Fornecedor.TbTelefone.TELCELULAR);
+            $("#txtEmail").val(_Fornecedor.TbEmail.EMLEMAIL);
+            $("#txtCep").val(_Fornecedor.TbEndereco.EDNCEP);
+            $("#ddlUf").val(_Fornecedor.TbEndereco.EDNUF);
+            $("#txtCidade").val(_Fornecedor.TbEndereco.EDNCIDADE);
+            $("#txtBairro").val(_Fornecedor.TbEndereco.EDNBAIRRO);
+            $("#txtLogradouro").val(_Fornecedor.TbEndereco.EDNLOGRADOURO);
+            $("#txtNumero").val(_Fornecedor.TbEndereco.EDNNUMERO);
+            $("#txtComplemento").val(_Fornecedor.TbEndereco.EDNCOMPLEMENTO);
+
+
+            STATUS = 'ALTERACAO';
+            $("#aCadastro").tab('show');
+            $("#btnSalvarFormulario").css('display', 'block');
 
         },
         error: function (jqXHR, exception) {
