@@ -34,7 +34,6 @@ namespace UI.WEB.WorkFlow.Outros
             }
             return lista;
         }
-
         public List<EntityPlanoContas> listaPlanoContas()
         {
             List<EntityPlanoContas> lista = new List<EntityPlanoContas>();

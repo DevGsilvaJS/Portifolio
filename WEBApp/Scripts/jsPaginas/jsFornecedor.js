@@ -86,22 +86,30 @@ $("#aCadastro").click(function () {
     fnRetornaSequencial();
 })
 
+$("#aLista").click(function () {
+    fnLimparTela();
+})
+
+
+
 $("#btnBuscarCep").click(function () {
     buscaCep($("#txtValorCep").val());
 })
 
 $(document).ready(function () {
     $('#btnSalvarFormulario').on('click', function () {
-
+        debugger;
         switch (STATUS) {
             case 'INSERCAO':
-                fnSalvaDados();
+                fnGravarFornecedor();
                 $("#aLista").tab('show');
+                fnLimparTela();
                 fnListaDados();
                 break;
             case 'ALTERACAO':
-                /*      fnAtualizarVendedor();*/
+                fnAtualizarFornecedor();
                 $("#aLista").tab('show');
+                fnLimparTela();
                 fnListaDados();
                 break;
             default:
@@ -135,7 +143,6 @@ function fnRetornaObjInclusao() {
     });
 
 }
-
 
 function fnEdicao() {
 
@@ -181,7 +188,7 @@ function fnListaDados() {
                         '"  name="btnEdicao" type="button" class="btn  btn-primary" onClick="fnEditarFornecedor(this)">Editar</button>';
 
                     var btnExcluir = '<button id="' + Lista[i].TbPessoa.PESID +
-                        '"  name="btnDeletar" type="button" class="btn  btn-danger" onClick="FnDeletFornecedor(this)">Deletar</button>';
+                        '"  name="btnDeletar" type="button" class="btn  btn-danger" onClick="fnExcluirFornecedor(this)">Deletar</button>';
 
                     var Linha = [btnEditar + btnExcluir,
                     Lista[i].TbPessoa.PESNOME,
@@ -202,7 +209,7 @@ function fnListaDados() {
     });
 }
 
-function fnSalvaDados() {
+function fnGravarFornecedor() {
 
     debugger;
 
@@ -214,6 +221,7 @@ function fnSalvaDados() {
     _Fornecedor.TbPessoa.PESSOBRENOME = $("#txtRazaoSocial").val();
     _Fornecedor.TbPessoa.PESDOCFEDERAL = $("#txtCnpj").val().replace(/[^\d]/g, '');
     _Fornecedor.TbPessoa.PESDOCESTADUAL = $("#txtIe").val().replace(/[^\d]/g, '');
+    _Fornecedor.TbPessoa.PESTIPO = "J";
 
 
     var dddTelefone = $("#txtTelefone").val().replace(/[-() ]+/g, "").substring(0, 2);
@@ -265,96 +273,48 @@ function fnSalvaDados() {
         complete: function () {
         }
     });
-
 }
 
-function fnEditFornecedor(idFornecedor) {
+function fnAtualizarFornecedor() {
 
-    $.ajax({
+    debugger;
 
-        type: "GET",
-        url: "Fornecedor/SearchFornecedor",
-        data: { idFornecedor: idFornecedor.id },
-        dataType: "JSON",
-        cache: false,
-        async: false,
-        beforeSend: function () {
+    _Fornecedor.TbPessoa.PESID = IDPRINCIPAL;
+    _Fornecedor.FORSEQUENCIAL = $("#IDfornecedor").val();
+    _Fornecedor.CCUID = $("#CentroCustoID").val();
+    _Fornecedor.PCTID = $("#PlanoContasID").val();
 
-        },
-        success: function (result) {
-
-            debugger;
-
-            STATUS = 'ALTERACAO';
-
-            fnEdicao();
-
-            _Fornecedor = result.fornecedor;
-
-            $("#IDfornecedor").val(_Fornecedor.IDFORNECEDOR);
-            $("#txtFantasia").val(_Fornecedor.FORFANTASIA);
-            $("#txtRazaoSocial").val(_Fornecedor.FORRAZAO);
-            $("#txtCnpj").val(_Fornecedor.FORCNPJ);
-            $("#txtIe").val(_Fornecedor.FORIE);
-            $("#CentroCustoID").val(_Fornecedor.IDCENTROCUSTO);
-            $("#PlanoContasID").val(_Fornecedor.IDPLANOCONTAS);
-            $("#txtDDDTelefone").val(_Fornecedor.DDDTELEFONE);
-            $("#txtTelefone").val(_Fornecedor.TELEFONE);
-            $("#txtDDDCelular").val(_Fornecedor.DDDCELULAR);
-            $("#txtCelular").val(_Fornecedor.CELULAR);
-            $("#txtEmail").val(_Fornecedor.FOREMAIL);
-            $("#txtCep").val(_Fornecedor.ENDCEP);
-            $("#ddlUf").val(_Fornecedor.ENDUF);
-            $("#txtCidade").val(_Fornecedor.ENDCIDADE);
-            $("#txtBairro").val(_Fornecedor.ENDBAIRRO);
-            $("#txtLogradouro").val(_Fornecedor.ENDLOGRADOURO);
-            $("#ddlTipoEndereco").val(_Fornecedor.ENDTIPOENDERECO);
-            $("#txtNumero").val(_Fornecedor.ENDNUMERO);
-            $("#txtComplemento").val(_Fornecedor.ENDCOMPLEMENTO);
+    _Fornecedor.TbPessoa.PESNOME = $("#txtFantasia").val();
+    _Fornecedor.TbPessoa.PESSOBRENOME = $("#txtRazaoSocial").val();
+    _Fornecedor.TbPessoa.PESDOCFEDERAL = $("#txtCnpj").val().replace(/[^\d]/g, '');
+    _Fornecedor.TbPessoa.PESDOCESTADUAL = $("#txtIe").val().replace(/[^\d]/g, '');
+    _Fornecedor.TbPessoa.PESTIPO = "J";
 
 
+    var dddTelefone = $("#txtTelefone").val().replace(/[-() ]+/g, "").substring(0, 2);
+    var telefone = $("#txtTelefone").val().replace(/[-() ]+/g, "").slice(2);
+    _Fornecedor.TbTelefone.TELDDD = dddTelefone;
+    _Fornecedor.TbTelefone.TELNUMERO = telefone;
 
+    var dddCelular = $("#txtCelular").val().replace(/[-() ]+/g, "").substring(0, 2);
+    var celular = $("#txtCelular").val().replace(/[-() ]+/g, "").slice(2);
+    _Fornecedor.TbTelefone.TELDDDC = dddCelular;
+    _Fornecedor.TbTelefone.TELCELULAR = celular;
 
-        },
-        error: function (jqXHR, exception) {
-        },
-        complete: function () {
-        }
-    });
-}
-
-function fnAtualizarDados() {
-
-    var _Fornecedor = new Object();
-
-
-    _Fornecedor.IDFORNECEDOR = $("#IDfornecedor").val();
-    _Fornecedor.FORFANTASIA = $("#txtFantasia").val();
-    _Fornecedor.FORRAZAO = $("#txtRazaoSocial").val();
-    _Fornecedor.FORCNPJ = $("#txtCnpj").val();
-    _Fornecedor.FORIE = $("#txtIe").val();
-    _Fornecedor.IDCENTROCUSTO = $("#CentroCustoID").val();
-    _Fornecedor.IDPLANOCONTAS = $("#PlanoContasID").val();
-    _Fornecedor.DDDTELEFONE = $("#txtDDDTelefone").val();
-    _Fornecedor.TELEFONE = $("#txtTelefone").val();
-    _Fornecedor.DDDCELULAR = $("#txtDDDCelular").val();
-    _Fornecedor.CELULAR = $("#txtCelular").val();
-    _Fornecedor.FOREMAIL = $("#txtEmail").val();
-    _Fornecedor.Fantasia = $("#dllRegimeTributario").val();
-    _Fornecedor.ENDCEP = $("#txtCep").val();
-    _Fornecedor.ENDUF = $("#ddlUf").val();
-    _Fornecedor.ENDCIDADE = $("#txtCidade").val();
-    _Fornecedor.ENDBAIRRO = $("#txtBairro").val();
-    _Fornecedor.ENDLOGRADOURO = $("#txtLogradouro").val();
-    _Fornecedor.ENDTIPOENDERECO = $("#ddlTipoEndereco").val();
-    _Fornecedor.ENDNUMERO = $("#txtNumero").val();
-    _Fornecedor.ENDCOMPLEMENTO = $("#txtComplemento").val();
+    _Fornecedor.TbEmail.EMLEMAIL = $("#txtEmail").val();
+    _Fornecedor.TbEndereco.EDNCEP = $("#txtCep").val();
+    _Fornecedor.TbEndereco.EDNUF = $("#ddlUf").val();
+    _Fornecedor.TbEndereco.EDNCIDADE = $("#txtCidade").val();
+    _Fornecedor.TbEndereco.EDNBAIRRO = $("#txtBairro").val();
+    _Fornecedor.TbEndereco.EDNLOGRADOURO = $("#txtLogradouro").val();
+    _Fornecedor.TbEndereco.EDNNUMERO = $("#txtNumero").val();
+    _Fornecedor.TbEndereco.EDNCOMPLEMENTO = $("#txtComplemento").val();
 
     $.ajax({
 
         type: "POST",
         contentType: "application/json",
-        url: "Fornecedor/AtualizarDados",
+        url: "Fornecedor/GravarFornecedor",
         data: JSON.stringify(_Fornecedor),
         dataType: "JSON",
         cache: false,
@@ -371,7 +331,7 @@ function fnAtualizarDados() {
                 fnListaDados();
             }
             else {
-                return false;
+                fnRetornaCadJaExistente();
             }
         },
         error: function (jqXHR, exception) {
@@ -380,7 +340,6 @@ function fnAtualizarDados() {
         complete: function () {
         }
     });
-
 }
 
 function FnDeletFornecedor(idFornecedor) {
@@ -617,6 +576,54 @@ function fnEditarFornecedor(idFornecedor) {
         }
     });
 }
+
+function fnExcluirFornecedor(idFornecedor) {
+
+    $.ajax({
+
+        type: "GET",
+        url: "Fornecedor/ExcluirFornecedor",
+        data: { idFornecedor: idFornecedor.id },
+        dataType: "JSON",
+        cache: false,
+        async: false,
+        beforeSend: function () {
+        },
+        success: function (result) {
+
+            $("#aLista").click();
+            fnListaDados();
+
+        },
+        error: function (jqXHR, exception) {
+        },
+        complete: function () {
+        }
+    });
+}
+
+function fnLimparTela() {
+
+    IDPRINCIPAL = null
+    $("#IDfornecedor").val('');
+    $("#CentroCustoID").val('');
+    $("#PlanoContasID").val('');
+    $("#txtFantasia").val('');
+    $("#txtRazaoSocial").val('');
+    $("#txtCnpj").val('');
+    $("#txtIe").val('');
+    $("#txtTelefone").val('');
+    $("#txtCelular").val('');
+    $("#txtEmail").val('');
+    $("#txtCep").val('');
+    $("#ddlUf").val('');
+    $("#txtCidade").val('');
+    $("#txtBairro").val('');
+    $("#txtLogradouro").val('');
+    $("#txtNumero").val('');
+    $("#txtComplemento").val('');
+}
+
 
 
 

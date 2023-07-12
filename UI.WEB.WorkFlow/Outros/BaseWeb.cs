@@ -120,6 +120,7 @@ namespace UI.WEB.WorkFlow.Outros
                         {
                             string SETNULL = "NULL";
                             updateCommand.Append(SETNULL);
+                            updateCommand.Append(",");
                         }
                         else
                         {

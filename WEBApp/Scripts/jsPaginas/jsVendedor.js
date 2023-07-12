@@ -53,15 +53,8 @@ function fnCriaTela() {
         ]
     });
 
-
-
-
     fnRetornaObjInclusao();
     fnListaDados();
-
-    //$(document).ready(function () {
-    //    $("[data-inputmask]").inputmask();
-    //});
 
     $(document).ready(function () {
         $('#txtTelefone').inputmask('(99) 9999-9999');
@@ -126,8 +119,6 @@ function fnLimparTela() {
     $("#txtBairro").val('');
     $("#txtNumero").val('');
     $("#txtComplemento").val('');
-
-
 }
 
 $("#aCadastro").click(function () {
@@ -173,8 +164,6 @@ $(document).ready(function () {
 
 function fnSalvarDados() {
 
-
-
     //PESSOA
     _Vendedor.TbPessoa.PESNOME = $("#txtNome").val();
     _Vendedor.TbPessoa.PESSOBRENOME = $("#txtSobrenome").val();
@@ -198,7 +187,6 @@ function fnSalvarDados() {
     var celular = $("#txtCelular").val().replace(/[-() ]+/g, "").slice(2);
     _Vendedor.TbTelefone.TELDDDC = dddCelular
     _Vendedor.TbTelefone.TELCELULAR = celular
-
 
     //Endereco
     _Vendedor.TbEndereco.EDNCEP = $("#txtValorCep").val();

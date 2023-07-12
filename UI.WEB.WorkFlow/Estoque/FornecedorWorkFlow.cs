@@ -89,7 +89,6 @@ namespace UI.WEB.WorkFlow.Estoque
                             AddListaSalvar(RetornaQueryInclusao(ObjFornecedor.TbEmail, "TB_EML_EMAIL"));
                         }
                     }
-
                 }
 
                 else
@@ -126,16 +125,15 @@ namespace UI.WEB.WorkFlow.Estoque
 
                     AddListaSalvar("UPDATE TB_PRV_PARAMETROSVALOR SET PRVVALOR = PRVVALOR + 1 WHERE PRVCAMPO = 'FORNECEDOR'");
 
-                    sRetorno = ExecuteTransacao();
+
                 }
+                sRetorno = ExecuteTransacao();
             }
             catch (Exception ex)
             {
 
                 throw new Exception(ex.Message);
             }
-
-
             return sRetorno;
         }
         public List<EntityFornecedor> ListarFornecedores()
@@ -208,15 +206,17 @@ namespace UI.WEB.WorkFlow.Estoque
 
             if (bFornecedor)
             {
-                string sFornecedor = RetornaQueryDelete("TB_VND_VENDEDOR", "PESID", idFornecedor);
+                string sFornecedor = RetornaQueryDelete("TB_FOR_FORNECEDOR", "PESID", idFornecedor);
                 AddListaSalvar(sFornecedor);
 
                 string sPessoa = RetornaQueryDelete("TB_PES_PESSOA", "PESID", idFornecedor);
                 AddListaSalvar(sPessoa);
             }
+
+            sRetorno = ExecuteTransacao();
+
             return sRetorno;
         }
-
         public EntityFornecedor EditarFornecedor(int pESID)
         {
 

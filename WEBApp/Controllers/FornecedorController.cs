@@ -89,6 +89,17 @@ namespace WEBApp.Controllers
             {
                 objFornecedor = objFornecedor
             }, JsonRequestBehavior.AllowGet);
+        }        
+        public JsonResult ExcluirFornecedor(int idFornecedor)
+        {
+            string sRetorno = "NOTOK";
+
+            sRetorno = wf.ExcluirFornecedor(idFornecedor);
+
+            return Json(new
+            {
+                objFornecedor = sRetorno
+            }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GravarFornecedor(EntityFornecedor ObjFornecedor)
