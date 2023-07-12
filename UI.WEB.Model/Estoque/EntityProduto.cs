@@ -13,11 +13,17 @@ namespace UI.WEB.Model.Estoque
         public int MATID { get; set; }
         public int AATID { get; set; }
         public int NCMID { get; set; }
+        public int FORID { get; set; }
+        public string MATSEQUENCIAL { get; set; }
+        public string MATRECSOL { get; set; }
+        public string MATDESCRICAO { get; set; }
+        public string MATDESCRICAOECF { get; set; }
         public string MATVENDA { get; set; }
         public string MATFANTASIA { get; set; }
         public string MATCONTROLAEST { get; set; }
-        public string MATSEQUENCIAL { get; set; }
         public string MATDTCADASTRO { get; set; }
+        public string MATACEITANEGATIVO { get; set; }
+
         public EntityAtributosProduto TbAtributos { get; set; }
         public EntityGrifeProduto TbGrife { get; set; }
         public EntityGrupoProduto TbGrupo { get; set; }

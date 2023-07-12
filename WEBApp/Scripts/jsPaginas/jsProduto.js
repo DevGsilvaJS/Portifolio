@@ -102,6 +102,41 @@ fnListaDados();
 //    });
 //}
 
+$(document).ready(function () {
+    $('#txtReferenciaCor, #txtCaracteristica').on('input', function () {
+        var cor = $('#txtReferenciaCor').val().substring(0, 4);
+        var tamanho = $('#txtCaracteristica').val().substring(0, 4);
+        var fantasia = cor + tamanho;
+        $('#txtFantasia').val(fantasia);
+    });
+});
+
+function fnRetornaObjInclusao() {
+
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "Produto/RetornaObjInclusao",
+        dataType: "JSON",
+        cache: false,
+        async: false,
+        beforeSend: function () {
+
+        },
+        success: function (result) {
+
+            debugger;
+            _Produto = result.ObjInclusao;
+
+        },
+        error: function (jqXHR, exception) {
+        },
+        complete: function () {
+        }
+    });
+
+}
+
 function fnLimparTela() {
 
     $("#txtSequencial").val('');
