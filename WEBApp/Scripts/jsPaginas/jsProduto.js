@@ -283,52 +283,21 @@ function fnEditarProduto(idProduto) {
     });
 }
 
-function fnSalvarDados() {
+function fnSalvarProduto() {
 
-    debugger;
 
+    _Produto.FORID = $("#ddlFornecedorID").val();
     _Produto.MATSEQUENCIAL = $("#txtSequencial").val();
-    _Produto.IDFORNECEDOR = $("#ddlFornecedorID").val();
-    _Produto.MATDESCRICAO = $("#txtDescricao ").val();
-    _Produto.MATDESCRICAONF = $("#txtDescricaoNF ").val();
-    _Produto.MATTIPOPROD = $("#sslTipoProduto ").val();
-    _Produto.IDNCM = $("#sslNCM").val();
-    _Produto.MATCONTROLAESTOQUE = $("#ckcControlEstoque").val();
-    _Produto.MATREFERENCIACOR = $("#txtReferenciaCor").val();
-    _Produto.MATCARACTERISTICA = $("#txtCaracteristica").val();
-    _Produto.MATPERFILUSO = $("#txtPerfil").val();
-    _Produto.MATTAMANHOARO = $("#txtTamanhoAro").val();
-    _Produto.MATLINHAMATERIAL = $("#txtMaterial ").val();
-    _Produto.MATGRIFE = $("#txtGrife").val();
-    _Produto.MATMODELO = $("#txtReferencia").val();
-    _Produto.MATCORFISICA = $("#txtCorFisica").val();
-    _Produto.MATFANTASIA = $("#txtFantasia").val();
+    _Produto.MATRECSOL = $("#sslTipoProduto").val();
+    _Produto.NCMID = $("#sslNCM").val();
+    _Produto.MATDESCRICAO = $("#txtDescricao").val();
+    _Produto.MATDESCRICAOECF = $("#txtDescricaoNF").val();
+    _Produto.MATCONTROLAEST = $("#ckcControlEstoque").val();
+    _Produto.MATVENDA = $("#ckcItemVendido").val();
+    _Produto.MATACEITANEGATIVO = $("#ckcAceitaEstoqueNegativo").val();
 
-    if (_Produto.MATCONTROLAESTOQUE == 'on') {
-        _Produto.MATCONTROLAESTOQUE = 'S'
-    }
-    else {
-        _Produto.MATCONTROLAESTOQUE = 'N'
-    }
 
-    _Produto.MATITEMVENDIDO = $("#ckcItemVendido").val();
 
-    if (_Produto.MATITEMVENDIDO == 'on') {
-        _Produto.MATITEMVENDIDO = 'S'
-    }
-    else {
-        _Produto.MATITEMVENDIDO = 'N'
-    }
-
-    _Produto.MATESTOQUENEGATIVO = $("#ckcAceitaEstoqueNegativo").val();
-
-    if (_Produto.MATESTOQUENEGATIVO == 'on') {
-        _Produto.MATESTOQUENEGATIVO = 'S'
-    }
-
-    else {
-        _Produto.MATESTOQUENEGATIVO = 'N'
-    }
 
     $.ajax({
 
