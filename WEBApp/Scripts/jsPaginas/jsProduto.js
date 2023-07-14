@@ -13,6 +13,31 @@ $(document).ready(function () {
     });
 });
 
+$("#aCadastro").click(function () {
+    STATUS = 'INSERCAO';
+    $("#btnSalvarFormulario").css('display', 'block');
+});
+
+$(document).ready(function () {
+
+    $('#txtPrecoCusto, #txtMarkup, #txtPrecoVenda').on('blur', function () {
+        debugger;
+        var custoComMask = $("#txtPrecoCusto").val();
+        var custoSemMask = custoComMask.substring(3);
+        var custoFloat = parseFloat(custoSemMask.replace(',', '.'));
+
+        var vendaComMask = $("#txtPrecoVenda").val();
+        var vendaSemMask = vendaComMask.substring(3);
+        var vendaFloat = parseFloat(vendaSemMask.replace(',', '.'));
+
+        var markupCalculado = ((vendaFloat - custoFloat) / custoFloat) * 100;
+        $('#txtMarkup').val(markupCalculado.toFixed(2));
+
+    });
+});
+
+
+
 
 
 function Listagem() {
@@ -67,46 +92,59 @@ function fnCriaTela() {
         ]
     });
 
+    fnRetornaComboNCM();
+    fnRetornaComboFornecedores();
+
+    $('#txtPrecoCusto').inputmask('R$ 9{1,},99');
+    $('#txtPrecoVenda').inputmask('R$ 9{1,},99');
+
+
+
+
 }
 debugger;
 fnListaDados();
 
-//    $.ajax({
-//        type: "GET",
-//        contentType: "application/json",
-//        url: "Fornecedor/listaFornecedor",
-//        dataType: "JSON",
-//        cache: false,
-//        beforeSend: function () {
+////    $.ajax({
+////        type: "GET",
+////        contentType: "application/json",
+////        url: "Fornecedor/listaFornecedor",
+////        dataType: "JSON",
+////        cache: false,
+////        beforeSend: function () {
 
-//        },
-//        success: function (result) {
+////        },
+////        success: function (result) {
 
-//            if (result != null) {
+////            if (result != null) {
 
-//                var ListaTFornecedor = result.lsFornecedor;
+////                var ListaTFornecedor = result.lsFornecedor;
 
-//                var options = '<option value="0">Selecione o Fornecedor</option>';;
-//                $.each(ListaTFornecedor, function (key, val) {
+////                var options = '<option value="0">Selecione o Fornecedor</option>';;
+////                $.each(ListaTFornecedor, function (key, val) {
 
-//                    options += '<option value="' + val.FornecedorID + '">' + val.Fantasia + '</option>';
-//                });
+////                    options += '<option value="' + val.FornecedorID + '">' + val.Fantasia + '</option>';
+////                });
 
-//                $("#ddlFornecedorID").html(options);
+////                $("#ddlFornecedorID").html(options);
 
-//            }
-//        },
-//        error: function (jqXHR, exception) {
+////            }
+////        },
+////        error: function (jqXHR, exception) {
 
-//        }
-//    });
-//}
+////        }
+////    });
+////}
+
+
 
 $(document).ready(function () {
-    $('#txtReferenciaCor, #txtCaracteristica').on('input', function () {
-        var cor = $('#txtReferenciaCor').val().substring(0, 4);
-        var tamanho = $('#txtCaracteristica').val().substring(0, 4);
-        var fantasia = cor + tamanho;
+    $('#txtCorFisica, #txtGrife, #txtMaterial, #txtReferencia').on('input', function () {
+        var cor = $('#txtCorFisica').val().substring(0, 4);
+        var grife = $('#txtGrife').val().substring(0, 7);
+        var material = $('#txtMaterial').val().substring(0, 7);
+        var modelo = $('#txtReferencia').val().substring(0, 4);
+        var fantasia = grife + material + modelo + cor;
         $('#txtFantasia').val(fantasia);
     });
 });
@@ -295,8 +333,15 @@ function fnSalvarProduto() {
     _Produto.MATCONTROLAEST = $("#ckcControlEstoque").val();
     _Produto.MATVENDA = $("#ckcItemVendido").val();
     _Produto.MATACEITANEGATIVO = $("#ckcAceitaEstoqueNegativo").val();
+    _Produto.MATFANTASIA = $("#txtFantasia").val();
 
-
+    _Produto.TbGrife.ARGDESCRICAO = $("#txtGrife").val();
+    _Produto.TbGrupo.ATPDESCRICAO = $("#txtReferenciaCor").val();
+    _Produto.TbLinha.ARLLINHA = $("#txtMaterial").val();
+    _Produto.TbModelo.ARMDESCRICAO = $("#txtReferencia").val();
+    _Produto.TbSublinha1 = AS1DESCRICAO = $("#txtCaracteristica").val();
+    _Produto.TbSublinha2 = AS2DESCRICAO = $("#txtPerfil").val();
+    _Produto.TbTamanho = ATODESCRICAO = $("#txtTamanhoAro").val();
 
 
     $.ajax({
@@ -620,6 +665,91 @@ function fnCarregarDados() {
         }
     });
 }
+
+function fnRetornaComboFornecedores() {
+
+    $.ajax({
+
+        type: "POST",
+        contentType: "application/json",
+        url: "Produto/RetornaComboFornecedores",
+        data: JSON.stringify(),
+        dataType: "JSON",
+        cache: false,
+        async: false,
+        beforeSend: function () {
+
+        },
+        success: function (result) {
+            debugger;
+
+            if (result != null) {
+
+                var lista = result.lista;
+
+                var options = '<option value="0">Selecione o Fornecedor</option>';;
+                $.each(lista, function (key, val) {
+
+                    options += '<option value="' + val.PESID + '">' + val.PESNOME + '</option>';
+                });
+
+                $("#ddlFornecedorID").html(options);
+
+            }
+
+
+        },
+        error: function (jqXHR, exception) {
+
+        },
+        complete: function () {
+        }
+    });
+
+}
+
+function fnRetornaComboNCM() {
+
+    $.ajax({
+
+        type: "POST",
+        contentType: "application/json",
+        url: "Produto/RetornaComboNCM",
+        data: JSON.stringify(),
+        dataType: "JSON",
+        cache: false,
+        async: false,
+        beforeSend: function () {
+
+        },
+        success: function (result) {
+            debugger;
+
+            if (result != null) {
+
+                var lista = result.lista;
+
+                var options = '<option value="0">Selecione o Fornecedor</option>';;
+                $.each(lista, function (key, val) {
+
+                    options += '<option value="' + val.NCMID + '">' + val.NCMDESCRICAO + '</option>';
+                });
+
+                $("#sslNCM").html(options);
+
+            }
+
+
+        },
+        error: function (jqXHR, exception) {
+
+        },
+        complete: function () {
+        }
+    });
+
+}
+
 
 
 

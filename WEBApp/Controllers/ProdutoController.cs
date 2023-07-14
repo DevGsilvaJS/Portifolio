@@ -4,7 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using UI.WEB.Model.Estoque;
+using UI.WEB.Model.Fiscal.Tabelas_Auxiliares;
+using UI.WEB.Model.Outros;
 using UI.WEB.WorkFlow.Estoque;
+using UI.WEB.WorkFlow.Outros;
 
 namespace WEBApp.Controllers
 {
@@ -12,6 +15,7 @@ namespace WEBApp.Controllers
     {
 
         ProdutoWorkFlow wf = new ProdutoWorkFlow();
+        ListasGenericasWorkFlow wfListas = new ListasGenericasWorkFlow();
         // GET: Produto
         public ActionResult Index()
         {
@@ -26,6 +30,28 @@ namespace WEBApp.Controllers
             return Json(new
             {
                 ObjInclusao = ObjInclusao
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult RetornaComboFornecedores()
+        {
+            List<EntityPessoa> lista = new List<EntityPessoa>();
+            lista = wfListas.RetornaComboFornecedores();
+
+            return Json(new
+            {
+                lista = lista
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult RetornaComboNCM()
+        {
+            List<EntityNCM> lista = new List<EntityNCM>();
+            lista = wfListas.RetornaComboNCM();
+
+            return Json(new
+            {
+                lista = lista
             }, JsonRequestBehavior.AllowGet);
         }
     }

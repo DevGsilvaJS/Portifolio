@@ -4,7 +4,10 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UI.WEB.Model.Estoque;
 using UI.WEB.Model.Financeiro.Tabelas_Auxiliares;
+using UI.WEB.Model.Fiscal.Tabelas_Auxiliares;
+using UI.WEB.Model.Outros;
 
 namespace UI.WEB.WorkFlow.Outros
 {
@@ -58,5 +61,63 @@ namespace UI.WEB.WorkFlow.Outros
             }
             return lista;
         }
+        public List<EntityPessoa> RetornaComboFornecedores()
+        {
+            List<EntityPessoa> lista = new List<EntityPessoa>();
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("     SELECT");
+            sb.AppendLine("              PES.PESID");
+            sb.AppendLine("             ,CONCAT(PES.PESNOME, ' - ', '(', PES.PESDOCFEDERAL, ')') AS PESNOME_COMPLETO");
+            sb.AppendLine("     FROM TB_PES_PESSOA PES");
+            sb.AppendLine("         INNER JOIN TB_FOR_FORNECEDOR FORN ON FORN.PESID = PES.PESID");
+            sb.AppendLine("         WHERE FORN.FORSTATUS = 1;");
+
+            SqlDataReader dr = ListarDadosEntity(sb.ToString());
+
+            if (dr.HasRows)
+            {
+                while (dr.Read())
+                {
+                    lista.Add(new EntityPessoa
+                    {
+                        PESID = int.Parse(dr["PESID"].ToString()),
+                        PESNOME = dr["PESNOME"].ToString()
+                    });
+                }
+            }
+
+            return lista;
+        }
+        public List<EntityNCM> RetornaComboNCM()
+        {
+            List<EntityNCM> lista = new List<EntityNCM>();
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("     SELECT");
+            sb.AppendLine("               NCMID");
+            sb.AppendLine("             ,CAST(NCMCODIGO AS VARCHAR) + ' - ' + NCMDESCRICAO AS NCMDESCRICAO");
+            sb.AppendLine("     FROM TB_NCM_NCM NCM");
+            sb.AppendLine("             WHERE NCM.NCMSTATUS = 1");
+
+            SqlDataReader dr = ListarDadosEntity(sb.ToString());
+
+            if (dr.HasRows)
+            {
+                while (dr.Read())
+                {
+                    lista.Add(new EntityNCM
+                    {
+                        NCMID = int.Parse(dr["NCMID"].ToString()),
+                        NCMDESCRICAO = dr["NCMDESCRICAO"].ToString()
+                    });
+                }
+
+            }
+            return lista;
+        }
     }
 }
+
