@@ -10,6 +10,6 @@ namespace UI.WEB.Model.Estoque.Atributos.Caracteristicas
     {
         public int ARLID { get; set; }
         public string ARLDESCRICAO { get; set; }
-        public string ARLSTSATUS { get; set; }
+        public string ARLSTATUS { get; set; }
     }
 }

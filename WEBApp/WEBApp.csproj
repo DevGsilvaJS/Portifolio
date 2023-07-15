@@ -142,6 +142,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LojasController.cs" />
     <Compile Include="Controllers\ProdutoController.cs" />
+    <Compile Include="Controllers\ResetTablesController.cs" />
     <Compile Include="Controllers\TipoVendaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\VendaController.cs" />
@@ -1289,6 +1290,7 @@
     <Folder Include="Template\assets\libs\pdfmake\src\" />
     <Folder Include="Template\assets\libs\raphael\dev\test\" />
     <Folder Include="Template\assets\libs\table-edits\src\" />
+    <Folder Include="Views\ResetTables\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

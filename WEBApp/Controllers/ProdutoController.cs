@@ -32,7 +32,6 @@ namespace WEBApp.Controllers
                 ObjInclusao = ObjInclusao
             }, JsonRequestBehavior.AllowGet);
         }
-
         public JsonResult RetornaComboFornecedores()
         {
             List<EntityPessoa> lista = new List<EntityPessoa>();
@@ -43,7 +42,6 @@ namespace WEBApp.Controllers
                 lista = lista
             }, JsonRequestBehavior.AllowGet);
         }
-
         public JsonResult RetornaComboNCM()
         {
             List<EntityNCM> lista = new List<EntityNCM>();
@@ -52,6 +50,24 @@ namespace WEBApp.Controllers
             return Json(new
             {
                 lista = lista
+            }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult SalvarProduto(EntityProduto objProduto)
+        {
+            string sRetorno = wf.GravarProduto(objProduto);
+
+            return Json(new
+            {
+                lista = sRetorno
+            }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult RetornaSequencial()
+        {
+            string retorno = wf.RetornaSequencial();
+
+            return Json(new
+            {
+                retorno = retorno
             }, JsonRequestBehavior.AllowGet);
         }
     }

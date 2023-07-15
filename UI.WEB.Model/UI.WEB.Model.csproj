@@ -58,6 +58,8 @@
     <Compile Include="Estoque\EntityProduto.cs" />
     <Compile Include="Estoque\EntitySaidaEstoque.cs" />
     <Compile Include="Estoque\EntityTransferenciaEstoque.cs" />
+    <Compile Include="Estoque\TabelaPrecos\EntityMPV.cs" />
+    <Compile Include="Estoque\TabelaPrecos\EntiyMPC.cs" />
     <Compile Include="Financeiro\EntityBaixaVencimento.cs" />
     <Compile Include="Financeiro\EntityBaixaRapida.cs" />
     <Compile Include="Financeiro\EntityContaCorrente.cs" />

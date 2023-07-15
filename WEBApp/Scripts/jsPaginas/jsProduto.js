@@ -16,6 +16,8 @@ $(document).ready(function () {
 $("#aCadastro").click(function () {
     STATUS = 'INSERCAO';
     $("#btnSalvarFormulario").css('display', 'block');
+    fnDadosProduto();
+    fnRetornaObjInclusao();
 });
 
 $(document).ready(function () {
@@ -33,6 +35,26 @@ $(document).ready(function () {
         var markupCalculado = ((vendaFloat - custoFloat) / custoFloat) * 100;
         $('#txtMarkup').val(markupCalculado.toFixed(2));
 
+    });
+});
+
+$(document).ready(function () {
+    $('#btnSalvarFormulario').on('click', function () {
+
+        switch (STATUS) {
+            case 'INSERCAO':
+                fnSalvarProduto();
+                $("#aLista").tab('show');
+                fnListaDados();
+                break;
+            case 'ALTERACAO':
+                fnAtualizarVendedor();
+                $("#aLista").tab('show');
+                fnListaDados();
+                break;
+            default:
+                break;
+        }
     });
 });
 
@@ -104,6 +126,7 @@ function fnCriaTela() {
 }
 debugger;
 fnListaDados();
+
 
 ////    $.ajax({
 ////        type: "GET",
@@ -323,6 +346,8 @@ function fnEditarProduto(idProduto) {
 
 function fnSalvarProduto() {
 
+    debugger;
+
 
     _Produto.FORID = $("#ddlFornecedorID").val();
     _Produto.MATSEQUENCIAL = $("#txtSequencial").val();
@@ -335,20 +360,34 @@ function fnSalvarProduto() {
     _Produto.MATACEITANEGATIVO = $("#ckcAceitaEstoqueNegativo").val();
     _Produto.MATFANTASIA = $("#txtFantasia").val();
 
-    _Produto.TbGrife.ARGDESCRICAO = $("#txtGrife").val();
-    _Produto.TbGrupo.ATPDESCRICAO = $("#txtReferenciaCor").val();
-    _Produto.TbLinha.ARLLINHA = $("#txtMaterial").val();
-    _Produto.TbModelo.ARMDESCRICAO = $("#txtReferencia").val();
-    _Produto.TbSublinha1 = AS1DESCRICAO = $("#txtCaracteristica").val();
-    _Produto.TbSublinha2 = AS2DESCRICAO = $("#txtPerfil").val();
-    _Produto.TbTamanho = ATODESCRICAO = $("#txtTamanhoAro").val();
 
+    _Produto.TbLinha.ARLDESCRICAO = $("#txtMaterial").val();
+    _Produto.TbGrife.ARGDESCRICAO = $("#txtGrife").val();
+    _Produto.TbModelo.ARMDESCRICAO = $("#txtReferencia").val();
+    _Produto.TbCor.ARCDESCRICAO = $("#txtCorFisica").val();
+    _Produto.TbCorNumerica.ACNDESCRICAO = $("#txtReferenciaCor").val();    
+    _Produto.TbSublinha1.AS1DESCRICAO = $("#txtCaracteristica").val();
+    _Produto.TbSublinha2.AS2DESCRICAO = $("#txtPerfil").val();
+    _Produto.TbTamanho.ATODESCRICAO = $("#txtTamanhoAro").val();
+
+
+    var custoComMask = $("#txtPrecoCusto").val();
+    var custoSemMask = custoComMask.substring(3);
+    var custoFloat = parseFloat(custoSemMask.replace(',', '.'));
+
+    var vendaComMask = $("#txtPrecoVenda").val();
+    var vendaSemMask = vendaComMask.substring(3);
+    var vendaFloat = parseFloat(vendaSemMask.replace(',', '.'));
+
+    _Produto.TbMpv.MPVPRECOVENDA = vendaFloat;
+    _Produto.TbMpv.MPVMARKUP = $("#txtMarkup").val();
+    _Produto.TbMpc.MPCPRECOCUSTO = custoFloat;
 
     $.ajax({
 
         type: "POST",
         contentType: "application/json",
-        url: "Produto/Insert",
+        url: "Produto/SalvarProduto",
         data: JSON.stringify(_Produto),
         dataType: "JSON",
         cache: false,
@@ -750,6 +789,31 @@ function fnRetornaComboNCM() {
 
 }
 
+function fnDadosProduto() {
+
+    $.ajax({
+
+        type: "GET",
+        url: "Produto/RetornaSequencial",
+        data: {},
+        dataType: "JSON",
+        cache: false,
+        async: false,
+        beforeSend: function () {
+
+        },
+        success: function (result) {
+            debugger;
+
+            $("#txtSequencial").val(result.retorno);
+
+        },
+        error: function (jqXHR, exception) {
+        },
+        complete: function () {
+        }
+    });
+}
 
 
 

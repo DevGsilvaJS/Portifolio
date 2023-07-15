@@ -68,8 +68,8 @@ namespace UI.WEB.WorkFlow.Outros
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine("     SELECT");
-            sb.AppendLine("              PES.PESID");
-            sb.AppendLine("             ,CONCAT(PES.PESNOME, ' - ', '(', PES.PESDOCFEDERAL, ')') AS PESNOME_COMPLETO");
+            sb.AppendLine("              FORN.FORID");
+            sb.AppendLine("             ,CONCAT(PES.PESNOME, ' - ', '(', PES.PESDOCFEDERAL, ')') AS PESNOME");
             sb.AppendLine("     FROM TB_PES_PESSOA PES");
             sb.AppendLine("         INNER JOIN TB_FOR_FORNECEDOR FORN ON FORN.PESID = PES.PESID");
             sb.AppendLine("         WHERE FORN.FORSTATUS = 1;");
@@ -82,7 +82,7 @@ namespace UI.WEB.WorkFlow.Outros
                 {
                     lista.Add(new EntityPessoa
                     {
-                        PESID = int.Parse(dr["PESID"].ToString()),
+                        PESID = int.Parse(dr["FORID"].ToString()),
                         PESNOME = dr["PESNOME"].ToString()
                     });
                 }

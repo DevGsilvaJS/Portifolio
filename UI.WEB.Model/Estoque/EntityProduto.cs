@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UI.WEB.Model.Estoque.Atributos;
 using UI.WEB.Model.Estoque.Atributos.Caracteristicas;
+using UI.WEB.Model.Estoque.TabelaPrecos;
 
 namespace UI.WEB.Model.Estoque
 {
@@ -32,6 +33,10 @@ namespace UI.WEB.Model.Estoque
         public EntitySublinha1Produto TbSublinha1 { get; set; }
         public EntitySublinha2Produto TbSublinha2 { get; set; }
         public EntityTamanhoProduto TbTamanho { get; set; }
+        public EntityCorNumericaProduto TbCorNumerica { get; set; }
+        public EntityCorProduto TbCor { get; set; }
+        public EntityMPV  TbMpv { get; set; }
+        public EntiyMPC TbMpc { get; set; }
 
         public EntityProduto()
         {
@@ -42,7 +47,11 @@ namespace UI.WEB.Model.Estoque
             TbModelo = new EntityModeloProduto();
             TbSublinha1 = new EntitySublinha1Produto();
             TbSublinha2 = new EntitySublinha2Produto();
+            TbCor = new EntityCorProduto();
             TbTamanho = new EntityTamanhoProduto();
+            TbCorNumerica = new EntityCorNumericaProduto();
+            TbMpv = new EntityMPV();
+            TbMpc = new EntiyMPC();
         }
     }
 }

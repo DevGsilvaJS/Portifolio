@@ -10,6 +10,7 @@ namespace UI.WEB.Model.Estoque.Atributos
     public class EntityAtributosProduto
     {
         public int AATID { get; set; }
+        public int MATID { get; set; }
         public int ARLID { get; set; }
         public int ARCID { get; set; }
         public int ACNID { get; set; }
@@ -18,8 +19,6 @@ namespace UI.WEB.Model.Estoque.Atributos
         public int AS1ID { get; set; }
         public int AS2ID { get; set; }
         public int ATOID { get; set; }
-        public int ATPID { get; set; }
-        public int ATFID { get; set; }
         public EntityCorNumericaProduto TbCorNumerica { get; set; }
         public EntityCorProduto TbCorProduto { get; set; }
         public EntityFabricanteProduto TbFabricante { get; set; }
