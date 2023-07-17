@@ -161,6 +161,12 @@ fnListaDados();
 
 
 
+$("#btnteste").click(function () {
+
+    fnResetTables();
+});
+
+
 $(document).ready(function () {
     $('#txtCorFisica, #txtGrife, #txtMaterial, #txtReferencia').on('input', function () {
         var cor = $('#txtCorFisica').val().substring(0, 4);
@@ -813,6 +819,33 @@ function fnDadosProduto() {
         complete: function () {
         }
     });
+}
+
+
+function fnResetTables() {
+    debugger;
+    $.ajax({
+
+        type: "GET",
+        //contentType: "application/json",
+        url: "ResetTables/ResetTables",
+        dataType: "JSON",
+        cache: false,
+        async: false,
+        beforeSend: function () {
+
+        },
+        success: function (result) {
+
+        },
+        error: function (jqXHR, exception) {
+
+        },
+        complete: function () {
+
+        }
+    });
+
 }
 
 

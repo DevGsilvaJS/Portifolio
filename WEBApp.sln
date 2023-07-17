@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI.WEB.WorkFlow", "UI.WEB.W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI.WEB.Model", "UI.WEB.Model\UI.WEB.Model.csproj", "{F1B7F7EC-D1AC-4577-B661-E041925D6945}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI.WEB.Query", "ClassLibrary1\UI.WEB.Query.csproj", "{F14FBF11-C2A0-43B7-BFD7-D19E38EF17D1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F1B7F7EC-D1AC-4577-B661-E041925D6945}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1B7F7EC-D1AC-4577-B661-E041925D6945}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1B7F7EC-D1AC-4577-B661-E041925D6945}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F14FBF11-C2A0-43B7-BFD7-D19E38EF17D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F14FBF11-C2A0-43B7-BFD7-D19E38EF17D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F14FBF11-C2A0-43B7-BFD7-D19E38EF17D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F14FBF11-C2A0-43B7-BFD7-D19E38EF17D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

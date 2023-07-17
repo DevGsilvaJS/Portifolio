@@ -161,3 +161,5 @@ D:\Projetos\WEBApp\WEBApp\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform
 D:\Projetos\WEBApp\WEBApp\obj\Debug\WEBApp.csproj.CopyComplete
 D:\Projetos\WEBApp\WEBApp\obj\Debug\WEBApp.dll
 D:\Projetos\WEBApp\WEBApp\obj\Debug\WEBApp.pdb
+D:\Projetos\WEBApp\WEBApp\bin\ClassLibrary1.dll
+D:\Projetos\WEBApp\WEBApp\bin\ClassLibrary1.pdb

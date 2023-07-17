@@ -20,3 +20,5 @@ D:\Projetos\WEBApp\UI.WEB.WorkFlow\bin\Debug\System.Web.Razor.xml
 D:\Projetos\WEBApp\UI.WEB.WorkFlow\bin\Debug\System.Web.WebPages.xml
 D:\Projetos\WEBApp\UI.WEB.WorkFlow\bin\Debug\System.Web.WebPages.Deployment.xml
 D:\Projetos\WEBApp\UI.WEB.WorkFlow\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Projetos\WEBApp\UI.WEB.WorkFlow\bin\Debug\ClassLibrary1.dll
+D:\Projetos\WEBApp\UI.WEB.WorkFlow\bin\Debug\ClassLibrary1.pdb

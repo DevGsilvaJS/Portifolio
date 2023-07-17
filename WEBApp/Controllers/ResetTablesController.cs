@@ -4,28 +4,22 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using UI.WEB.WorkFlow.Outros;
 
 namespace WEBApp.Controllers
 {
     public class ResetTablesController : Controller
     {
-        public ActionResult ResetarTabelas()
+        ResetTablesWorkFlow wf = new ResetTablesWorkFlow();
+        public JsonResult ResetTables()
         {
-            string resetTabelas = ConfigurationManager.AppSettings["ResetTabelas"];
 
-            if (!string.IsNullOrEmpty(resetTabelas) && resetTabelas.ToLower() == "true")
+            string sRetorno = wf.CreateTables();
+    
+            return Json(new
             {
-                // Lógica para resetar as tabelas
-                ResetarTabelasSQL();
-            }
-
-            // Redirecionar para uma página ou retornar um resultado específico
-            return RedirectToAction("Index", "Home");
-        }
-
-        private void ResetarTabelasSQL()
-        {
-            // Lógica para resetar as tabelas do SQL Server
+                retorno = sRetorno
+            }, JsonRequestBehavior.AllowGet);
         }
     }
 }
