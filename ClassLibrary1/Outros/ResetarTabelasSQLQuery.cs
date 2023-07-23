@@ -21,19 +21,6 @@ namespace ClassLibrary1.Outros
 
             return sb.ToString();
         }
-        public string InsertTableNCMQuery()
-        {
-            StringBuilder sb = new StringBuilder();
-
-            sb.AppendLine("  INSERT INTO TB_NCM_NCM(NCMID, NCMCODIGO, NCMDESCRICAO, NCMSTATUS) VALUES(NEXT VALUE FOR SEQ_NCM, '90031100', 'ARMACOES DE ACETATO/PLASTICO', '1');    ");
-            sb.AppendLine("  INSERT INTO TB_NCM_NCM(NCMID, NCMCODIGO, NCMDESCRICAO, NCMSTATUS) VALUES(NEXT VALUE FOR SEQ_NCM, '90031910', 'ARMACOES DE METAL', '1');                           ");
-            sb.AppendLine("  INSERT INTO TB_NCM_NCM(NCMID, NCMCODIGO, NCMDESCRICAO, NCMSTATUS) VALUES(NEXT VALUE FOR SEQ_NCM, '90031990', 'ARMACOES DE OUTROS MATERIAIS', '1');   ");
-            sb.AppendLine("  INSERT INTO TB_NCM_NCM(NCMID, NCMCODIGO, NCMDESCRICAO, NCMSTATUS) VALUES(NEXT VALUE FOR SEQ_NCM, '90041000', 'OCULOS DE SOL', '1');                                      ");
-            sb.AppendLine("  INSERT INTO TB_NCM_NCM(NCMID, NCMCODIGO, NCMDESCRICAO, NCMSTATUS) VALUES(NEXT VALUE FOR SEQ_NCM, '90049010', 'OCULOS PARA CORRECAO', '1');                    ");
-            sb.AppendLine("  INSERT INTO TB_NCM_NCM(NCMID, NCMCODIGO, NCMDESCRICAO, NCMSTATUS) VALUES(NEXT VALUE FOR SEQ_NCM, '90049020', 'OCULOS PARA SEGURANCA', '1');                  ");
-
-            return sb.ToString();
-        }
         public string CreateTableCentroCustoQuery()
         {
             StringBuilder sb = new StringBuilder();
@@ -53,7 +40,8 @@ namespace ClassLibrary1.Outros
             sb.AppendLine("  CREATE TABLE TB_PCT_PLANOCONTAS(");
             sb.AppendLine(" PCTID int,");
             sb.AppendLine(" PCTDESCRICAO varchar(60),");
-            sb.AppendLine(" PCTSTATUS char(1)");
+            sb.AppendLine(" PCTSTATUS char(1),");
+            sb.AppendLine(" PCTTIPO char(1)");
             sb.AppendLine(" PRIMARY KEY(PCTID))");
 
             return sb.ToString();
@@ -255,7 +243,6 @@ namespace ClassLibrary1.Outros
             sb.AppendLine("   AS2ID INT,");
             sb.AppendLine("   ATOID INT,");
             sb.AppendLine("   ATPID INT,");
-            sb.AppendLine("   ATFID INT,");
             sb.AppendLine("   PRIMARY KEY(AATID),");
             sb.AppendLine("   FOREIGN KEY(MATID) REFERENCES TB_MAT_MATERIAL(MATID),");
             sb.AppendLine("   FOREIGN KEY(ARLID) REFERENCES TB_ARL_ATRLINHAPROD(ARLID),");
@@ -266,8 +253,8 @@ namespace ClassLibrary1.Outros
             sb.AppendLine("   FOREIGN KEY(AS1ID) REFERENCES TB_AS1_ATRSUBLINHA1(AS1ID),");
             sb.AppendLine("   FOREIGN KEY(AS2ID) REFERENCES TB_AS2_ATRSUBLINHA2(AS2ID),");
             sb.AppendLine("   FOREIGN KEY(ATOID) REFERENCES TB_ATO_ATRTAMANHO(ATOID),");
-            sb.AppendLine("   FOREIGN KEY(ATPID) REFERENCES TB_ATP_ATRGRUPO(ATPID),");
-            sb.AppendLine("   FOREIGN KEY(ATFID) REFERENCES TB_ATF_ATRFABRICANTE(ATFID))");
+            sb.AppendLine("   FOREIGN KEY(ATPID) REFERENCES TB_ATP_ATRGRUPO(ATPID))");
+
 
             return sb.ToString();
         }
@@ -324,7 +311,7 @@ namespace ClassLibrary1.Outros
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.AppendLine("    CREATE TABLE TB_ARG_ATRGRIFE");
+            sb.AppendLine("    CREATE TABLE TB_ARG_ATRGRIFE (");
             sb.AppendLine("   ARGID INT,");
             sb.AppendLine("   ARGDESCRICAO VARCHAR(30),");
             sb.AppendLine("   ARGSTATUS CHAR(1)");
@@ -380,7 +367,92 @@ namespace ClassLibrary1.Outros
 
             return sb.ToString();
         }
+        public string CreateTableClienteQuery()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("    CREATE TABLE TB_CLI_CLIENTE(");
+            sb.AppendLine("   CLIID int,");
+            sb.AppendLine("   PESID int,");
+            sb.AppendLine("   CLISALARIO float,");
+            sb.AppendLine("   CLISTATUS char,");
+            sb.AppendLine("   CLISEXO char,");
+            sb.AppendLine("   CLIESTADOCIVIL char,");
+            sb.AppendLine("   PRIMARY KEY(CLIID),");
+            sb.AppendLine("   FOREIGN KEY(PESID) REFERENCES TB_PES_PESSOA(PESID),)");
+
+            return sb.ToString();
+        }
+        public string CreateTableUsuarioQuery()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("    CREATE TABLE TB_USU_USUARIO(");
+            sb.AppendLine("   USUID int,");
+            sb.AppendLine("   PESID int,");
+            sb.AppendLine("   USUSENHA varchar(30),");
+            sb.AppendLine("   PRIMARY KEY(USUID),");
+            sb.AppendLine("   FOREIGN KEY(PESID) REFERENCES TB_PES_PESSOA(PESID))");
+
+            return sb.ToString();
+        }
+        public string InsertTableParametrosQuery()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("INSERT INTO TB_PRV_PARAMETROVALOR (PRVVALOR, PRVCAMPO) VALUES ('1000001', 'ARMACAO')");
+            sb.AppendLine("INSERT INTO TB_PRV_PARAMETROVALOR (PRVVALOR, PRVCAMPO) VALUES ('1', 'VENDEDOR')");
+            sb.AppendLine("INSERT INTO TB_PRV_PARAMETROVALOR (PRVVALOR, PRVCAMPO) VALUES ('1', 'CLIENTE')");
+            sb.AppendLine("INSERT INTO TB_PRV_PARAMETROVALOR (PRVVALOR, PRVCAMPO) VALUES ('1', 'FORNECEDOR')");
+
+            return sb.ToString();
+        }
+        public string InsertTablesNcmQuery()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("INSERT INTO TB_NCM_NCM (NCMID, NCMCODIGO, NCMDESCRICAO, NCMSTATUS) VALUES (NEXT VALUE FOR SEQ_NCM, 90031100, 'ARMACOES DE ACETATO/PLASTICO', 1);");
+            sb.AppendLine("INSERT INTO TB_NCM_NCM (NCMID, NCMCODIGO, NCMDESCRICAO, NCMSTATUS) VALUES (NEXT VALUE FOR SEQ_NCM, 90031910, '	ARMACOES DE METAL', 1)");
+            sb.AppendLine("INSERT INTO TB_NCM_NCM (NCMID, NCMCODIGO, NCMDESCRICAO, NCMSTATUS) VALUES (NEXT VALUE FOR SEQ_NCM, 90031990, 'ARMACOES DE OUTROS MATERIAIS', 1)");
+            sb.AppendLine("INSERT INTO TB_NCM_NCM (NCMID, NCMCODIGO, NCMDESCRICAO, NCMSTATUS) VALUES (NEXT VALUE FOR SEQ_NCM, 90041000, 'OCULOS DE SOL', 1)");
+
+            return sb.ToString();
+        }
+        public string InsertTablesCentroCustoQuery()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("INSERT INTO TB_CCU_CENTROCUSTO(CCUID, CCUDESCRICAO, CCUSTATUS) VALUES (NEXT VALUE FOR SEQ_CCU, 'LOJA', 1)");
+            sb.AppendLine("INSERT INTO TB_CCU_CENTROCUSTO(CCUID, CCUDESCRICAO, CCUSTATUS) VALUES (NEXT VALUE FOR SEQ_CCU, 'ADMINISTRATIVO', 1)");
+            sb.AppendLine("INSERT INTO TB_CCU_CENTROCUSTO(CCUID, CCUDESCRICAO, CCUSTATUS) VALUES (NEXT VALUE FOR SEQ_CCU, 'LABORATORIO', 1)");
+
+            return sb.ToString();
+        }
+        public string InsertTablesPlanoContasQuery()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            //Despesas
+            sb.AppendLine("INSERT INTO TB_PCT_PLANOCONTAS(PCTID, PCTDESCRICAO, PCTSTATUS, PCTTIPO) VALUES (NEXT VALUE FOR SEQ_PCT, 'DESPESA COM PUBLICIDADE', 1, 'D')");
+            sb.AppendLine("INSERT INTO TB_PCT_PLANOCONTAS(PCTID, PCTDESCRICAO, PCTSTATUS, PCTTIPO) VALUES (NEXT VALUE FOR SEQ_PCT, 'IMPOSTOS E TAXAS', 1, 'D')");
+            sb.AppendLine("INSERT INTO TB_PCT_PLANOCONTAS(PCTID, PCTDESCRICAO, PCTSTATUS, PCTTIPO) VALUES (NEXT VALUE FOR SEQ_PCT, 'MERCADORIAS E SERVICOS', 1, 'D')");
+            sb.AppendLine("INSERT INTO TB_PCT_PLANOCONTAS(PCTID, PCTDESCRICAO, PCTSTATUS, PCTTIPO) VALUES (NEXT VALUE FOR SEQ_PCT, 'DESPESAS FINANCEIRAS/BANCARIAS', 1, 'D')");
+            sb.AppendLine("INSERT INTO TB_PCT_PLANOCONTAS(PCTID, PCTDESCRICAO, PCTSTATUS, PCTTIPO) VALUES (NEXT VALUE FOR SEQ_PCT, 'DESPESAS COM FUNCIONARIOS', 1, 'D')");
+            sb.AppendLine("INSERT INTO TB_PCT_PLANOCONTAS(PCTID, PCTDESCRICAO, PCTSTATUS, PCTTIPO) VALUES (NEXT VALUE FOR SEQ_PCT, 'PREST SERVICOS CONTABILIDADE', 1, 'D')");
+            sb.AppendLine("INSERT INTO TB_PCT_PLANOCONTAS(PCTID, PCTDESCRICAO, PCTSTATUS, PCTTIPO) VALUES (NEXT VALUE FOR SEQ_PCT, 'DESPESAS COM ALUGUEL', 1, 'D')");
+            sb.AppendLine("INSERT INTO TB_PCT_PLANOCONTAS(PCTID, PCTDESCRICAO, PCTSTATUS, PCTTIPO) VALUES (NEXT VALUE FOR SEQ_PCT, 'DESPESAS COM AGUA', 1, 'D')");
+            sb.AppendLine("INSERT INTO TB_PCT_PLANOCONTAS(PCTID, PCTDESCRICAO, PCTSTATUS, PCTTIPO) VALUES (NEXT VALUE FOR SEQ_PCT, 'DESPESAS COM LUZ', 1, 'D')");
 
 
+            //Receitas
+            sb.AppendLine("INSERT INTO TB_PCT_PLANOCONTAS(PCTID, PCTDESCRICAO, PCTSTATUS, PCTTIPO) VALUES (NEXT VALUE FOR SEQ_PCT, 'VENDAS', 1, 'R')");
+            sb.AppendLine("INSERT INTO TB_PCT_PLANOCONTAS(PCTID, PCTDESCRICAO, PCTSTATUS, PCTTIPO) VALUES (NEXT VALUE FOR SEQ_PCT, 'RECEBIMENTOS',1,'R')");
+            sb.AppendLine("INSERT INTO TB_PCT_PLANOCONTAS(PCTID, PCTDESCRICAO, PCTSTATUS, PCTTIPO) VALUES (NEXT VALUE FOR SEQ_PCT, 'INCLUSAO CREDITO CLIENTE',1, 'R')");
+            sb.AppendLine("INSERT INTO TB_PCT_PLANOCONTAS(PCTID, PCTDESCRICAO, PCTSTATUS, PCTTIPO) VALUES (NEXT VALUE FOR SEQ_PCT, 'TRANSFERENCIA DE CREDITO',1, 'R')");
+            sb.AppendLine("INSERT INTO TB_PCT_PLANOCONTAS(PCTID, PCTDESCRICAO, PCTSTATUS, PCTTIPO) VALUES (NEXT VALUE FOR SEQ_PCT, 'RECEITAS',1, 'R')");
+
+            return sb.ToString();
+        }
     }
 }
+

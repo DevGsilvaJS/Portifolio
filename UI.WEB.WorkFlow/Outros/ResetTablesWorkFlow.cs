@@ -11,7 +11,7 @@ namespace UI.WEB.WorkFlow.Outros
     public class ResetTablesWorkFlow : BaseWeb
     {
         DBComando db = new DBComando();
-        public void DropTables()
+        public string DeletTables()
         {
             List<string> tablesDrop = new List<string>
             {
@@ -25,23 +25,22 @@ namespace UI.WEB.WorkFlow.Outros
                 "TB_ARM_ATRMODELO",
                 "TB_AS1_ATRSUBLINHA1",
                 "TB_AS2_ATRSUBLINHA2",
-                "TB_ATF_ATRFABRICANTE",
                 "TB_ATO_ATRTAMANHO",
                 "TB_ATP_ATRGRUPO",
                "TB_MAT_MATERIAL",
-                "TB_CCU_CENTROCUSTO",
-                "TB_CLI_CLIENTE",
-                "TB_EDN_ENDERECO",
-                "TB_EML_EMAIL",
-                "TB_NCM_NCM",
-                "TB_PCT_PLANOCONTAS",
-                "TB_PLANOCONTAS",
-                "TB_PRV_PARAMETROSVALOR",
-                "TB_TEL_TELEFONE",
-                "TB_TPV_TIPOVENDA",
-                "TB_USU_USUARIO",
-                "TB_VND_VENDEDOR",
-                "TB_PES_PESSOA",
+               "TB_FOR_FORNECEDOR",
+               "TB_CCU_CENTROCUSTO",
+               "TB_PCT_PLANOCONTAS",
+               "TB_VND_VENDEDOR",
+               "TB_TEL_TELEFONE",
+               "TB_EML_EMAIL",
+               "TB_CLI_CLIENTE",
+               "TB_EDN_ENDERECO",
+               "TB_NCM_NCM",
+               "TB_TPV_TIPOVENDA",
+               "TB_USU_USUARIO",
+               "TB_PES_PESSOA",
+               "TB_PRV_PARAMETROVALOR",
             };
 
             foreach (string tableName in tablesDrop)
@@ -55,17 +54,20 @@ namespace UI.WEB.WorkFlow.Outros
                 int result = (int)_Comando.ExecuteNonQuery();
             }
 
-        }
+            db.FechaConexao(db.MinhaConexao());
 
+            return CreateTables();
+
+        }
         public string CreateTables()
         {
 
             ResetarTabelasSQLQuery Query = new ResetarTabelasSQLQuery();
             List<string> lista = new List<string>();
-            string sRetorno = "";
-
 
             lista.Add(Query.CreateTablePessoaQuery());
+            lista.Add(Query.CreateTableClienteQuery());
+            lista.Add(Query.CreateTableUsuarioQuery());
             lista.Add(Query.CreateTablePlanoContasQuery());
             lista.Add(Query.CreateTableCentroCustoQuery());
             lista.Add(Query.CreateTableFornecedorQuery());
@@ -84,12 +86,11 @@ namespace UI.WEB.WorkFlow.Outros
             lista.Add(Query.CreateTableAtributosQuery());
             lista.Add(Query.CreateTableEmailQuery());
             lista.Add(Query.CreateTableEnderecoQuery());
-            lista.Add(Query.CreateTableParametroValorQuery());
             lista.Add(Query.CreateTablePrecoVendaQuery());
             lista.Add(Query.CreateTableTelefoneQuery());
             lista.Add(Query.CreateTableTipoVendaQuery());
             lista.Add(Query.CreateTableVendedorQuery());
-
+            lista.Add(Query.CreateTableParametroValorQuery());
 
             foreach (var item in lista)
             {
@@ -98,6 +99,29 @@ namespace UI.WEB.WorkFlow.Outros
                 int result = (int)_Comando.ExecuteNonQuery();
             }
 
+            db.FechaConexao(db.MinhaConexao());
+
+            return InsertTables();
+        }
+        public string InsertTables()
+        {
+            string sRetorno = "";
+
+            ResetarTabelasSQLQuery Query = new ResetarTabelasSQLQuery();
+
+            List<string> lista = new List<string>();
+
+            lista.Add(Query.InsertTablesNcmQuery());
+            lista.Add(Query.InsertTableParametrosQuery());
+            lista.Add(Query.InsertTablesCentroCustoQuery());
+            lista.Add(Query.InsertTablesPlanoContasQuery());
+
+            foreach (var item in lista)
+            {
+                SqlCommand _Comando = new SqlCommand(item, db.MinhaConexao());
+                _Comando.CommandType = System.Data.CommandType.Text;
+                int result = (int)_Comando.ExecuteNonQuery();
+            }
 
             return sRetorno;
         }

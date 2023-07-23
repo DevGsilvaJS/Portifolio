@@ -11,11 +11,26 @@ namespace WEBApp.Controllers
     public class ResetTablesController : Controller
     {
         ResetTablesWorkFlow wf = new ResetTablesWorkFlow();
-        public JsonResult ResetTables()
+
+        public ActionResult Index()
+        {
+            return View();
+        }
+        public JsonResult CriarTables()
         {
 
             string sRetorno = wf.CreateTables();
     
+            return Json(new
+            {
+                retorno = sRetorno
+            }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult DeletTables()
+        {
+
+            string sRetorno = wf.DeletTables();
+
             return Json(new
             {
                 retorno = sRetorno

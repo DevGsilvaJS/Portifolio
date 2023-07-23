@@ -5,13 +5,13 @@
 
     .container {
         position: relative;
-        height: 2000px; 
+        height: 2000px;
     }
 
     #btnSalvarFormulario {
         position: fixed;
         bottom: 20px;
-        right: 20px; 
+        right: 20px;
         display: none;
     }
 
@@ -70,13 +70,15 @@
                         </a>
                     </div>
 
-                    <button type="button" class="btn btn-sm px-3 font-size-24 header-item waves-effect vertical-menu-btn">
-                        <i class="mdi mdi-menu"></i>
-                    </button>
+
+
+
                 </div>
 
             </div>
         </header>
+
+
         <!-- ========== Left Sidebar Start ========== -->
         <div class="vertical-menu">
 
@@ -99,7 +101,7 @@
                                 <li><a style="color:red" href="/Vendas">Vendas</a></li>
                                 <li><a style="color:red" href="/LancamentoCaixa">Lançamentos no caixa</a></li>
                                 <li>
-                                    <a href="javascript: void(0);" class="has-arrow waves-effect">                                  
+                                    <a href="javascript: void(0);" class="has-arrow waves-effect">
                                         <span>Tab.  auxiliares</span>
                                     </a>
                                     <ul class="sub-menu">
@@ -121,8 +123,8 @@
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a style="color:red" href="/Produto">Produtos</a></li>
                                 <li><a style="color:red" href="email-read.html">Entrada de Estoque</a></li>
-                                <li><a  style="color:red" href="email-compose.html">Saída de Estoque</a></li>
-                                <li><a  href="/Fornecedor">Fornecedores</a></li>
+                                <li><a style="color:red" href="email-compose.html">Saída de Estoque</a></li>
+                                <li><a href="/Fornecedor">Fornecedores</a></li>
                             </ul>
                         </li>
 
@@ -172,7 +174,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-12">
-                                 Sistema Administrativo de Vendas <span class="d-none d-sm-inline-block"> </span>
+                        Sistema Administrativo de Vendas <span class="d-none d-sm-inline-block"> </span>
                     </div>
                 </div>
             </div>
@@ -224,7 +226,7 @@
                 </div>
             </div>
 
-        </div> 
+        </div>
     </div>
 
     <div class="rightbar-overlay"></div>
@@ -247,55 +249,60 @@
     <script src="~/Template/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
 
     <script>
-        function fnValidaSessao() {
+        /*        function fnValidaSessao() {*/
 
-            $.ajax({
-                type: "POST",
-                url: "/Login/NotLogado",
-                dataType: "JSON",
-                beforeSend: function () {
-                },
-                success: function (result) {
+        //    $.ajax({
+        //        type: "POST",
+        //        url: "/Login/NotLogado",
+        //        dataType: "JSON",
+        //        beforeSend: function () {
+        //        },
+        //        success: function (result) {
 
-                    debugger;
+        //            debugger;
 
-                    if (result.isLogado == false) {
+        //            if (result.isLogado == false) {
 
-                        window.location.href = "/Login"
+        //                window.location.href = "/Login"
 
-                    } else {
-                        continue                     
-                    }
-                },
-                error: function (jqXHR, exception) {
+        //            } else {
+        //                continue
+        //            }
+        //        },
+        //        error: function (jqXHR, exception) {
 
-                    if (jqXHR.status === 0) {
-                        alert('Not connect.n Verify Network.');
-                    } else if (jqXHR.status == 404) {
-                        alert('Requested page not found. [404]');
-                    } else if (jqXHR.status == 500) {
-                        alert('Internal Server Error [500].');
-                    } else if (exception === 'parsererror') {
-                        alert('Requested JSON parse failed.');
-                        var Url = window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
-                        window.location.href = Url + "/Login";
-                    } else if (exception === 'timeout') {
-                        alert('Time out error.');
-                    } else if (exception === 'abort') {
-                        alert('Ajax request aborted.');
-                    } else {
-                        alert('Uncaught Error.n' + jqXHR.responseText);
-                    }
-                },
-                complete: function () {
+        //            if (jqXHR.status === 0) {
+        //                alert('Not connect.n Verify Network.');
+        //            } else if (jqXHR.status == 404) {
+        //                alert('Requested page not found. [404]');
+        //            } else if (jqXHR.status == 500) {
+        //                alert('Internal Server Error [500].');
+        //            } else if (exception === 'parsererror') {
+        //                alert('Requested JSON parse failed.');
+        //                var Url = window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+        //                window.location.href = Url + "/Login";
+        //            } else if (exception === 'timeout') {
+        //                alert('Time out error.');
+        //            } else if (exception === 'abort') {
+        //                alert('Ajax request aborted.');
+        //            } else {
+        //                alert('Uncaught Error.n' + jqXHR.responseText);
+        //            }
+        //        },
+        //        complete: function () {
 
-                }
-            });
-        }           
-        
+        //        }
+        //    });
+        //}
+
     </script>
 
+
+
+
+
     <script src="~/JsPaginas/jsLayout/jsLayout.js"></script>
+
 
 
 </body>
