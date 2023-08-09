@@ -23,7 +23,7 @@ namespace UI.WEB.WorkFlow.Estoque
         public string RetornaSequencial()
         {
             string retorno = "";
-            string query = "SELECT PRV.PRVVALOR FROM TB_PRV_PARAMETROSVALOR PRV WHERE PRV.PRVCAMPO = 'FORNECEDOR'";
+            string query = "SELECT PRV.PRVVALOR FROM TB_PRV_PARAMETROVALOR PRV WHERE PRV.PRVCAMPO = 'FORNECEDOR'";
 
             SqlCommand Comando = new SqlCommand(query, db.MinhaConexao());
             Comando.CommandType = CommandType.Text;
@@ -123,7 +123,7 @@ namespace UI.WEB.WorkFlow.Estoque
                         AddListaSalvar(RetornaQueryInclusao(ObjFornecedor.TbEndereco, "TB_EDN_ENDERECO"));
                     }
 
-                    AddListaSalvar("UPDATE TB_PRV_PARAMETROSVALOR SET PRVVALOR = PRVVALOR + 1 WHERE PRVCAMPO = 'FORNECEDOR'");
+                    AddListaSalvar("UPDATE TB_PRV_PARAMETROVALOR SET PRVVALOR = PRVVALOR + 1 WHERE PRVCAMPO = 'FORNECEDOR'");
 
 
                 }

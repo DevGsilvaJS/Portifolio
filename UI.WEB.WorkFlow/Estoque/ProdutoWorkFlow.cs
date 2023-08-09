@@ -91,7 +91,7 @@ namespace UI.WEB.WorkFlow.Estoque
         public string RetornaSequencial()
         {
             string retorno = "";
-            string query = "SELECT PRV.PRVVALOR FROM TB_PRV_PARAMETROSVALOR PRV WHERE PRV.PRVCAMPO = 'ARMACAO'";
+            string query = "SELECT PRV.PRVVALOR FROM TB_PRV_PARAMETROVALOR PRV WHERE PRV.PRVCAMPO = 'ARMACAO'";
 
             SqlCommand Comando = new SqlCommand(query, db.MinhaConexao());
             Comando.CommandType = CommandType.Text;

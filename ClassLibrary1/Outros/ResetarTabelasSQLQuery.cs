@@ -66,13 +66,13 @@ namespace ClassLibrary1.Outros
             sb.AppendLine("    CREATE TABLE TB_EDN_ENDERECO(");
             sb.AppendLine("   EDNID int,");
             sb.AppendLine("   PESID int,");
-            sb.AppendLine("   ENDCEP VARCHAR(9),");
-            sb.AppendLine("   ENDUF CHAR(2),");
-            sb.AppendLine("   ENDCIDADE VARCHAR(25),");
-            sb.AppendLine("   ENDLOGRADOURO VARCHAR(25),");
-            sb.AppendLine("   ENDBAIRRO VARCHAR(25),");
-            sb.AppendLine("   ENDNUMERO CHAR(5),");
-            sb.AppendLine("   ENDCOMPLEMENTO VARCHAR(30),");
+            sb.AppendLine("   EDNCEP VARCHAR(9),");
+            sb.AppendLine("   EDNUF CHAR(2),");
+            sb.AppendLine("   EDNCIDADE VARCHAR(25),");
+            sb.AppendLine("   EDNLOGRADOURO VARCHAR(25),");
+            sb.AppendLine("   EDNBAIRRO VARCHAR(25),");
+            sb.AppendLine("   EDNNUMERO CHAR(5),");
+            sb.AppendLine("   EDNCOMPLEMENTO VARCHAR(30),");
             sb.AppendLine("   PRIMARY KEY(EDNID),");
             sb.AppendLine("   FOREIGN KEY(PESID) REFERENCES TB_PES_PESSOA(PESID)) ");
 

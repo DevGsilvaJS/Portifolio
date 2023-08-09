@@ -67,6 +67,10 @@ function fnCriaTela() {
         $('#txtCnpj').inputmask('99.999.999/9999-99');
         $('#txtIe').inputmask('99.999.999-9');
     });
+
+    $(document).ready(function () {
+        $("#formFornecedor").parsley();
+    });
 }
 
 $(document).ready(function () {
@@ -75,6 +79,8 @@ $(document).ready(function () {
         $(this).tab('show');
     });
 });
+
+
 
 $("#aCadastro").click(function () {
     debugger;
@@ -89,7 +95,6 @@ $("#aCadastro").click(function () {
 $("#aLista").click(function () {
     fnLimparTela();
 })
-
 
 
 $("#btnBuscarCep").click(function () {
@@ -257,6 +262,8 @@ function fnGravarFornecedor() {
         },
         success: function (result) {
             debugger;
+
+            return false;
 
             if (result == "OK" || result.result == "OK") {
                 fnListagem();

@@ -34,157 +34,162 @@
 
 
         <div class="tab-pane" id="tab2">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="col-md-2">
+
+            <form id="formFornecedor">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Código</label>
+                                        <input type="text" class="form-control" id="IDfornecedor" style="text-transform: uppercase" disabled>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Código</label>
-                                    <input type="text" class="form-control" id="IDfornecedor" style="text-transform: uppercase" disabled>
+                                    <label>Fantasia</label>
+                                    <input type="text" class="form-control" id="txtFantasia" style="text-transform: uppercase" placeholder="Fantasia">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Razão Social</label>
+                                    <input type="text" class="form-control" id="txtRazaoSocial" style="text-transform: uppercase" placeholder="Razao Social">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>CNPJ</label>
+                                    <input type="text" class="form-control" id="txtCnpj" name="txtCnpj" style="text-transform: uppercase" placeholder="CNPJ" data-parsley-required="true" data-parsley-error-message="Por favor, informe o CNPJ.">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Inscricao Estadual</label>
+                                    <input type="text" class="form-control" id="txtIe" style="text-transform: uppercase" placeholder="Inscricao Estadual">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Centro de Custo</label>
+                                    <select class="form-control" name="CentroCusto" id="CentroCustoID">
+                                        <option value="valor1">Valor 1</option>
+                                        <option value="valor2">Valor 2</option>
+                                        <option value="valor3">Valor 3</option>
+                                        <option value="valor3">Valor 3</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Plano de Contas</label>
+                                    <select class="form-control" name="PlanoContas" id="PlanoContasID">
+                                        <option value="valor1">Valor 1</option>
+                                        <option value="valor2">Valor 2</option>
+                                        <option value="valor3">Valor 3</option>
+                                        <option value="valor3">Valor 3</option>
+                                    </select>
                                 </div>
                             </div>
 
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Fantasia</label>
-                                <input type="text" class="form-control" id="txtFantasia" style="text-transform: uppercase" placeholder="Fantasia">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Telefone</label>
+                                    <input type="tel" class="form-control" id="txtTelefone" style="text-transform: uppercase" placeholder="Telefone">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Razão Social</label>
-                                <input type="text" class="form-control" id="txtRazaoSocial" style="text-transform: uppercase" placeholder="Razao Social">
+
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Celular</label>
+                                    <input type="tel" class="form-control" id="txtCelular" style="text-transform: uppercase" placeholder="Celular">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>CNPJ</label>
-                                <input type="text" class="form-control" id="txtCnpj" style="text-transform: uppercase" placeholder="CNPJ">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>E-mail</label>
+                                    <input type="text" class="form-control" id="txtEmail" style="text-transform: uppercase" placeholder="E-mail">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Inscricao Estadual</label>
-                                <input type="text" class="form-control" id="txtIe" style="text-transform: uppercase" placeholder="Inscricao Estadual">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="">Centro de Custo</label>
-                                <select class="form-control" name="CentroCusto" id="CentroCustoID">
-                                    <option value="valor1">Valor 1</option>
-                                    <option value="valor2">Valor 2</option>
-                                    <option value="valor3">Valor 3</option>
-                                    <option value="valor3">Valor 3</option>
+                            <div class="col-md-6">
+                                <label for="">Regime Tributário</label>
+                                <select class="form-control" id="dllRegimeTributario">
+                                    <option value="0"></option>
+                                    <option value="1">1 - SIMPLES NACIONAL</option>
+                                    <option value="2">2 - SIMPLES NACIONAL - EXCETO</option>
+                                    <option value="3">3 - REGIME NORMAL</option>
                                 </select>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="">Plano de Contas</label>
-                                <select class="form-control" name="PlanoContas" id="PlanoContasID">
-                                    <option value="valor1">Valor 1</option>
-                                    <option value="valor2">Valor 2</option>
-                                    <option value="valor3">Valor 3</option>
-                                    <option value="valor3">Valor 3</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Telefone</label>
-                                <input type="tel" class="form-control" id="txtTelefone" style="text-transform: uppercase" placeholder="Telefone">
-                            </div>
-                        </div>
-
-
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Celular</label>
-                                <input type="tel" class="form-control" id="txtCelular" style="text-transform: uppercase" placeholder="Celular">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>E-mail</label>
-                                <input type="text" class="form-control" id="txtEmail" style="text-transform: uppercase" placeholder="E-mail">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="">Regime Tributário</label>
-                            <select class="form-control" id="dllRegimeTributario">
-                                <option value="0"></option>
-                                <option value="1">1 - SIMPLES NACIONAL</option>
-                                <option value="2">2 - SIMPLES NACIONAL - EXCETO</option>
-                                <option value="3">3 - REGIME NORMAL</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="card">
-
-                <div class="card-body">
-                    <div class="col-md-2">
-                        <div class="input-group margin">
-                            <input type="text" id="txtValorCep" class="form-control" placeholder="BUSCAR CEP">
-                            <span class="input-group-btn">
-                                <button type="button" id="btnBuscarCep" class="btn btn-info btn-flat">Go!</button>
-                            </span>
-                        </div>
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col-md-2">
-                            <label for="">UF</label>
-                            <select class="form-control" id="ddlUf">
-                                <option></option>
-                                <option value="SP">SP</option>
-                                <option value="PR">PR</option>
-                                <option value="RJ">RJ</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label>Endereço</label>
-                            <input type="text" class="form-control" id="txtLogradouro" maxlength="25" style="text-transform: uppercase">
-                        </div>
-
-                        <div class="col-md-2">
-                            <label>Número</label>
-                            <input type="text" class="form-control" id="txtNumero" maxlength="5" style="text-transform: uppercase">
-                        </div>
-
-
-                        <div class="col-md-4">
-                            <label>CIDADE</label>
-                            <input type="text" class="form-control" id="txtCidade" maxlength="25" style="text-transform: uppercase">
-                        </div>
-                        <div class="col-md-6">
-                            <label>Bairro</label>
-                            <input type="text" class="form-control" id="txtBairro" maxlength="25" style="text-transform: uppercase">
-                        </div>
-
-                        <div class="col-md-6">
-                            <label>Complemento</label>
-                            <input type="text" class="form-control" id="txtComplemento" maxlength="30" style="text-transform: uppercase">
                         </div>
                     </div>
                 </div>
 
 
-            </div>
+                <div class="card">
+
+                    <div class="card-body">
+                        <div class="col-md-2">
+                            <div class="input-group margin">
+                                <input type="text" id="txtValorCep" class="form-control" placeholder="BUSCAR CEP">
+                                <span class="input-group-btn">
+                                    <button type="button" id="btnBuscarCep" class="btn btn-info btn-flat">Go!</button>
+                                </span>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label for="">UF</label>
+                                <select class="form-control" id="ddlUf">
+                                    <option></option>
+                                    <option value="SP">SP</option>
+                                    <option value="PR">PR</option>
+                                    <option value="RJ">RJ</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>Endereço</label>
+                                <input type="text" class="form-control" id="txtLogradouro" maxlength="25" style="text-transform: uppercase">
+                            </div>
+
+                            <div class="col-md-2">
+                                <label>Número</label>
+                                <input type="text" class="form-control" id="txtNumero" maxlength="5" style="text-transform: uppercase">
+                            </div>
+
+
+                            <div class="col-md-4">
+                                <label>CIDADE</label>
+                                <input type="text" class="form-control" id="txtCidade" maxlength="25" style="text-transform: uppercase">
+                            </div>
+                            <div class="col-md-6">
+                                <label>Bairro</label>
+                                <input type="text" class="form-control" id="txtBairro" maxlength="25" style="text-transform: uppercase">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>Complemento</label>
+                                <input type="text" class="form-control" id="txtComplemento" maxlength="30" style="text-transform: uppercase">
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </form>
+
 
         </div>
     </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.3/parsley.min.js"></script>
 <script src="~/Scripts/jsPaginas/jsFornecedor.js"></script>
 

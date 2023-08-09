@@ -9,7 +9,6 @@
         public string PESDOCESTADUAL { get; set; }
         public string PESDOCFEDERAL { get; set; }
         public string PESDTCADASTRO { get; set; }
-        public string PESDTNASCIMENTO { get; set; }
 
 
         public EntityPessoa()
@@ -20,7 +19,6 @@
             PESDOCESTADUAL = "";
             PESDOCFEDERAL = "";
             PESDTCADASTRO = "";
-            PESDTNASCIMENTO = "";
         }
     }
 
