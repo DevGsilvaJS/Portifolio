@@ -100,6 +100,7 @@ namespace UI.WEB.WorkFlow.Estoque
 
                     ObjFornecedor.FORID = RetornaSequencial("SEQ_FOR");
                     ObjFornecedor.PESID = ObjFornecedor.TbPessoa.PESID;
+                    ObjFornecedor.FORSTATUS = "1";
                     AddListaSalvar(RetornaQueryInclusao(ObjFornecedor, "TB_FOR_FORNECEDOR"));
 
                     if (!string.IsNullOrEmpty(ObjFornecedor.TbEmail.EMLEMAIL))

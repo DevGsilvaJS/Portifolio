@@ -94,13 +94,13 @@
     <Compile Include="Vendas\VendaWorkFlow.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary1\UI.WEB.Query.csproj">
-      <Project>{F14FBF11-C2A0-43B7-BFD7-D19E38EF17D1}</Project>
-      <Name>UI.WEB.Query</Name>
-    </ProjectReference>
     <ProjectReference Include="..\UI.WEB.Model\UI.WEB.Model.csproj">
       <Project>{f1b7f7ec-d1ac-4577-b661-e041925d6945}</Project>
       <Name>UI.WEB.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UI.WEB.Query\UI.WEB.Query.csproj">
+      <Project>{5b17c9e3-3f87-4db6-8791-1ebb59a30e9e}</Project>
+      <Name>UI.WEB.Query</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -7,8 +7,8 @@
     <ProjectGuid>{F14FBF11-C2A0-43B7-BFD7-D19E38EF17D1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ClassLibrary1</RootNamespace>
-    <AssemblyName>ClassLibrary1</AssemblyName>
+    <RootNamespace>UI.WEB.Query</RootNamespace>
+    <AssemblyName>UI.WEB.Query</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Estoque\ProdutoQuery.cs" />
     <Compile Include="Outros\ResetarTabelasSQLQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

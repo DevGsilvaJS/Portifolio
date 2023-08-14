@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UI.WEB.WorkFlow.Outros;
 using UI.WEB.Model.Estoque;
+using UI.WEB.Query.Estoque;
+using System.Collections.Generic;
 
 namespace UI.WEB.WorkFlow.Estoque
 {
@@ -80,14 +78,41 @@ namespace UI.WEB.WorkFlow.Estoque
             AddListaSalvar(RetornaQueryInclusao(objProduto.TbMpv, "TB_MPV_MATPRECOVENDA"));
 
             objProduto.TbMpc.MPCID = RetornaSequencial("SEQ_MPC");
-            objProduto.TbMpv.MATID = objProduto.MATID;
+            objProduto.TbMpc.MATID = objProduto.MATID;
             AddListaSalvar(RetornaQueryInclusao(objProduto.TbMpc, "TB_MPC_MATPRECOCUSTO"));
+            AddListaSalvar("UPDATE TB_PRV_PARAMETROVALOR SET PRVVALOR = PRVVALOR + 1 WHERE PRVCAMPO = 'ARMACAO'");
 
             string sRetorno = ExecuteTransacao();
 
             return sRetorno;
         }
+        public List<EntityProduto> ListaProdutos()
+        {
+            ProdutoQuery Query = new ProdutoQuery();
 
+            List<EntityProduto> lista = new List<EntityProduto>();
+
+            SqlDataReader dr = ListarDadosEntity(Query.ListaProdutosQuery());
+
+            if (dr.HasRows)
+            {
+                while (dr.Read())
+                {
+                    EntityProduto Produto = new EntityProduto();
+
+                    Produto.MATID = int.Parse(dr["MATID"].ToString());
+                    Produto.MATSEQUENCIAL = dr["MATSEQUENCIAL"].ToString();
+                    Produto.MATFANTASIA = dr["MATFANTASIA"].ToString();
+                    Produto.TbMpc.MPCPRECOCUSTO = dr["MPCPRECOCUSTO"].ToString();
+                    Produto.TbMpv.MPVPRECOVENDA = dr["MPVPRECOVENDA"].ToString();
+                    Produto.TbGrife.ARGDESCRICAO = dr["ARGDESCRICAO"].ToString();
+                    Produto.MATDTCADASTRO = dr["MATDTCADASTRO"].ToString();
+
+                    lista.Add(Produto);
+                }
+            }
+            return lista;
+        }
         public string RetornaSequencial()
         {
             string retorno = "";
@@ -104,6 +129,51 @@ namespace UI.WEB.WorkFlow.Estoque
 
             db.FechaConexao(db.MinhaConexao());
             return retorno;
+        }
+
+        public EntityProduto GetProdutoByID (int matid)
+        {
+            EntityProduto Produto = new EntityProduto();
+            ProdutoQuery Query = new ProdutoQuery();
+
+
+            SqlCommand _Comando = new SqlCommand(Query.EditarProdutoQuery(), db.MinhaConexao());
+
+            SqlParameter parameter = new SqlParameter("@MATID", matid);
+            _Comando.Parameters.Add(parameter);
+            _Comando.CommandType = CommandType.Text;
+            SqlDataReader dr = _Comando.ExecuteReader();
+
+
+            if (dr.HasRows)
+            {
+                while (dr.Read())
+                {
+                    Produto.MATID = int.Parse(dr["MATID"].ToString());
+                    Produto.MATSEQUENCIAL = dr["MATSEQUENCIAL"].ToString();
+                    Produto.MATRECSOL = dr["MATRECSOL"].ToString();
+                    Produto.NCMID = int.Parse(dr["NCMID"].ToString());
+                    Produto.MATDESCRICAO = dr["MATDESCRICAO"].ToString();
+                    Produto.MATDESCRICAOECF = dr["MATDESCRICAOECF"].ToString();
+                    Produto.FORID = int.Parse(dr["FORID"].ToString());
+                    Produto.MATCONTROLAEST = dr["MATCONTROLAEST"].ToString();
+                    Produto.MATVENDA = dr["MATVENDA"].ToString();
+                    Produto.MATACEITANEGATIVO = dr["MATACEITANEGATIVO"].ToString();
+                    Produto.TbLinha.ARLDESCRICAO = dr["ARLDESCRICAO"].ToString();
+                    Produto.TbGrife.ARGDESCRICAO = dr["ARGDESCRICAO"].ToString();
+                    Produto.TbModelo.ARMDESCRICAO = dr["ARMDESCRICAO"].ToString();
+                    Produto.TbCor.ARCDESCRICAO = dr["ARCDESCRICAO"].ToString();
+                    Produto.TbCorNumerica.ACNDESCRICAO = dr["ACNDESCRICAO"].ToString();
+                    Produto.TbSublinha1.AS1DESCRICAO = dr["AS1DESCRICAO"].ToString();
+                    Produto.TbSublinha2.AS2DESCRICAO = dr["AS2DESCRICAO"].ToString();
+                    Produto.TbTamanho.ATODESCRICAO = dr["ATODESCRICAO"].ToString();
+                    Produto.TbMpc.MPCPRECOCUSTO = dr["MPCPRECOCUSTO"].ToString();
+                    Produto.TbMpv.MPVPRECOVENDA = dr["MPVPRECOVENDA"].ToString();
+                    Produto.TbMpv.MPVMARKUP = dr["MPVMARKUP"].ToString();
+                }
+            }
+
+            return Produto;
         }
     }
 }

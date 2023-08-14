@@ -12,7 +12,6 @@ namespace UI.WEB.Model.Estoque
     public class EntityProduto
     {
         public int MATID { get; set; }
-        public int AATID { get; set; }
         public int NCMID { get; set; }
         public int FORID { get; set; }
         public string MATSEQUENCIAL { get; set; }

@@ -6,6 +6,7 @@ var STATUS = 'CONSULTA';
 $(document).ready(function () {
     jQueryInit();
 });
+
 $(document).ready(function () {
     $('.nav-tabs a').on('click', function (e) {
         e.preventDefault();
@@ -58,10 +59,6 @@ $(document).ready(function () {
     });
 });
 
-
-
-
-
 function Listagem() {
     fnListaDados();
     $("#liLista").click();
@@ -104,11 +101,11 @@ function fnCriaTela() {
         "bAutoWidth": false,
         "aaSorting": [[1, "asc"]],
         "aoColumns": [
-            { sWidth: '10%', "bSortable": false },
-            { sWidth: '5%' },//Numero
+            { sWidth: '9%', "bSortable": false },
+            { sWidth: '2%' },//Numero
             { sWidth: '10%' },//Titulo
             { sWidth: '10%' },//Titulo
-            { sWidth: '5%' },//Titulo
+            { sWidth: '10%' },//Titulo
             { sWidth: '10%' },//Titulo     
             { sWidth: '10%' },//Titulo  
         ]
@@ -116,56 +113,12 @@ function fnCriaTela() {
 
     fnRetornaComboNCM();
     fnRetornaComboFornecedores();
+    fnListaDados();
 
     $('#txtPrecoCusto').inputmask('R$ 9{1,},99');
     $('#txtPrecoVenda').inputmask('R$ 9{1,},99');
 
-
-
-
 }
-debugger;
-fnListaDados();
-
-
-////    $.ajax({
-////        type: "GET",
-////        contentType: "application/json",
-////        url: "Fornecedor/listaFornecedor",
-////        dataType: "JSON",
-////        cache: false,
-////        beforeSend: function () {
-
-////        },
-////        success: function (result) {
-
-////            if (result != null) {
-
-////                var ListaTFornecedor = result.lsFornecedor;
-
-////                var options = '<option value="0">Selecione o Fornecedor</option>';;
-////                $.each(ListaTFornecedor, function (key, val) {
-
-////                    options += '<option value="' + val.FornecedorID + '">' + val.Fantasia + '</option>';
-////                });
-
-////                $("#ddlFornecedorID").html(options);
-
-////            }
-////        },
-////        error: function (jqXHR, exception) {
-
-////        }
-////    });
-////}
-
-
-
-$("#btnteste").click(function () {
-
-    fnResetTables();
-});
-
 
 $(document).ready(function () {
     $('#txtCorFisica, #txtGrife, #txtMaterial, #txtReferencia').on('input', function () {
@@ -259,7 +212,7 @@ function fnListaDados() {
     $.ajax({
         type: "POST",
         contentType: "application/json",
-        url: "Produto/ListData",
+        url: "Produto/ListaProdutos",
         data: {},
         dataType: "JSON",
         cache: false,
@@ -269,28 +222,29 @@ function fnListaDados() {
         success: function (result) {
             debugger;
 
-            var Lista = result.lsProduto;
+            var Lista = result.lista;
             oTabProduto.clear().draw();
 
             var ListaProduto = new Array();
             if (Lista.length > 0) {
 
                 for (var i = 0; i < Lista.length; i++) {
-                    var btnEditar = '<button id="' + Lista[i].IDPRODUTO + '"  name="btnEdicao" type="button" class="btn  btn-primary" onClick="fnEditarProduto(this)">Editar</button>';
-                    var btnExcluir = '<button id="' + Lista[i].IDPRODUTO + '"  name="btnDeletar" type="button" class="btn  btn-danger" onClick="fnDeletarProduto(this)">Deletar</button>';
+                    debugger;
+                    var btnEditar = '<button id="' + Lista[i].MATID + '"  name="btnEdicao" type="button" class="btn  btn-primary" onClick="fnEditarProduto(this)">Editar</button>';
+                    var btnExcluir = '<button id="' + Lista[i].MATID + '"  name="btnDeletar" type="button" class="btn  btn-danger" onClick="fnDeletarProduto(this)">Deletar</button>';
 
                     var Linha = [btnEditar + btnExcluir,
                     Lista[i].MATSEQUENCIAL,
-                    Lista[i].MATDESCRICAO,
-                    Lista[i].MATTIPOPROD,
-                    Lista[i].MATGRIFE,
                     Lista[i].MATFANTASIA,
-                    formatJSONDate(Lista[i].MATDATACADASTRO),
+                    Lista[i].TbMpc.MPCPRECOCUSTO,
+                    Lista[i].TbMpv.MPVPRECOVENDA,
+                    Lista[i].TbGrife.ARGDESCRICAO,
+                    formatJSONDate(Lista[i].MATDTCADASTRO),
                     ];
                     ListaProduto[i] = Linha;
                 }
 
-                oTabProduto.rows.add(ListaProduto);
+                oTabProduto.rows.add(ListaProduto).draw();
             }
         },
         error: function (jqXHR, exception) {
@@ -300,47 +254,64 @@ function fnListaDados() {
     });
 }
 
-function fnEditarProduto(idProduto) {
-    debugger;
+
+function fnEditarProduto(matid) {
 
     $.ajax({
         type: "GET",
         contentType: "application/json",
-        url: "Produto/GetByID",
-        data: { idProduto: idProduto.id },
+        url: "Produto/GetProdutoByID",
+        data: { matid: matid.id },
         dataType: "JSON",
         cache: false,
         async: false,
         beforeSend: function () {
         },
         success: function (result) {
-            debugger;
-
-            STATUS = 'ALTERACAO'
-            $("#aCadastro").click();
-
 
             fnlsFornecedorUpdate(result.Produto.IDFORNECEDOR);
             fnLsNCMsUpdate(result.Produto.IDNCM);
 
             _Produto = result.Produto
 
-            $("#txtSequencial").val(result.Produto.MATSEQUENCIAL);
-            $("#ddlFornecedorID").val(result.Produto.IDFORNECEDOR);
-            $("#txtDescricao ").val(result.Produto.MATDESCRICAO);
-            $("#txtDescricaoNF ").val(result.Produto.MATDESCRICAONF);
-            $("#sslTipoProduto ").val(result.Produto.MATTIPOPROD);
-            $("#sslNCM").val(result.Produto.IDNCM);
-            $("#ckcControlEstoque").val(result.Produto.MATCONTROLAESTOQUE);
-            $("#txtReferenciaCor").val(result.Produto.MATREFERENCIACOR);
-            $("#txtCaracteristica").val(result.Produto.MATCARACTERISTICA);
-            $("#txtPerfil").val(result.Produto.MATPERFILUSO);
-            $("#txtTamanhoAro").val(result.Produto.MATTAMANHOARO);
-            $("#txtMaterial ").val(result.Produto.MATLINHAMATERIAL);
-            $("#txtGrife").val(result.Produto.MATGRIFE);
-            $("#txtReferencia").val(result.Produto.MATMODELO);
-            $("#txtCorFisica").val(result.Produto.MATCORFISICA);
+            $("#ddlFornecedorID").val(_Produto.FORID);
+            $("#txtSequencial").val(_Produto.MATSEQUENCIAL);
+            $("#sslTipoProduto").val(_Produto.MATRECSOL);
+            $("#sslNCM").val(_Produto.NCMID);
+            $("#txtDescricao").val(_Produto.MATDESCRICAO);
+            $("#txtDescricaoNF").val(_Produto.MATDESCRICAOECF);
+            _Produto.MATCONTROLAEST = $("#ckcControlEstoque").prop("checked") ? 1 : 0;
+
+            _Produto.MATVENDA = $("#ckcItemVendido").prop("checked") ? 1 : 0;
+            _Produto.MATACEITANEGATIVO = $("#ckcAceitaEstoqueNegativo").prop("checked") ? 1 : 0;
+            $("#txtFantasia").val(_Produto.MATFANTASIA);
+
+
+            $("#txtMaterial").val(_Produto.TbLinha.ARLDESCRICAO);
+            $("#txtGrife").val(_Produto.TbGrife.ARGDESCRICAO);
+            $("#txtReferencia").val(_Produto.TbModelo.ARMDESCRICAO);
+            $("#txtCorFisica").val(_Produto.TbCor.ARCDESCRICAO);
+            $("#txtReferenciaCor").val(_Produto.TbCorNumerica.ACNDESCRICAO);
+            $("#txtCaracteristica").val(_Produto.TbSublinha1.AS1DESCRICAO);
+            $("#txtPerfil").val(_Produto.TbSublinha2.AS2DESCRICAO);
+            $("#txtTamanhoAro").val(_Produto.TbTamanho.ATODESCRICAO);
+
+            debugger;
+
+            var precoCusto = parseFloat(_Produto.TbMpc.MPCPRECOCUSTO);
+            var precoVenda = parseFloat(_Produto.TbMpv.MPVPRECOVENDA);
+
+            $("#txtPrecoCusto").val(precoCusto.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }));
+            $("#txtPrecoVenda").val(precoVenda.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }));
+
+            $("#txtMarkup").val(_Produto.TbMpv.MPVMARKUP);
+
             $("#txtFantasia").val(result.Produto.MATFANTASIA);
+
+
+            STATUS = 'ALTERACAO';
+            $("#aCadastro").tab('show');
+            $("#btnSalvarFormulario").css('display', 'block');
 
         },
         error: function (jqXHR, exception) {
@@ -352,8 +323,6 @@ function fnEditarProduto(idProduto) {
 
 function fnSalvarProduto() {
 
-    debugger;
-
 
     _Produto.FORID = $("#ddlFornecedorID").val();
     _Produto.MATSEQUENCIAL = $("#txtSequencial").val();
@@ -361,9 +330,10 @@ function fnSalvarProduto() {
     _Produto.NCMID = $("#sslNCM").val();
     _Produto.MATDESCRICAO = $("#txtDescricao").val();
     _Produto.MATDESCRICAOECF = $("#txtDescricaoNF").val();
-    _Produto.MATCONTROLAEST = $("#ckcControlEstoque").val();
-    _Produto.MATVENDA = $("#ckcItemVendido").val();
-    _Produto.MATACEITANEGATIVO = $("#ckcAceitaEstoqueNegativo").val();
+    _Produto.MATCONTROLAEST = $("#ckcControlEstoque").prop("checked") ? 1 : 0;
+
+    _Produto.MATVENDA = $("#ckcItemVendido").prop("checked") ? 1 : 0;
+    _Produto.MATACEITANEGATIVO = $("#ckcAceitaEstoqueNegativo").prop("checked") ? 1 : 0;
     _Produto.MATFANTASIA = $("#txtFantasia").val();
 
 
@@ -371,7 +341,7 @@ function fnSalvarProduto() {
     _Produto.TbGrife.ARGDESCRICAO = $("#txtGrife").val();
     _Produto.TbModelo.ARMDESCRICAO = $("#txtReferencia").val();
     _Produto.TbCor.ARCDESCRICAO = $("#txtCorFisica").val();
-    _Produto.TbCorNumerica.ACNDESCRICAO = $("#txtReferenciaCor").val();    
+    _Produto.TbCorNumerica.ACNDESCRICAO = $("#txtReferenciaCor").val();
     _Produto.TbSublinha1.AS1DESCRICAO = $("#txtCaracteristica").val();
     _Produto.TbSublinha2.AS2DESCRICAO = $("#txtPerfil").val();
     _Produto.TbTamanho.ATODESCRICAO = $("#txtTamanhoAro").val();
@@ -402,7 +372,7 @@ function fnSalvarProduto() {
 
         },
         success: function (result) {
-            debugger;
+    
 
             if (result == "OK" || result.result == "OK") {
 
@@ -487,7 +457,7 @@ function fnUpdate() {
 
         },
         success: function (result) {
-            debugger;
+
 
             if (result._Produto == "OK" || result._Produto == "OK") {
 
@@ -531,7 +501,7 @@ function fnListarNCM() {
 
         },
         success: function (result) {
-            debugger;
+
 
             if (result != null) {
                 var ListaNCM = result.lsNCM;
@@ -550,42 +520,6 @@ function fnListarNCM() {
         complete: function () {
         }
     });
-}
-
-function lsFornecedor() {
-
-    $.ajax({
-
-        type: "POST",
-        contentType: "application/json",
-        url: "Produto/lsDados",
-        data: {},
-        dataType: "JSON",
-        cache: false,
-        async: false,
-        beforeSend: function () {
-
-        },
-        success: function (result) {
-            debugger;
-            if (result != null) {
-                var ListaFornecedor = result.lsFornecedor;
-                var options = '<option value="0">Selecione o Fornecedor</option>';;
-
-                $.each(ListaFornecedor, function (key, val) {
-                    options += '<option value="' + val.IDFORNECEDOR + '">' + val.FORRAZAO + '</option>';
-                });
-                $("#ddlFornecedorID").html(options);
-            }
-
-        },
-        error: function (jqXHR, exception) {
-
-        },
-        complete: function () {
-        }
-    });
-
 }
 
 function fnlsFornecedorUpdate(idFornecedor) {
@@ -640,7 +574,6 @@ function fnLsNCMsUpdate(idNcm) {
         },
         success: function (result) {
 
-            debugger;
 
             if (result != null) {
                 var ListaNCM = result.lsNCM;
@@ -726,7 +659,6 @@ function fnRetornaComboFornecedores() {
 
         },
         success: function (result) {
-            debugger;
 
             if (result != null) {
 
@@ -768,7 +700,6 @@ function fnRetornaComboNCM() {
 
         },
         success: function (result) {
-            debugger;
 
             if (result != null) {
 
@@ -809,7 +740,6 @@ function fnDadosProduto() {
 
         },
         success: function (result) {
-            debugger;
 
             $("#txtSequencial").val(result.retorno);
 
@@ -821,32 +751,6 @@ function fnDadosProduto() {
     });
 }
 
-
-function fnResetTables() {
-    debugger;
-    $.ajax({
-
-        type: "GET",
-        //contentType: "application/json",
-        url: "ResetTables/ResetTables",
-        dataType: "JSON",
-        cache: false,
-        async: false,
-        beforeSend: function () {
-
-        },
-        success: function (result) {
-
-        },
-        error: function (jqXHR, exception) {
-
-        },
-        complete: function () {
-
-        }
-    });
-
-}
 
 
 

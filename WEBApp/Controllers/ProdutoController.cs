@@ -61,6 +61,31 @@ namespace WEBApp.Controllers
                 lista = sRetorno
             }, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetProdutoByID(int matid)
+        {
+            EntityProduto Produto = new EntityProduto();
+            Produto = wf.GetProdutoByID(matid);
+
+            return Json(new
+            {
+                Produto = Produto
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ListaProdutos()
+        {
+
+            List<EntityProduto> lista = new List<EntityProduto>();
+
+            lista = wf.ListaProdutos();
+
+            return Json(new
+            {
+                lista = lista
+            }, JsonRequestBehavior.AllowGet);
+        }
+    
         public JsonResult RetornaSequencial()
         {
             string retorno = wf.RetornaSequencial();

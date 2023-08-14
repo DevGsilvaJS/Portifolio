@@ -1,10 +1,11 @@
-﻿using ClassLibrary1.Outros;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UI.WEB.Query;
 
 namespace UI.WEB.WorkFlow.Outros
 {

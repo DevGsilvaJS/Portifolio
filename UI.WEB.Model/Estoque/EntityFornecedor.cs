@@ -12,6 +12,7 @@ namespace UI.WEB.Model.Estoque
         public string FORSEQUENCIAL { get; set; }
         public string FOROBSERVACAO { get; set; }
         public string FORSITE { get; set; }
+        public string FORSTATUS { get; set; }
         public EntityPessoa TbPessoa { get; set; }
         public EntityEndereco TbEndereco { get; set; }
         public EntityEmail TbEmail { get; set; }

@@ -3,4 +3,3 @@ D:\Projetos\WEBApp\UI.WEB.Model\bin\Debug\UI.WEB.Model.pdb
 D:\Projetos\WEBApp\UI.WEB.Model\obj\Debug\UI.WEB.Model.csproj.CoreCompileInputs.cache
 D:\Projetos\WEBApp\UI.WEB.Model\obj\Debug\UI.WEB.Model.dll
 D:\Projetos\WEBApp\UI.WEB.Model\obj\Debug\UI.WEB.Model.pdb
-D:\Projetos\WEBApp\UI.WEB.Model\obj\Debug\UI.WEB.Model.csproj.AssemblyReference.cache

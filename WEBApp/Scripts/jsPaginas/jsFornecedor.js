@@ -4,7 +4,6 @@ var STATUS = 'CONSULTA';
 var IDPRINCIPAL = null;
 
 $(document).ready(function () {
-
     jQueryInit();
 });
 
@@ -80,8 +79,6 @@ $(document).ready(function () {
     });
 });
 
-
-
 $("#aCadastro").click(function () {
     debugger;
     STATUS = 'INSERCAO';
@@ -95,7 +92,6 @@ $("#aCadastro").click(function () {
 $("#aLista").click(function () {
     fnLimparTela();
 })
-
 
 $("#btnBuscarCep").click(function () {
     buscaCep($("#txtValorCep").val());
