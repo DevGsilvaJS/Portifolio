@@ -25,7 +25,7 @@ namespace UI.WEB.Query.Estoque
             sb.AppendLine("         JOIN TB_MPV_MATPRECOVENDA MPV ON MPV.MATID = MAT.MATID");
             sb.AppendLine("         JOIN TB_AAT_ATRIBUTOS AAT ON AAT.MATID = MAT.MATID");
             sb.AppendLine("         JOIN TB_ARG_ATRGRIFE ARG ON ARG.ARGID = AAT.ARGID");
-            
+
 
             return sb.ToString();
         }
@@ -35,27 +35,36 @@ namespace UI.WEB.Query.Estoque
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine("SELECT");
-            sb.AppendLine("		MAT.MATID");
-            sb.AppendLine("	,	MAT.MATSEQUENCIAL");
-            sb.AppendLine("	,	MAT.MATRECSOL");
-            sb.AppendLine("	,	MAT.NCMID");
-            sb.AppendLine("	,	MAT.MATDESCRICAO");
-            sb.AppendLine("	,	MAT.MATDESCRICAOECF");
-            sb.AppendLine("	,	MAT.FORID");
-            sb.AppendLine("	,	MAT.MATCONTROLAEST");
-            sb.AppendLine("	,	MAT.MATVENDA");
+            sb.AppendLine("      MAT.MATID                     ");
+            sb.AppendLine("	,	MAT.MATSEQUENCIAL        ");
+            sb.AppendLine("	,	MAT.MATRECSOL                 ");
+            sb.AppendLine("	,	MAT.NCMID                          ");
+            sb.AppendLine("	,	MAT.MATDESCRICAO          ");
+            sb.AppendLine("	,	MAT.MATDESCRICAOECF    ");
+            sb.AppendLine("	,	MAT.FORID                            ");
+            sb.AppendLine("	,	MAT.MATCONTROLAEST    ");
+            sb.AppendLine("	,	MAT.MATVENDA                  ");
             sb.AppendLine("	,	MAT.MATACEITANEGATIVO");
-            sb.AppendLine("	,	ARL.ARLDESCRICAO");
-            sb.AppendLine("	,	ARG.ARGDESCRICAO");
-            sb.AppendLine("	,	ARM.ARMDESCRICAO");
-            sb.AppendLine("	,	ARC.ARCDESCRICAO");
-            sb.AppendLine("	,	ACN.ACNDESCRICAO");
-            sb.AppendLine("	,	AS1.AS1DESCRICAO");
-            sb.AppendLine("	,	AS2.AS2DESCRICAO");
-            sb.AppendLine("	,	ATO.ATODESCRICAO");
-            sb.AppendLine("	,	MPC.MPCPRECOCUSTO");
-            sb.AppendLine("	,	MPV.MPVPRECOVENDA");
-            sb.AppendLine("	,	MPV.MPVMARKUP");
+            sb.AppendLine("	,	AAT.AATID                             ");
+            sb.AppendLine("	,   AAT.ARLID                             ");
+            sb.AppendLine("	,	AAT.ARCID                             ");
+            sb.AppendLine("	,	AAT.ACNID                            ");
+            sb.AppendLine("	,	AAT.ARMID                           ");
+            sb.AppendLine("	,	AAT.ARGID                            ");
+            sb.AppendLine("	,	AAT.AS1ID                             ");
+            sb.AppendLine("	,	AAT.AS2ID                             ");
+            sb.AppendLine("	,	AAT.ATOID                             ");
+            sb.AppendLine("	,	ARL.ARLDESCRICAO            ");
+            sb.AppendLine("	,	ARG.ARGDESCRICAO          ");
+            sb.AppendLine("	,	ARM.ARMDESCRICAO        ");
+            sb.AppendLine("	,	ARC.ARCDESCRICAO           ");
+            sb.AppendLine("	,	ACN.ACNDESCRICAO          ");
+            sb.AppendLine("	,	AS1.AS1DESCRICAO            ");
+            sb.AppendLine("	,	AS2.AS2DESCRICAO            ");
+            sb.AppendLine("	,	ATO.ATODESCRICAO            ");
+            sb.AppendLine("	,	MPC.MPCPRECOCUSTO     ");
+            sb.AppendLine("	,	MPV.MPVPRECOVENDA     ");
+            sb.AppendLine("	,	MPV.MPVMARKUP              ");
             sb.AppendLine("	FROM TB_MAT_MATERIAL MAT");
             sb.AppendLine("	    JOIN TB_AAT_ATRIBUTOS AAT ON AAT.MATID = MAT.MATID");
             sb.AppendLine("	    JOIN TB_NCM_NCM NCM ON NCM.NCMID = MAT.NCMID");
@@ -71,8 +80,6 @@ namespace UI.WEB.Query.Estoque
             sb.AppendLine("	    JOIN TB_MPC_MATPRECOCUSTO MPC ON MPC.MATID = MAT.MATID");
             sb.AppendLine("	    JOIN TB_MPV_MATPRECOVENDA MPV ON MPV.MPVID = MAT.MATID");
             sb.AppendLine("    WHERE MAT.MATID = @MATID");
-
-
 
             return sb.ToString();
         }

@@ -49,7 +49,7 @@ $(document).ready(function () {
                 fnListaDados();
                 break;
             case 'ALTERACAO':
-                fnAtualizarVendedor();
+                fnSalvarProduto();
                 $("#aLista").tab('show');
                 fnListaDados();
                 break;

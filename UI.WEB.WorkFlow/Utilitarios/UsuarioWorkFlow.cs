@@ -63,9 +63,9 @@ namespace WorkFlow.Utilitarios
                 AddListaSalvar(RetornaQueryUpdate(_ObjUsuario, "TB_USU_USUARIO"));
 
 
-                bool telefone = RetornaObjeto("TB_TEL_TELEFONE", "PESID", _ObjUsuario.TbTelefone.PESID);
+                string telefone = RetornaObjeto("TB_TEL_TELEFONE", "PESID", _ObjUsuario.TbTelefone.PESID);
 
-                if (telefone)
+                if (!string.IsNullOrEmpty(telefone))
                 {
                     _ObjUsuario.TbTelefone.PESID = _ObjUsuario.PESID;
                     AddListaSalvar(RetornaQueryUpdate(_ObjUsuario.TbTelefone, "TB_TEL_TELEFONE"));
@@ -78,9 +78,9 @@ namespace WorkFlow.Utilitarios
                     AddListaSalvar(RetornaQueryInclusao(_ObjUsuario.TbTelefone, "TB_TEL_TELEFONE"));
                 }
 
-                bool email = RetornaObjeto("TB_EML_EMAIL", "PESID", _ObjUsuario.PESID);
+                string sEmail = RetornaObjeto("TB_EML_EMAIL", "PESID", _ObjUsuario.PESID);
 
-                if (email)
+                if (!string.IsNullOrEmpty(sEmail))
                 {
                     _ObjUsuario.TbEmail.PESID = _ObjUsuario.PESID;
                     AddListaSalvar(RetornaQueryUpdate(_ObjUsuario.TbEmail, "TB_EML_EMAIL"));
@@ -206,17 +206,17 @@ namespace WorkFlow.Utilitarios
         }
         public string DeletarUsuario(int pesid)
         {
-            bool retornaEmail = RetornaObjeto("TB_EML_EMAIL", "PESID", pesid);
+            string sRetornoEmail = RetornaObjeto("TB_EML_EMAIL", "PESID", pesid);
 
-            if (retornaEmail)
+            if (!string.IsNullOrEmpty(sRetornoEmail))
             {
                 string email = RetornaQueryDelete("TB_EML_EMAIL", "PESID", pesid);
                 AddListaSalvar(email);
             }
 
-            bool retornaTelefone = RetornaObjeto("TB_TEL_TELEFONE", "PESID", pesid);
+            string sRetornaTelefone = RetornaObjeto("TB_TEL_TELEFONE", "PESID", pesid);
 
-            if (retornaTelefone)
+            if (!string.IsNullOrEmpty(sRetornaTelefone))
             {
                 string telefone = RetornaQueryDelete("TB_TEL_TELEFONE", "PESID", pesid);
                 AddListaSalvar(telefone);

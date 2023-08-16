@@ -21,67 +21,93 @@ namespace UI.WEB.WorkFlow.Estoque
         public string GravarProduto(EntityProduto objProduto)
         {
 
-            objProduto.TbLinha.ARLID = RetornaSequencial("SEQ_ARL");
-            objProduto.TbLinha.ARLSTATUS = '1'.ToString();
-            AddListaSalvar(RetornaQueryInclusao(objProduto.TbLinha, "TB_ARL_ATRLINHAPROD"));
+            if (objProduto.MATID > 0)
+            {
+                AddListaSalvar(RetornaQueryUpdate(objProduto, "TB_MAT_MATERIAL"));
+                objProduto.TbAtributos.MATID = objProduto.MATID;
+                AddListaSalvar(RetornaQueryUpdate(objProduto.TbAtributos, "TB_AAT_ATRIBUTOS"));
 
-            objProduto.TbGrife.ARGID = RetornaSequencial("SEQ_ARG");
-            objProduto.TbGrife.ARGSTATUS = '1'.ToString();
-            AddListaSalvar(RetornaQueryInclusao(objProduto.TbGrife, "TB_ARG_ATRGRIFE"));
+                string bLinha = RetornaObjeto("TB_ARL_ATRLINHAPROD", "ARLDESCRICAO", objProduto.TbLinha.ARLDESCRICAO);
 
-            objProduto.TbModelo.ARMID = RetornaSequencial("SEQ_ARM");
-            objProduto.TbModelo.ARMSTATUS = '1'.ToString();
-            AddListaSalvar(RetornaQueryInclusao(objProduto.TbModelo, "TB_ARM_ATRMODELO"));
+                if (!string.IsNullOrEmpty(bLinha))
+                {
+               
+                }
 
-            objProduto.TbCor.ARCID = RetornaSequencial("SEQ_ARC");
-            objProduto.TbCor.ARCSTATUS = '1'.ToString();
-            AddListaSalvar(RetornaQueryInclusao(objProduto.TbCor, "TB_ARC_ATRCOR"));
+                AddListaSalvar(RetornaQueryUpdate(objProduto.TbLinha, "TB_ARL_ATRLINHAPROD"));
+                AddListaSalvar(RetornaQueryUpdate(objProduto.TbGrife, "TB_ARG_ATRGRIFE"));
+                AddListaSalvar(RetornaQueryUpdate(objProduto.TbModelo, "TB_ARM_ATRMODELO"));
+                AddListaSalvar(RetornaQueryUpdate(objProduto.TbCor, "TB_ARC_ATRCOR"));
+                AddListaSalvar(RetornaQueryUpdate(objProduto.TbCorNumerica, "TB_ACN_ATRCORNUMERICA"));
+                AddListaSalvar(RetornaQueryUpdate(objProduto.TbSublinha1, "TB_AS1_ATRSUBLINHA1"));
+                AddListaSalvar(RetornaQueryUpdate(objProduto.TbSublinha2, "TB_AS2_ATRSUBLINHA2"));
+                AddListaSalvar(RetornaQueryUpdate(objProduto.TbTamanho, "TB_ATO_ATRTAMANHO"));
+                AddListaSalvar(RetornaQueryUpdate(objProduto.TbMpc, "TB_MPC_MATPRECOCUSTO"));
+                AddListaSalvar(RetornaQueryUpdate(objProduto.TbMpv, "TB_MPV_MATPRECOVENDA"));
+            }
+            else
+            {
+                objProduto.TbLinha.ARLID = RetornaSequencial("SEQ_ARL");
+                objProduto.TbLinha.ARLSTATUS = '1'.ToString();
+                AddListaSalvar(RetornaQueryInclusao(objProduto.TbLinha, "TB_ARL_ATRLINHAPROD"));
 
-            objProduto.TbCorNumerica.ACNID = RetornaSequencial("SEQ_ACN");
-            objProduto.TbCorNumerica.ACNSTATUS = '1'.ToString();
-            AddListaSalvar(RetornaQueryInclusao(objProduto.TbCorNumerica, "TB_ACN_ATRCORNUMERICA"));
+                objProduto.TbGrife.ARGID = RetornaSequencial("SEQ_ARG");
+                objProduto.TbGrife.ARGSTATUS = '1'.ToString();
+                AddListaSalvar(RetornaQueryInclusao(objProduto.TbGrife, "TB_ARG_ATRGRIFE"));
 
-            objProduto.TbSublinha1.AS1ID = RetornaSequencial("SEQ_AS1");
-            objProduto.TbSublinha1.AS1STATUS = '1'.ToString();
-            AddListaSalvar(RetornaQueryInclusao(objProduto.TbSublinha1, "TB_AS1_ATRSUBLINHA1"));
+                objProduto.TbModelo.ARMID = RetornaSequencial("SEQ_ARM");
+                objProduto.TbModelo.ARMSTATUS = '1'.ToString();
+                AddListaSalvar(RetornaQueryInclusao(objProduto.TbModelo, "TB_ARM_ATRMODELO"));
 
-            objProduto.TbSublinha2.AS2ID = RetornaSequencial("SEQ_AS2");
-            objProduto.TbSublinha2.AS2STATUS = '1'.ToString();
-            AddListaSalvar(RetornaQueryInclusao(objProduto.TbSublinha2, "TB_AS2_ATRSUBLINHA2"));
+                objProduto.TbCor.ARCID = RetornaSequencial("SEQ_ARC");
+                objProduto.TbCor.ARCSTATUS = '1'.ToString();
+                AddListaSalvar(RetornaQueryInclusao(objProduto.TbCor, "TB_ARC_ATRCOR"));
 
-            objProduto.TbTamanho.ATOID = RetornaSequencial("SEQ_ATO");
-            objProduto.TbTamanho.ATOSTATUS = '1'.ToString();
-            AddListaSalvar(RetornaQueryInclusao(objProduto.TbTamanho, "TB_ATO_ATRTAMANHO"));
+                objProduto.TbCorNumerica.ACNID = RetornaSequencial("SEQ_ACN");
+                objProduto.TbCorNumerica.ACNSTATUS = '1'.ToString();
+                AddListaSalvar(RetornaQueryInclusao(objProduto.TbCorNumerica, "TB_ACN_ATRCORNUMERICA"));
 
+                objProduto.TbSublinha1.AS1ID = RetornaSequencial("SEQ_AS1");
+                objProduto.TbSublinha1.AS1STATUS = '1'.ToString();
+                AddListaSalvar(RetornaQueryInclusao(objProduto.TbSublinha1, "TB_AS1_ATRSUBLINHA1"));
 
-            objProduto.MATID = RetornaSequencial("SEQ_MAT");
-            objProduto.MATDTCADASTRO = DateTime.Now.ToString();
-            AddListaSalvar(RetornaQueryInclusao(objProduto, "TB_MAT_MATERIAL"));
+                objProduto.TbSublinha2.AS2ID = RetornaSequencial("SEQ_AS2");
+                objProduto.TbSublinha2.AS2STATUS = '1'.ToString();
+                AddListaSalvar(RetornaQueryInclusao(objProduto.TbSublinha2, "TB_AS2_ATRSUBLINHA2"));
 
-            objProduto.TbAtributos.MATID = objProduto.MATID;
-            objProduto.TbAtributos.ARLID = objProduto.TbLinha.ARLID;
-            objProduto.TbAtributos.ARCID = objProduto.TbCor.ARCID;
-            objProduto.TbAtributos.ACNID = objProduto.TbCorNumerica.ACNID;
-            objProduto.TbAtributos.ARMID = objProduto.TbModelo.ARMID;
-            objProduto.TbAtributos.ARGID = objProduto.TbGrife.ARGID;
-            objProduto.TbAtributos.AS1ID = objProduto.TbSublinha1.AS1ID;
-            objProduto.TbAtributos.AS2ID = objProduto.TbSublinha2.AS2ID;
-            objProduto.TbAtributos.ATOID = objProduto.TbTamanho.ATOID;
+                objProduto.TbTamanho.ATOID = RetornaSequencial("SEQ_ATO");
+                objProduto.TbTamanho.ATOSTATUS = '1'.ToString();
+                AddListaSalvar(RetornaQueryInclusao(objProduto.TbTamanho, "TB_ATO_ATRTAMANHO"));
 
 
-            AddListaSalvar(RetornaQueryInclusao(objProduto.TbAtributos, "TB_AAT_ATRIBUTOS"));
+                objProduto.MATID = RetornaSequencial("SEQ_MAT");
+                objProduto.MATDTCADASTRO = DateTime.Now.ToString();
+                AddListaSalvar(RetornaQueryInclusao(objProduto, "TB_MAT_MATERIAL"));
+
+                objProduto.TbAtributos.MATID = objProduto.MATID;
+                objProduto.TbAtributos.ARLID = objProduto.TbLinha.ARLID;
+                objProduto.TbAtributos.ARCID = objProduto.TbCor.ARCID;
+                objProduto.TbAtributos.ACNID = objProduto.TbCorNumerica.ACNID;
+                objProduto.TbAtributos.ARMID = objProduto.TbModelo.ARMID;
+                objProduto.TbAtributos.ARGID = objProduto.TbGrife.ARGID;
+                objProduto.TbAtributos.AS1ID = objProduto.TbSublinha1.AS1ID;
+                objProduto.TbAtributos.AS2ID = objProduto.TbSublinha2.AS2ID;
+                objProduto.TbAtributos.ATOID = objProduto.TbTamanho.ATOID;
+
+
+                AddListaSalvar(RetornaQueryInclusao(objProduto.TbAtributos, "TB_AAT_ATRIBUTOS"));
 
 
 
-            objProduto.TbMpv.MPVID = RetornaSequencial("SEQ_MPV");
-            objProduto.TbMpv.MATID = objProduto.MATID;
-            AddListaSalvar(RetornaQueryInclusao(objProduto.TbMpv, "TB_MPV_MATPRECOVENDA"));
+                objProduto.TbMpv.MPVID = RetornaSequencial("SEQ_MPV");
+                objProduto.TbMpv.MATID = objProduto.MATID;
+                AddListaSalvar(RetornaQueryInclusao(objProduto.TbMpv, "TB_MPV_MATPRECOVENDA"));
 
-            objProduto.TbMpc.MPCID = RetornaSequencial("SEQ_MPC");
-            objProduto.TbMpc.MATID = objProduto.MATID;
-            AddListaSalvar(RetornaQueryInclusao(objProduto.TbMpc, "TB_MPC_MATPRECOCUSTO"));
-            AddListaSalvar("UPDATE TB_PRV_PARAMETROVALOR SET PRVVALOR = PRVVALOR + 1 WHERE PRVCAMPO = 'ARMACAO'");
-
+                objProduto.TbMpc.MPCID = RetornaSequencial("SEQ_MPC");
+                objProduto.TbMpc.MATID = objProduto.MATID;
+                AddListaSalvar(RetornaQueryInclusao(objProduto.TbMpc, "TB_MPC_MATPRECOCUSTO"));
+                AddListaSalvar("UPDATE TB_PRV_PARAMETROVALOR SET PRVVALOR = PRVVALOR + 1 WHERE PRVCAMPO = 'ARMACAO'");
+            }
             string sRetorno = ExecuteTransacao();
 
             return sRetorno;
@@ -130,7 +156,6 @@ namespace UI.WEB.WorkFlow.Estoque
             db.FechaConexao(db.MinhaConexao());
             return retorno;
         }
-
         public EntityProduto GetProdutoByID (int matid)
         {
             EntityProduto Produto = new EntityProduto();
@@ -149,6 +174,7 @@ namespace UI.WEB.WorkFlow.Estoque
             {
                 while (dr.Read())
                 {
+
                     Produto.MATID = int.Parse(dr["MATID"].ToString());
                     Produto.MATSEQUENCIAL = dr["MATSEQUENCIAL"].ToString();
                     Produto.MATRECSOL = dr["MATRECSOL"].ToString();

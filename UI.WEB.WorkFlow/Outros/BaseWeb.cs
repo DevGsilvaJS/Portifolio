@@ -95,7 +95,7 @@ namespace UI.WEB.WorkFlow.Outros
                 {
                     continue;
                 }
-                if (updateCommand.Length >= 2 && propertyName.ToString().EndsWith("ID"))
+                if (updateCommand.Length >= 2 && propertyName.EndsWith("ID") && propertyValue != null && !propertyValue.Equals(0))
                 {
                     where = " WHERE " + propertyName + " = " + propertyValue;
                 }
@@ -235,9 +235,12 @@ namespace UI.WEB.WorkFlow.Outros
                 return retorno;
             }
         }
-        public bool RetornaObjeto(string tableName, string columnName, object value)
+        public string RetornaObjeto(string tableName, string columnName, object value)
         {
-            string query = $"SELECT 1 FROM {tableName} WHERE {columnName} =" + value;
+            string query = $"SELECT {tableName.Substring(3, 3)}ID FROM {tableName} WHERE {columnName} = '{value}'";
+
+            string campo = $"{tableName.Substring(3, 3)}ID";
+            string sRetorno = "";
 
             SqlCommand _Comando = new SqlCommand(query, _Conexao.MinhaConexao());
             _Comando.CommandType = CommandType.Text;
@@ -245,9 +248,9 @@ namespace UI.WEB.WorkFlow.Outros
 
             if (dr.Read())
             {
-                return true; // O valor existe na tabela
+                sRetorno = dr[campo].ToString();
             }
-            return false;  // O valor não existe na tabela
+            return sRetorno;  // O valor não existe na tabela
         }
 
     }

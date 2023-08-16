@@ -48,9 +48,9 @@ namespace UI.WEB.WorkFlow.Estoque
                     AddListaSalvar(RetornaQueryUpdate(ObjFornecedor.TbPessoa, "TB_PES_PESSOA"));
                     AddListaSalvar(RetornaQueryUpdate(ObjFornecedor, "TB_FOR_FORNECEDOR"));
 
-                    bool bEndereco = RetornaObjeto("TB_EDN_ENDERECO", "PESID", ObjFornecedor.TbPessoa.PESID);
+                    string sEndereco = RetornaObjeto("TB_EDN_ENDERECO", "PESID", ObjFornecedor.TbPessoa.PESID);
 
-                    if (bEndereco)
+                    if (!string.IsNullOrEmpty(sEndereco))
                     {
                         AddListaSalvar(RetornaQueryUpdate(ObjFornecedor.TbEndereco, "TB_EDN_ENDERECO"));
                     }
@@ -62,9 +62,9 @@ namespace UI.WEB.WorkFlow.Estoque
                         }
                     }
 
-                    bool bTelefone = RetornaObjeto("TB_TEL_TELEFONE", "PESID", ObjFornecedor.TbPessoa.PESID);
+                    string sTelefone = RetornaObjeto("TB_TEL_TELEFONE", "PESID", ObjFornecedor.TbPessoa.PESID);
 
-                    if (bTelefone)
+                    if (!string.IsNullOrEmpty(sTelefone))
                     {
                         AddListaSalvar(RetornaQueryUpdate(ObjFornecedor.TbTelefone, "TB_TEL_TELEFONE"));
                     }
@@ -76,9 +76,9 @@ namespace UI.WEB.WorkFlow.Estoque
                         }
                     }
 
-                    bool bEmail = RetornaObjeto("TB_EML_EMAIL", "PESID", ObjFornecedor.TbPessoa.PESID);
+                    string sEmail = RetornaObjeto("TB_EML_EMAIL", "PESID", ObjFornecedor.TbPessoa.PESID);
 
-                    if (bEmail)
+                    if (!string.IsNullOrEmpty(sEmail))
                     {
                         AddListaSalvar(RetornaQueryUpdate(ObjFornecedor.TbEmail, "TB_EML_EMAIL"));
                     }
@@ -179,36 +179,36 @@ namespace UI.WEB.WorkFlow.Estoque
         {
             string sRetorno = "NOTOK";
 
-            bool bEmail = RetornaObjeto("TB_EML_EMAIL", "PESID", idFornecedor);
+            string sEmail = RetornaObjeto("TB_EML_EMAIL", "PESID", idFornecedor);
 
-            if (bEmail)
+            if (!string.IsNullOrEmpty(sEmail))
             {
                 string sQueryEmail = RetornaQueryDelete("TB_EML_EMAIL", "PESID", idFornecedor);
                 AddListaSalvar(sQueryEmail);
             }
 
-            bool bTelefone = RetornaObjeto("TB_TEL_TELEFONE", "PESID", idFornecedor);
+            string sTelefone = RetornaObjeto("TB_TEL_TELEFONE", "PESID", idFornecedor);
 
-            if (bTelefone)
+            if (!string.IsNullOrEmpty(sTelefone))
             {
                 string sQueryTelefone = RetornaQueryDelete("TB_TEL_TELEFONE", "PESID", idFornecedor);
                 AddListaSalvar(sQueryTelefone);
             }
 
-            bool bEndereco = RetornaObjeto("TB_EDN_ENDERECO", "PESID", idFornecedor);
+            string sEndereco = RetornaObjeto("TB_EDN_ENDERECO", "PESID", idFornecedor);
 
-            if (bEndereco)
+            if (!string.IsNullOrEmpty(sEndereco))
             {
                 string sQueryEndereco = RetornaQueryDelete("TB_EDN_ENDERECO", "PESID", idFornecedor);
                 AddListaSalvar(sQueryEndereco);
             }
 
-            bool bFornecedor = RetornaObjeto("TB_FOR_FORNECEDOR", "PESID", idFornecedor);
+            string sFornecedor = RetornaObjeto("TB_FOR_FORNECEDOR", "PESID", idFornecedor);
 
-            if (bFornecedor)
+            if (!string.IsNullOrEmpty(sFornecedor))
             {
-                string sFornecedor = RetornaQueryDelete("TB_FOR_FORNECEDOR", "PESID", idFornecedor);
-                AddListaSalvar(sFornecedor);
+                string sQueryFornecedor = RetornaQueryDelete("TB_FOR_FORNECEDOR", "PESID", idFornecedor);
+                AddListaSalvar(sQueryFornecedor);
 
                 string sPessoa = RetornaQueryDelete("TB_PES_PESSOA", "PESID", idFornecedor);
                 AddListaSalvar(sPessoa);
