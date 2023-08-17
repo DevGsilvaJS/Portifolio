@@ -75,17 +75,13 @@ namespace UI.WEB.WorkFlow.Vendas.TabelasAuxiliares
             }
             else
             {
-                _ObjVendedor.TbPessoa.PESID = RetornaSequencial("SEQ_PES");
-                AddListaSalvar(RetornaQueryInclusao(_ObjVendedor.TbPessoa, "TB_PES_PESSOA"));
 
-                _ObjVendedor.VNDID = RetornaSequencial("SEQ_VEN");
+                AddListaSalvar(RetornaQueryInclusao(_ObjVendedor.TbPessoa, "TB_PES_PESSOA"));
                 _ObjVendedor.PESID = _ObjVendedor.TbPessoa.PESID;
                 AddListaSalvar(RetornaQueryInclusao(_ObjVendedor, "TB_VND_VENDEDOR"));
 
-
                 if (_ObjVendedor.TbEndereco.EDNCEP != null)
                 {
-                    _ObjVendedor.TbEndereco.EDNID = RetornaSequencial("SEQ_EDN");
                     _ObjVendedor.TbEndereco.PESID = _ObjVendedor.TbPessoa.PESID;
                     AddListaSalvar(RetornaQueryInclusao(_ObjVendedor.TbEndereco, "TB_EDN_ENDERECO"));
                 }
@@ -93,19 +89,17 @@ namespace UI.WEB.WorkFlow.Vendas.TabelasAuxiliares
 
                 if (_ObjVendedor.TbTelefone.TELNUMERO != null || _ObjVendedor.TbTelefone.TELCELULAR != null)
                 {
-                    _ObjVendedor.TbTelefone.TELID = RetornaSequencial("SEQ_TEL");
                     _ObjVendedor.TbTelefone.PESID = _ObjVendedor.TbPessoa.PESID;
                     AddListaSalvar(RetornaQueryInclusao(_ObjVendedor.TbTelefone, "TB_TEL_TELEFONE"));
                 }
 
                 if (_ObjVendedor.TbEmail.EMLEMAIL != null)
                 {
-                    _ObjVendedor.TbEmail.EMLID = RetornaSequencial("SEQ_EML");
-                    _ObjVendedor.TbEmail.EMLID = _ObjVendedor.TbPessoa.PESID;
+                    _ObjVendedor.TbEmail.PESID = _ObjVendedor.TbPessoa.PESID;
                     AddListaSalvar(RetornaQueryInclusao(_ObjVendedor.TbEmail, "TB_EML_EMAIL"));
                 }
 
-                AddListaSalvar("UPDATE TB_PRV_PARAMETROSVALOR SET PRVVALOR = PRVVALOR + 1 WHERE PRVCAMPO = 'VENDEDOR'");
+                AddListaSalvar("UPDATE TB_PRV_PARAMETROVALOR SET PRVVALOR = PRVVALOR + 1 WHERE PRVCAMPO = 'VENDEDOR'");
             }
 
             ExecuteTransacao();
@@ -297,7 +291,7 @@ namespace UI.WEB.WorkFlow.Vendas.TabelasAuxiliares
         public string RetornaSequencial()
         {
             string retorno = "";
-            string query = "SELECT PRV.PRVVALOR FROM TB_PRV_PARAMETROSVALOR PRV WHERE PRV.PRVCAMPO = 'VENDEDOR'";
+            string query = "SELECT PRV.PRVVALOR FROM TB_PRV_PARAMETROVALOR PRV WHERE PRV.PRVCAMPO = 'VENDEDOR'";
 
             SqlCommand Comando = new SqlCommand(query, db.MinhaConexao());
             Comando.CommandType = CommandType.Text;

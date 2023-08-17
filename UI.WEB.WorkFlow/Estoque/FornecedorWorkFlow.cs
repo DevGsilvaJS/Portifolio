@@ -93,40 +93,32 @@ namespace UI.WEB.WorkFlow.Estoque
 
                 else
                 {
-                    ObjFornecedor.TbPessoa.PESID = RetornaSequencial("SEQ_PES");
                     AddListaSalvar(RetornaQueryInclusao(ObjFornecedor.TbPessoa, "TB_PES_PESSOA"));
                     ObjFornecedor.PESID = ObjFornecedor.TbPessoa.PESID;
 
-
-                    ObjFornecedor.FORID = RetornaSequencial("SEQ_FOR");
                     ObjFornecedor.PESID = ObjFornecedor.TbPessoa.PESID;
                     ObjFornecedor.FORSTATUS = "1";
                     AddListaSalvar(RetornaQueryInclusao(ObjFornecedor, "TB_FOR_FORNECEDOR"));
 
                     if (!string.IsNullOrEmpty(ObjFornecedor.TbEmail.EMLEMAIL))
                     {
-                        ObjFornecedor.TbEmail.EMLID = RetornaSequencial("SEQ_EML");
                         ObjFornecedor.TbEmail.PESID = ObjFornecedor.TbPessoa.PESID;
                         AddListaSalvar(RetornaQueryInclusao(ObjFornecedor.TbEmail, "TB_EML_EMAIL"));
                     }
 
                     if (!string.IsNullOrEmpty(ObjFornecedor.TbTelefone.TELNUMERO) || !string.IsNullOrEmpty(ObjFornecedor.TbTelefone.TELCELULAR))
                     {
-                        ObjFornecedor.TbTelefone.TELID = RetornaSequencial("SEQ_TEL");
                         ObjFornecedor.TbTelefone.PESID = ObjFornecedor.TbPessoa.PESID;
                         AddListaSalvar(RetornaQueryInclusao(ObjFornecedor.TbTelefone, "TB_TEL_TELEFONE"));
                     }
 
                     if (!string.IsNullOrEmpty(ObjFornecedor.TbEndereco.EDNLOGRADOURO))
                     {
-                        ObjFornecedor.TbEndereco.EDNID = RetornaSequencial("SEQ_EDN");
                         ObjFornecedor.TbEndereco.PESID = ObjFornecedor.TbPessoa.PESID;
                         AddListaSalvar(RetornaQueryInclusao(ObjFornecedor.TbEndereco, "TB_EDN_ENDERECO"));
                     }
 
                     AddListaSalvar("UPDATE TB_PRV_PARAMETROVALOR SET PRVVALOR = PRVVALOR + 1 WHERE PRVCAMPO = 'FORNECEDOR'");
-
-
                 }
                 sRetorno = ExecuteTransacao();
             }

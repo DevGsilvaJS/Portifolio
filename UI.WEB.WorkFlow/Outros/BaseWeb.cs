@@ -20,17 +20,14 @@ namespace UI.WEB.WorkFlow.Outros
         public string RetornaQueryInclusao(object entity, string Tabela)
         {
 
-            // Cria uma instância do StringBuilder para construir o script de inserção
             var insertScriptBuilder = new StringBuilder();
             string inicioPropriedade = Tabela.Substring(3, 3);
+            int valueID = 0;
 
-            // Adiciona o nome da tabela ao script
             insertScriptBuilder.Append($"INSERT INTO {Tabela} (");
 
-            // Obtém as propriedades do objeto
             PropertyInfo[] propriedades = entity.GetType().GetProperties();
 
-            // Adiciona o nome das colunas ao script
             for (int i = 0; i < propriedades.Length; i++)
             {
                 if (propriedades[i].GetCustomAttribute<ColumnAttribute>() != null)
@@ -39,17 +36,24 @@ namespace UI.WEB.WorkFlow.Outros
                 }
                 else
                 {
-                    if (propriedades[i].Name.Contains(inicioPropriedade) || propriedades[i].Name.Contains("ID"))
+                    if (propriedades[i].Name.Contains("ID") && propriedades[i].Name.Contains(inicioPropriedade) && i == 0)
+                    {
+                        valueID = RetornaSequencial(propriedades[i].Name);
+                        propriedades[i].SetValue(entity, valueID);
+                    }
+
+                    if (propriedades[i].Name.Contains(inicioPropriedade))
+                    {
+                        insertScriptBuilder.Append($"{propriedades[i].Name}, ");
+                    }
+                    else if (propriedades[i].Name.Contains("ID") && propriedades[i].Name.Length == 5)
                     {
                         insertScriptBuilder.Append($"{propriedades[i].Name}, ");
                     }
                 }
             }
-
-            // Remove a vírgula extra no final da lista de colunas
             insertScriptBuilder.Length -= 2;
 
-            // Adiciona os valores ao script
             insertScriptBuilder.Append(") VALUES (");
             for (int i = 0; i < propriedades.Length; i++)
             {
@@ -61,6 +65,12 @@ namespace UI.WEB.WorkFlow.Outros
                     insertScriptBuilder.Append($"{formattedValue}, ");
                 }
 
+                else if (value.GetType() == typeof(int) && i == 0)
+                {
+                    insertScriptBuilder.Append($"{valueID}, ");
+                }
+
+
                 else if (value.GetType() == typeof(string) || value.GetType() == typeof(int) || value == null)
                 {
                     string formattedValue = FormatValue(value);
@@ -68,11 +78,9 @@ namespace UI.WEB.WorkFlow.Outros
                 }
             }
 
-            // Remove a vírgula extra no final da lista de valores e adiciona o ponto-e-vírgula
             insertScriptBuilder.Length -= 2;
             insertScriptBuilder.Append(")" + " SELECT SCOPE_IDENTITY()");
 
-            // Retorna o script de inserção como uma string
             return insertScriptBuilder.ToString();
         }
         public string RetornaQueryUpdate(object obj, string tableName)
@@ -197,16 +205,15 @@ namespace UI.WEB.WorkFlow.Outros
         {
             EntitiesCliente _usu = new EntitiesCliente();
 
-            SqlCommand command = new SqlCommand($"SELECT NEXT VALUE FOR {SEQ}", _Conexao.MinhaConexao());
+            SqlCommand command = new SqlCommand($"SELECT NEXT VALUE FOR SEQ_{SEQ.Substring(0, 3)}", _Conexao.MinhaConexao());
 
             object nextValue = command.ExecuteScalar();
 
             int sequencial = Convert.ToInt32(nextValue);
 
-
             return sequencial;
         }
-        public void AddListaSalvar(string indice)
+        public void AddListaSalvar(string indice, string seq = "")
         {
             listaSalvar.Add(indice);
         }
@@ -218,7 +225,6 @@ namespace UI.WEB.WorkFlow.Outros
             {
                 try
                 {
-
                     foreach (string insert in listaSalvar)
                     {
                         _Comando = new SqlCommand(insert, _Conexao.MinhaConexao());
