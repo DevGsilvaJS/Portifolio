@@ -116,6 +116,7 @@ namespace UI.WEB.WorkFlow.Outros
             lista.Add(Query.InsertTableParametrosQuery());
             lista.Add(Query.InsertTablesCentroCustoQuery());
             lista.Add(Query.InsertTablesPlanoContasQuery());
+            lista.Add(Query.InsertTablesTipoVendaQuery());
 
             foreach (var item in lista)
             {

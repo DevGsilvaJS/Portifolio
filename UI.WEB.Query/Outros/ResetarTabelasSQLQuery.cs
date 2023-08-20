@@ -182,10 +182,11 @@ namespace UI.WEB.Query
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.AppendLine("    CREATE TABLE TB_TPV_TIPOVENDA(");
-            sb.AppendLine("   TPVID int,");
-            sb.AppendLine("   TPVDEFAULTVENDA char(1),");
-            sb.AppendLine("   PRIMARY KEY(TPVID))");
+            sb.AppendLine("CREATE TABLE TB_TPV_TIPOVENDA(");
+            sb.AppendLine("TPVID int,");
+            sb.AppendLine("TPVDESCRICAO varchar(30),");
+            sb.AppendLine("TPVDEFAULTVENDA char(1)");
+            sb.AppendLine("PRIMARY KEY(TPVID))");
 
             return sb.ToString();
         }
@@ -450,6 +451,19 @@ namespace UI.WEB.Query
             sb.AppendLine("INSERT INTO TB_PCT_PLANOCONTAS(PCTID, PCTDESCRICAO, PCTSTATUS, PCTTIPO) VALUES (NEXT VALUE FOR SEQ_PCT, 'INCLUSAO CREDITO CLIENTE',1, 'R')");
             sb.AppendLine("INSERT INTO TB_PCT_PLANOCONTAS(PCTID, PCTDESCRICAO, PCTSTATUS, PCTTIPO) VALUES (NEXT VALUE FOR SEQ_PCT, 'TRANSFERENCIA DE CREDITO',1, 'R')");
             sb.AppendLine("INSERT INTO TB_PCT_PLANOCONTAS(PCTID, PCTDESCRICAO, PCTSTATUS, PCTTIPO) VALUES (NEXT VALUE FOR SEQ_PCT, 'RECEITAS',1, 'R')");
+
+            return sb.ToString();
+        }
+
+        public string InsertTablesTipoVendaQuery()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("INSERT INTO TB_TPV_TIPOVENDA(TPVID, TPVDESCRICAO, TPVDEFAULTVENDA) VALUES(NEXT VALUE FOR SEQ_TPV, 'VENDA', '1')");
+            sb.AppendLine("INSERT INTO TB_TPV_TIPOVENDA(TPVID, TPVDESCRICAO, TPVDEFAULTVENDA) VALUES(NEXT VALUE FOR SEQ_TPV, 'TROCA', '0')");
+            sb.AppendLine("INSERT INTO TB_TPV_TIPOVENDA(TPVID, TPVDESCRICAO, TPVDEFAULTVENDA) VALUES(NEXT VALUE FOR SEQ_TPV, 'BRINDE/CORTERIA', '0') ");
+            sb.AppendLine("INSERT INTO TB_TPV_TIPOVENDA(TPVID, TPVDESCRICAO, TPVDEFAULTVENDA) VALUES(NEXT VALUE FOR SEQ_TPV, 'GARANTIA', '0')");
+            sb.AppendLine("INSERT INTO TB_TPV_TIPOVENDA(TPVID, TPVDESCRICAO, TPVDEFAULTVENDA) VALUES(NEXT VALUE FOR SEQ_TPV, 'ORCAMENTO', '0')");
 
             return sb.ToString();
         }

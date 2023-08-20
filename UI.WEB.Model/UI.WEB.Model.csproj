@@ -83,6 +83,7 @@
     <Compile Include="Vendas\TabelasAuxiliares\EntityConvenio.cs" />
     <Compile Include="Vendas\TabelasAuxiliares\EntityIndicacao.cs" />
     <Compile Include="Vendas\TabelasAuxiliares\EntityLojas.cs" />
+    <Compile Include="Vendas\TabelasAuxiliares\EntityTipoVenda.cs" />
     <Compile Include="Vendas\TabelasAuxiliares\EntityVendedor.cs" />
   </ItemGroup>
   <ItemGroup />
