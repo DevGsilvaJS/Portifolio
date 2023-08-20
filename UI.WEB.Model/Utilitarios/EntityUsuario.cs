@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,6 +8,8 @@ using UI.WEB.Model.Outros;
 
 namespace UI.WEB.Model.Utilitarios
 {
+
+    [Table("TB_USU_USUARIO")]
     public class EntityUsuario
     {
         public int USUID { get; set; }

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace UI.WEB.Model.Outros
 {
+    [Table("TB_TEL_TELEFONE")]
     public class EntityTelefone
     {
         public int TELID { get; set; }

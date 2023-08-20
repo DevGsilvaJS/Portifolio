@@ -13,7 +13,6 @@ namespace UI.WEB.WorkFlow.Estoque
     public class FornecedorWorkFlow : BaseWeb
     {
         DBComando db = new DBComando();
-
         public EntityFornecedor RetornaObjInclusao()
         {
             EntityFornecedor obj = new EntityFornecedor();
@@ -45,20 +44,20 @@ namespace UI.WEB.WorkFlow.Estoque
             {
                 if (ObjFornecedor.TbPessoa.PESID > 0)
                 {
-                    AddListaSalvar(RetornaQueryUpdate(ObjFornecedor.TbPessoa, "TB_PES_PESSOA"));
-                    AddListaSalvar(RetornaQueryUpdate(ObjFornecedor, "TB_FOR_FORNECEDOR"));
+                    AddListaAtualizar(ObjFornecedor.TbPessoa);
+                    AddListaAtualizar(ObjFornecedor);
 
                     string sEndereco = RetornaObjeto("TB_EDN_ENDERECO", "PESID", ObjFornecedor.TbPessoa.PESID);
 
                     if (!string.IsNullOrEmpty(sEndereco))
                     {
-                        AddListaSalvar(RetornaQueryUpdate(ObjFornecedor.TbEndereco, "TB_EDN_ENDERECO"));
+                        AddListaAtualizar(ObjFornecedor.TbEndereco);
                     }
                     else
                     {
                         if (!string.IsNullOrEmpty(ObjFornecedor.TbEndereco.EDNLOGRADOURO))
                         {
-                            AddListaSalvar(RetornaQueryInclusao(ObjFornecedor.TbEndereco, "TB_EDN_ENDERECO"));
+                            AddListaSalvar(ObjFornecedor.TbEndereco);
                         }
                     }
 
@@ -66,13 +65,13 @@ namespace UI.WEB.WorkFlow.Estoque
 
                     if (!string.IsNullOrEmpty(sTelefone))
                     {
-                        AddListaSalvar(RetornaQueryUpdate(ObjFornecedor.TbTelefone, "TB_TEL_TELEFONE"));
+                        AddListaAtualizar(ObjFornecedor.TbTelefone);
                     }
                     else
                     {
                         if (!string.IsNullOrEmpty(ObjFornecedor.TbTelefone.TELNUMERO) || !string.IsNullOrEmpty(ObjFornecedor.TbTelefone.TELCELULAR))
                         {
-                            AddListaSalvar(RetornaQueryInclusao(ObjFornecedor.TbTelefone, "TB_TEL_TELEFONE"));
+                            AddListaSalvar(ObjFornecedor.TbTelefone);
                         }
                     }
 
@@ -80,45 +79,45 @@ namespace UI.WEB.WorkFlow.Estoque
 
                     if (!string.IsNullOrEmpty(sEmail))
                     {
-                        AddListaSalvar(RetornaQueryUpdate(ObjFornecedor.TbEmail, "TB_EML_EMAIL"));
+                        AddListaAtualizar(ObjFornecedor.TbEmail);
                     }
                     else
                     {
                         if (!string.IsNullOrEmpty(ObjFornecedor.TbEmail.EMLEMAIL))
                         {
-                            AddListaSalvar(RetornaQueryInclusao(ObjFornecedor.TbEmail, "TB_EML_EMAIL"));
+                            AddListaSalvar(ObjFornecedor.TbEmail);
                         }
                     }
                 }
 
                 else
                 {
-                    AddListaSalvar(RetornaQueryInclusao(ObjFornecedor.TbPessoa, "TB_PES_PESSOA"));
+                    AddListaSalvar(ObjFornecedor.TbPessoa);
                     ObjFornecedor.PESID = ObjFornecedor.TbPessoa.PESID;
 
                     ObjFornecedor.PESID = ObjFornecedor.TbPessoa.PESID;
                     ObjFornecedor.FORSTATUS = "1";
-                    AddListaSalvar(RetornaQueryInclusao(ObjFornecedor, "TB_FOR_FORNECEDOR"));
+                    AddListaSalvar(ObjFornecedor);
 
                     if (!string.IsNullOrEmpty(ObjFornecedor.TbEmail.EMLEMAIL))
                     {
                         ObjFornecedor.TbEmail.PESID = ObjFornecedor.TbPessoa.PESID;
-                        AddListaSalvar(RetornaQueryInclusao(ObjFornecedor.TbEmail, "TB_EML_EMAIL"));
+                        AddListaSalvar(ObjFornecedor.TbEmail);
                     }
 
                     if (!string.IsNullOrEmpty(ObjFornecedor.TbTelefone.TELNUMERO) || !string.IsNullOrEmpty(ObjFornecedor.TbTelefone.TELCELULAR))
                     {
                         ObjFornecedor.TbTelefone.PESID = ObjFornecedor.TbPessoa.PESID;
-                        AddListaSalvar(RetornaQueryInclusao(ObjFornecedor.TbTelefone, "TB_TEL_TELEFONE"));
+                        AddListaSalvar(ObjFornecedor.TbTelefone);
                     }
 
                     if (!string.IsNullOrEmpty(ObjFornecedor.TbEndereco.EDNLOGRADOURO))
                     {
                         ObjFornecedor.TbEndereco.PESID = ObjFornecedor.TbPessoa.PESID;
-                        AddListaSalvar(RetornaQueryInclusao(ObjFornecedor.TbEndereco, "TB_EDN_ENDERECO"));
+                        AddListaSalvar(ObjFornecedor.TbEndereco);
                     }
 
-                    AddListaSalvar("UPDATE TB_PRV_PARAMETROVALOR SET PRVVALOR = PRVVALOR + 1 WHERE PRVCAMPO = 'FORNECEDOR'");
+                    AddListaParametros("UPDATE TB_PRV_PARAMETROVALOR SET PRVVALOR = PRVVALOR + 1 WHERE PRVCAMPO = 'FORNECEDOR'");
                 }
                 sRetorno = ExecuteTransacao();
             }
@@ -176,7 +175,7 @@ namespace UI.WEB.WorkFlow.Estoque
             if (!string.IsNullOrEmpty(sEmail))
             {
                 string sQueryEmail = RetornaQueryDelete("TB_EML_EMAIL", "PESID", idFornecedor);
-                AddListaSalvar(sQueryEmail);
+                AddListaDeletar(sQueryEmail);
             }
 
             string sTelefone = RetornaObjeto("TB_TEL_TELEFONE", "PESID", idFornecedor);
@@ -184,7 +183,7 @@ namespace UI.WEB.WorkFlow.Estoque
             if (!string.IsNullOrEmpty(sTelefone))
             {
                 string sQueryTelefone = RetornaQueryDelete("TB_TEL_TELEFONE", "PESID", idFornecedor);
-                AddListaSalvar(sQueryTelefone);
+                AddListaDeletar(sQueryTelefone);
             }
 
             string sEndereco = RetornaObjeto("TB_EDN_ENDERECO", "PESID", idFornecedor);
@@ -192,7 +191,7 @@ namespace UI.WEB.WorkFlow.Estoque
             if (!string.IsNullOrEmpty(sEndereco))
             {
                 string sQueryEndereco = RetornaQueryDelete("TB_EDN_ENDERECO", "PESID", idFornecedor);
-                AddListaSalvar(sQueryEndereco);
+                AddListaDeletar(sQueryEndereco);
             }
 
             string sFornecedor = RetornaObjeto("TB_FOR_FORNECEDOR", "PESID", idFornecedor);
@@ -200,10 +199,10 @@ namespace UI.WEB.WorkFlow.Estoque
             if (!string.IsNullOrEmpty(sFornecedor))
             {
                 string sQueryFornecedor = RetornaQueryDelete("TB_FOR_FORNECEDOR", "PESID", idFornecedor);
-                AddListaSalvar(sQueryFornecedor);
+                AddListaDeletar(sQueryFornecedor);
 
                 string sPessoa = RetornaQueryDelete("TB_PES_PESSOA", "PESID", idFornecedor);
-                AddListaSalvar(sPessoa);
+                AddListaDeletar(sPessoa);
             }
 
             sRetorno = ExecuteTransacao();

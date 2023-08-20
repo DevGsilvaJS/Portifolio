@@ -66,10 +66,6 @@ function fnCriaTela() {
         $('#txtCnpj').inputmask('99.999.999/9999-99');
         $('#txtIe').inputmask('99.999.999-9');
     });
-
-    $(document).ready(function () {
-        $("#formFornecedor").parsley();
-    });
 }
 
 $(document).ready(function () {

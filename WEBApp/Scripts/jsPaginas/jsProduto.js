@@ -177,14 +177,14 @@ function fnLimparTela() {
     $("#txtFantasia").val('');
 }
 
-function fnDeletarProduto(idProduto) {
-    debugger;
+function fnExcluirProduto(matid) {
+
     $.ajax({
 
         type: "GET",
         //contentType: "application/json",
-        url: "Produto/Delet",
-        data: { idProduto: idProduto.id },
+        url: "Produto/ExcluirProduto",
+        data: { matid: matid.id },
         dataType: "JSON",
         cache: false,
         async: false,
@@ -231,7 +231,7 @@ function fnListaDados() {
                 for (var i = 0; i < Lista.length; i++) {
                     debugger;
                     var btnEditar = '<button id="' + Lista[i].MATID + '"  name="btnEdicao" type="button" class="btn  btn-primary" onClick="fnEditarProduto(this)">Editar</button>';
-                    var btnExcluir = '<button id="' + Lista[i].MATID + '"  name="btnDeletar" type="button" class="btn  btn-danger" onClick="fnDeletarProduto(this)">Deletar</button>';
+                    var btnExcluir = '<button id="' + Lista[i].MATID + '"  name="btnDeletar" type="button" class="btn  btn-danger" onClick="fnExcluirProduto(this)">Deletar</button>';
 
                     var Linha = [btnEditar + btnExcluir,
                     Lista[i].MATSEQUENCIAL,
@@ -322,7 +322,7 @@ function fnEditarProduto(matid) {
 }
 
 function fnSalvarProduto() {
-
+    debugger;
 
     _Produto.FORID = $("#ddlFornecedorID").val();
     _Produto.MATSEQUENCIAL = $("#txtSequencial").val();

@@ -23,9 +23,9 @@ namespace UI.WEB.WorkFlow.Estoque
 
             if (objProduto.MATID > 0)
             {
-                AddListaSalvar(RetornaQueryUpdate(objProduto, "TB_MAT_MATERIAL"));
+                AddListaAtualizar(objProduto);
                 objProduto.TbAtributos.MATID = objProduto.MATID;
-                AddListaSalvar(RetornaQueryUpdate(objProduto.TbAtributos, "TB_AAT_ATRIBUTOS"));
+                AddListaAtualizar(objProduto.TbAtributos);
 
                 string bLinha = RetornaObjeto("TB_ARL_ATRLINHAPROD", "ARLDESCRICAO", objProduto.TbLinha.ARLDESCRICAO);
 
@@ -34,55 +34,47 @@ namespace UI.WEB.WorkFlow.Estoque
                
                 }
 
-                AddListaSalvar(RetornaQueryUpdate(objProduto.TbLinha, "TB_ARL_ATRLINHAPROD"));
-                AddListaSalvar(RetornaQueryUpdate(objProduto.TbGrife, "TB_ARG_ATRGRIFE"));
-                AddListaSalvar(RetornaQueryUpdate(objProduto.TbModelo, "TB_ARM_ATRMODELO"));
-                AddListaSalvar(RetornaQueryUpdate(objProduto.TbCor, "TB_ARC_ATRCOR"));
-                AddListaSalvar(RetornaQueryUpdate(objProduto.TbCorNumerica, "TB_ACN_ATRCORNUMERICA"));
-                AddListaSalvar(RetornaQueryUpdate(objProduto.TbSublinha1, "TB_AS1_ATRSUBLINHA1"));
-                AddListaSalvar(RetornaQueryUpdate(objProduto.TbSublinha2, "TB_AS2_ATRSUBLINHA2"));
-                AddListaSalvar(RetornaQueryUpdate(objProduto.TbTamanho, "TB_ATO_ATRTAMANHO"));
-                AddListaSalvar(RetornaQueryUpdate(objProduto.TbMpc, "TB_MPC_MATPRECOCUSTO"));
-                AddListaSalvar(RetornaQueryUpdate(objProduto.TbMpv, "TB_MPV_MATPRECOVENDA"));
+                AddListaAtualizar(objProduto.TbLinha);
+                AddListaAtualizar(objProduto.TbGrife);
+                AddListaAtualizar(objProduto.TbModelo);
+                AddListaAtualizar(objProduto.TbCor);
+                AddListaAtualizar(objProduto.TbCorNumerica);
+                AddListaAtualizar(objProduto.TbSublinha1);
+                AddListaAtualizar(objProduto.TbSublinha2);
+                AddListaAtualizar(objProduto.TbTamanho);
+                AddListaAtualizar(objProduto.TbMpc);
+                AddListaAtualizar(objProduto.TbMpv);
             }
             else
             {
-                objProduto.TbLinha.ARLID = RetornaSequencial("SEQ_ARL");
                 objProduto.TbLinha.ARLSTATUS = '1'.ToString();
-                AddListaSalvar(RetornaQueryInclusao(objProduto.TbLinha, "TB_ARL_ATRLINHAPROD"));
+                AddListaSalvar(objProduto.TbLinha);
 
-                objProduto.TbGrife.ARGID = RetornaSequencial("SEQ_ARG");
                 objProduto.TbGrife.ARGSTATUS = '1'.ToString();
-                AddListaSalvar(RetornaQueryInclusao(objProduto.TbGrife, "TB_ARG_ATRGRIFE"));
+                AddListaSalvar(objProduto.TbGrife);
 
-                objProduto.TbModelo.ARMID = RetornaSequencial("SEQ_ARM");
                 objProduto.TbModelo.ARMSTATUS = '1'.ToString();
-                AddListaSalvar(RetornaQueryInclusao(objProduto.TbModelo, "TB_ARM_ATRMODELO"));
+                AddListaSalvar(objProduto.TbModelo);
 
-                objProduto.TbCor.ARCID = RetornaSequencial("SEQ_ARC");
                 objProduto.TbCor.ARCSTATUS = '1'.ToString();
-                AddListaSalvar(RetornaQueryInclusao(objProduto.TbCor, "TB_ARC_ATRCOR"));
+                AddListaSalvar(objProduto.TbCor);
 
-                objProduto.TbCorNumerica.ACNID = RetornaSequencial("SEQ_ACN");
                 objProduto.TbCorNumerica.ACNSTATUS = '1'.ToString();
-                AddListaSalvar(RetornaQueryInclusao(objProduto.TbCorNumerica, "TB_ACN_ATRCORNUMERICA"));
+                AddListaSalvar(objProduto.TbCorNumerica);
 
-                objProduto.TbSublinha1.AS1ID = RetornaSequencial("SEQ_AS1");
                 objProduto.TbSublinha1.AS1STATUS = '1'.ToString();
-                AddListaSalvar(RetornaQueryInclusao(objProduto.TbSublinha1, "TB_AS1_ATRSUBLINHA1"));
+                AddListaSalvar(objProduto.TbSublinha1);
 
-                objProduto.TbSublinha2.AS2ID = RetornaSequencial("SEQ_AS2");
                 objProduto.TbSublinha2.AS2STATUS = '1'.ToString();
-                AddListaSalvar(RetornaQueryInclusao(objProduto.TbSublinha2, "TB_AS2_ATRSUBLINHA2"));
+                AddListaSalvar(objProduto.TbSublinha2);
 
-                objProduto.TbTamanho.ATOID = RetornaSequencial("SEQ_ATO");
+
                 objProduto.TbTamanho.ATOSTATUS = '1'.ToString();
-                AddListaSalvar(RetornaQueryInclusao(objProduto.TbTamanho, "TB_ATO_ATRTAMANHO"));
+                AddListaSalvar(objProduto.TbTamanho);
 
 
-                objProduto.MATID = RetornaSequencial("SEQ_MAT");
                 objProduto.MATDTCADASTRO = DateTime.Now.ToString();
-                AddListaSalvar(RetornaQueryInclusao(objProduto, "TB_MAT_MATERIAL"));
+                AddListaSalvar(objProduto);
 
                 objProduto.TbAtributos.MATID = objProduto.MATID;
                 objProduto.TbAtributos.ARLID = objProduto.TbLinha.ARLID;
@@ -95,18 +87,43 @@ namespace UI.WEB.WorkFlow.Estoque
                 objProduto.TbAtributos.ATOID = objProduto.TbTamanho.ATOID;
 
 
-                AddListaSalvar(RetornaQueryInclusao(objProduto.TbAtributos, "TB_AAT_ATRIBUTOS"));
+                AddListaSalvar(objProduto.TbAtributos);
 
 
 
-                objProduto.TbMpv.MPVID = RetornaSequencial("SEQ_MPV");
+
                 objProduto.TbMpv.MATID = objProduto.MATID;
-                AddListaSalvar(RetornaQueryInclusao(objProduto.TbMpv, "TB_MPV_MATPRECOVENDA"));
 
-                objProduto.TbMpc.MPCID = RetornaSequencial("SEQ_MPC");
+                if (!string.IsNullOrEmpty(objProduto.TbMpv.MPVPRECOVENDA))
+                {
+                    objProduto.TbMpv.MPVPRECOVENDA = objProduto.TbMpv.MPVPRECOVENDA.Replace(',', '.');
+                    AddListaSalvar(objProduto.TbMpv);
+                }
+
+                else
+                {
+                    objProduto.TbMpv.MPVPRECOVENDA = "0";
+                    AddListaSalvar(objProduto.TbMpv);
+                }
+
+
+
                 objProduto.TbMpc.MATID = objProduto.MATID;
-                AddListaSalvar(RetornaQueryInclusao(objProduto.TbMpc, "TB_MPC_MATPRECOCUSTO"));
-                AddListaSalvar("UPDATE TB_PRV_PARAMETROVALOR SET PRVVALOR = PRVVALOR + 1 WHERE PRVCAMPO = 'ARMACAO'");
+
+
+                if (!string.IsNullOrEmpty(objProduto.TbMpc.MPCPRECOCUSTO))
+                {
+                    objProduto.TbMpc.MPCPRECOCUSTO = objProduto.TbMpc.MPCPRECOCUSTO.Replace(',', '.');
+                    AddListaSalvar(objProduto.TbMpc);
+                }
+                else
+                {
+                    objProduto.TbMpc.MPCPRECOCUSTO = "0";
+                    AddListaSalvar(objProduto.TbMpc);
+                }
+
+
+                AddListaParametros("UPDATE TB_PRV_PARAMETROVALOR SET PRVVALOR = PRVVALOR + 1 WHERE PRVCAMPO = 'ARMACAO'");
             }
             string sRetorno = ExecuteTransacao();
 
@@ -200,6 +217,49 @@ namespace UI.WEB.WorkFlow.Estoque
             }
 
             return Produto;
+        }
+        public string ExcluirProduto(int matid)
+        {
+            string sRetorno = "NOTOK";
+
+            string sAtributo = RetornaObjeto("TB_AAT_ATRIBUTOS", "MATID", matid);
+
+            if (!string.IsNullOrEmpty(sAtributo))
+            {
+                string sQueryAtributos = RetornaQueryDelete("TB_AAT_ATRIBUTOS", "MATID", matid);
+                AddListaDeletar(sQueryAtributos);
+            }
+
+            string sPrecoVenda = RetornaObjeto("TB_MPV_MATPRECOVENDA", "MATID", matid);
+
+            if (!string.IsNullOrEmpty(sPrecoVenda))
+            {
+                string sQueryPrecoVenda = RetornaQueryDelete("TB_MPV_MATPRECOVENDA", "MATID", matid);
+                AddListaDeletar(sQueryPrecoVenda);
+            }
+
+            string sPrecoCusto = RetornaObjeto("TB_MPC_MATPRECOCUSTO", "MATID", matid);
+
+            if (!string.IsNullOrEmpty(sPrecoCusto))
+            {
+                string sQueryPrecoCusto = RetornaQueryDelete("TB_MPC_MATPRECOCUSTO", "MATID", matid);
+                AddListaDeletar(sQueryPrecoCusto);
+            }
+
+            string sMaterial = RetornaObjeto("TB_MAT_MATERIAL", "MATID", matid);
+
+            if (!string.IsNullOrEmpty(sMaterial))
+            {
+                string sQueryMaterial = RetornaQueryDelete("TB_MAT_MATERIAL", "MATID", matid);
+                AddListaDeletar(sQueryMaterial);
+            }
+
+
+
+            sRetorno = ExecuteTransacao();
+
+
+            return sRetorno;
         }
     }
 }

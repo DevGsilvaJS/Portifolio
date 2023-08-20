@@ -24,23 +24,22 @@ namespace UI.WEB.WorkFlow.Vendas.TabelasAuxiliares
 
             if (_ObjVendedor.TbPessoa.PESID > 0)
             {
-                AddListaSalvar(RetornaQueryUpdate(_ObjVendedor.TbPessoa, "TB_PES_PESSOA"));
+                AddListaAtualizar(_ObjVendedor.TbPessoa);
                 _ObjVendedor.PESID = _ObjVendedor.TbPessoa.PESID;
-                AddListaSalvar(RetornaQueryUpdate(_ObjVendedor, "TB_VND_VENDEDOR"));
+                AddListaAtualizar(_ObjVendedor);
 
                 string sEndereco = RetornaObjeto("TB_EDN_ENDERECO", "PESID", _ObjVendedor.PESID);
 
                 if (!string.IsNullOrEmpty(sEndereco))
                 {
                     _ObjVendedor.TbEndereco.PESID = _ObjVendedor.TbPessoa.PESID;
-                    AddListaSalvar(RetornaQueryUpdate(_ObjVendedor.TbEndereco, "TB_EDN_ENDERECO"));
+                    AddListaAtualizar(_ObjVendedor.TbEndereco);
                 }
 
                 else
                 {
-                    _ObjVendedor.TbEndereco.EDNID = RetornaSequencial("SEQ_EDN");
                     _ObjVendedor.TbEndereco.PESID = _ObjVendedor.PESID;
-                    AddListaSalvar(RetornaQueryInclusao(_ObjVendedor.TbEndereco, "TB_EDN_ENDERECO"));
+                    AddListaSalvar(_ObjVendedor.TbEndereco);
                 }
 
                 string sTelefone = RetornaObjeto("TB_TEL_TELEFONE", "PESID", _ObjVendedor.PESID);
@@ -48,14 +47,13 @@ namespace UI.WEB.WorkFlow.Vendas.TabelasAuxiliares
                 if (!string.IsNullOrEmpty(sTelefone))
                 {
                     _ObjVendedor.TbTelefone.PESID = _ObjVendedor.TbPessoa.PESID;
-                    AddListaSalvar(RetornaQueryUpdate(_ObjVendedor.TbTelefone, "TB_TEL_TELEFONE"));
+                    AddListaAtualizar(_ObjVendedor.TbTelefone);
                 }
 
                 else
                 {
-                    _ObjVendedor.TbTelefone.TELID = RetornaSequencial("SEQ_TEL");
                     _ObjVendedor.TbTelefone.PESID = _ObjVendedor.PESID;
-                    AddListaSalvar(RetornaQueryInclusao(_ObjVendedor.TbTelefone, "TB_TEL_TELEFONE"));
+                    AddListaSalvar(_ObjVendedor.TbTelefone);
                 }
 
                 string sEmail = RetornaObjeto("TB_EML_EMAIL", "PESID", _ObjVendedor.PESID);
@@ -63,43 +61,42 @@ namespace UI.WEB.WorkFlow.Vendas.TabelasAuxiliares
                 if (!string.IsNullOrEmpty(sEmail))
                 {
                     _ObjVendedor.TbEmail.PESID = _ObjVendedor.TbPessoa.PESID;
-                    AddListaSalvar(RetornaQueryUpdate(_ObjVendedor.TbEmail, "TB_EML_EMAIL"));
+                    AddListaAtualizar(_ObjVendedor.TbEmail);
                 }
 
                 else
                 {
-                    _ObjVendedor.TbEmail.EMLID = RetornaSequencial("SEQ_EML");
                     _ObjVendedor.TbEmail.PESID = _ObjVendedor.TbPessoa.PESID;
-                    AddListaSalvar(RetornaQueryInclusao(_ObjVendedor.TbEmail, "TB_EML_EMAIL"));
+                    AddListaSalvar(_ObjVendedor.TbEmail);
                 }
             }
             else
             {
 
-                AddListaSalvar(RetornaQueryInclusao(_ObjVendedor.TbPessoa, "TB_PES_PESSOA"));
+                AddListaSalvar(_ObjVendedor.TbPessoa);
                 _ObjVendedor.PESID = _ObjVendedor.TbPessoa.PESID;
-                AddListaSalvar(RetornaQueryInclusao(_ObjVendedor, "TB_VND_VENDEDOR"));
+                AddListaSalvar(_ObjVendedor);
 
                 if (_ObjVendedor.TbEndereco.EDNCEP != null)
                 {
                     _ObjVendedor.TbEndereco.PESID = _ObjVendedor.TbPessoa.PESID;
-                    AddListaSalvar(RetornaQueryInclusao(_ObjVendedor.TbEndereco, "TB_EDN_ENDERECO"));
+                    AddListaSalvar(_ObjVendedor.TbEndereco);
                 }
 
 
                 if (_ObjVendedor.TbTelefone.TELNUMERO != null || _ObjVendedor.TbTelefone.TELCELULAR != null)
                 {
                     _ObjVendedor.TbTelefone.PESID = _ObjVendedor.TbPessoa.PESID;
-                    AddListaSalvar(RetornaQueryInclusao(_ObjVendedor.TbTelefone, "TB_TEL_TELEFONE"));
+                    AddListaSalvar(_ObjVendedor.TbTelefone);
                 }
 
                 if (_ObjVendedor.TbEmail.EMLEMAIL != null)
                 {
                     _ObjVendedor.TbEmail.PESID = _ObjVendedor.TbPessoa.PESID;
-                    AddListaSalvar(RetornaQueryInclusao(_ObjVendedor.TbEmail, "TB_EML_EMAIL"));
+                    AddListaSalvar(_ObjVendedor.TbEmail);
                 }
 
-                AddListaSalvar("UPDATE TB_PRV_PARAMETROVALOR SET PRVVALOR = PRVVALOR + 1 WHERE PRVCAMPO = 'VENDEDOR'");
+                AddListaParametros("UPDATE TB_PRV_PARAMETROVALOR SET PRVVALOR = PRVVALOR + 1 WHERE PRVCAMPO = 'VENDEDOR'");
             }
 
             ExecuteTransacao();
@@ -235,7 +232,7 @@ namespace UI.WEB.WorkFlow.Vendas.TabelasAuxiliares
             if (!string.IsNullOrEmpty(sRetornoEmail))
             {
                 string email = RetornaQueryDelete("TB_EML_EMAIL", "PESID", pesid);
-                AddListaSalvar(email);
+                AddListaDeletar(email);
             }
 
             string sRetornaTelefone = RetornaObjeto("TB_TEL_TELEFONE", "PESID", pesid);
@@ -243,7 +240,7 @@ namespace UI.WEB.WorkFlow.Vendas.TabelasAuxiliares
             if (!string.IsNullOrEmpty(sRetornaTelefone))
             {
                 string telefone = RetornaQueryDelete("TB_TEL_TELEFONE", "PESID", pesid);
-                AddListaSalvar(telefone);
+                AddListaDeletar(telefone);
             }
 
             string sRetornaEndereco = RetornaObjeto("TB_EDN_ENDERECO", "PESID", pesid);
@@ -251,7 +248,7 @@ namespace UI.WEB.WorkFlow.Vendas.TabelasAuxiliares
             if (!string.IsNullOrEmpty(sRetornaEndereco))
             {
                 string endereco = RetornaQueryDelete("TB_EDN_ENDERECO", "PESID", pesid);
-                AddListaSalvar(endereco);
+                AddListaDeletar(endereco);
             }
 
             string sRetornaVendedor = RetornaObjeto("TB_VND_VENDEDOR", "PESID", pesid);
@@ -259,10 +256,10 @@ namespace UI.WEB.WorkFlow.Vendas.TabelasAuxiliares
             if (!string.IsNullOrEmpty(sRetornaVendedor))
             {
                 string vendedor = RetornaQueryDelete("TB_VND_VENDEDOR", "PESID", pesid);
-                AddListaSalvar(vendedor);
+                AddListaDeletar(vendedor);
 
                 string pessoa = RetornaQueryDelete("TB_PES_PESSOA", "PESID", pesid);
-                AddListaSalvar(pessoa);
+                AddListaDeletar(pessoa);
 
             }
 

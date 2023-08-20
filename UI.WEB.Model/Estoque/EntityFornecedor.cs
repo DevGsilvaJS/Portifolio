@@ -1,8 +1,11 @@
-﻿using UI.WEB.Model.Financeiro.Tabelas_Auxiliares;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using UI.WEB.Model.Financeiro.Tabelas_Auxiliares;
 using UI.WEB.Model.Outros;
 
 namespace UI.WEB.Model.Estoque
 {
+
+    [Table("TB_FOR_FORNECEDOR")]
     public class EntityFornecedor
     {
         public int FORID { get; set; }

@@ -17,14 +17,19 @@ namespace UI.WEB.WorkFlow.Outros
         DBComando _Conexao = new DBComando();
         SqlCommand _Comando = new SqlCommand();
         List<string> listaSalvar = new List<string>();
-        public string RetornaQueryInclusao(object entity, string Tabela)
+        public string RetornaQueryInclusao(object entity)
         {
 
             var insertScriptBuilder = new StringBuilder();
-            string inicioPropriedade = Tabela.Substring(3, 3);
+
+            var tableAttribute = entity.GetType().GetCustomAttributes(typeof(TableAttribute), true).FirstOrDefault() as TableAttribute;
+            string tableName = tableAttribute?.Name ?? entity.GetType().Name;
+
+
+            string inicioPropriedade = tableName.Substring(3, 3);
             int valueID = 0;
 
-            insertScriptBuilder.Append($"INSERT INTO {Tabela} (");
+            insertScriptBuilder.Append($"INSERT INTO {tableName} (");
 
             PropertyInfo[] propriedades = entity.GetType().GetProperties();
 
@@ -83,9 +88,13 @@ namespace UI.WEB.WorkFlow.Outros
 
             return insertScriptBuilder.ToString();
         }
-        public string RetornaQueryUpdate(object obj, string tableName)
+        public string RetornaQueryUpdate(object obj)
         {
             StringBuilder updateCommand = new StringBuilder();
+
+            var tableAttribute = obj.GetType().GetCustomAttributes(typeof(TableAttribute), true).FirstOrDefault() as TableAttribute;
+            string tableName = tableAttribute?.Name ?? obj.GetType().Name;
+
             updateCommand.Append("UPDATE ");
             updateCommand.Append(tableName);
             updateCommand.Append(" SET ");
@@ -213,9 +222,21 @@ namespace UI.WEB.WorkFlow.Outros
 
             return sequencial;
         }
-        public void AddListaSalvar(string indice, string seq = "")
+        public void AddListaSalvar(object entity)
         {
-            listaSalvar.Add(indice);
+            listaSalvar.Add(RetornaQueryInclusao(entity));
+        }
+        public void AddListaAtualizar(object entity)
+        {
+            listaSalvar.Add(RetornaQueryUpdate(entity));
+        }
+        public void AddListaDeletar(string query)
+        {
+            listaSalvar.Add(query);
+        }
+        public void AddListaParametros(string query)
+        {
+            listaSalvar.Add(query);
         }
         public string ExecuteTransacao()
         {

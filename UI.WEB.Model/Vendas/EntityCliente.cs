@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using UI.WEB.Model.Outros;
 
 namespace UI.WEB.WorkFlow.Vendas
 {
+    [Table("TB_CLI_CLIENTE")]
     public class EntitiesCliente
     {
         public int CLIID { get; set; }

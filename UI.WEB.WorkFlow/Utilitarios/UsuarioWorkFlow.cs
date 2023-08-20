@@ -27,7 +27,7 @@ namespace WorkFlow.Utilitarios
             sb.AppendLine("       FROM TB_PES_PESSOA PES                                                                       ");
             sb.AppendLine("        INNER JOIN TB_USU_USUARIO USU ON USU.PESID = PES.PESID      ");
             sb.AppendLine("        INNER JOIN TB_EML_EMAIL EML ON EML.PESID = PES.PESID           ");
-            sb.AppendLine("        WHERE EML.EMLEMAIL ='" + email + "'AND USU.USUSENHA = " + senha +"");
+            sb.AppendLine("        WHERE EML.EMLEMAIL ='" + email + "'AND USU.USUSENHA = " + senha + "");
 
             SqlDataReader _DataReader = ListarDadosEntity(sb.ToString());
 
@@ -58,9 +58,9 @@ namespace WorkFlow.Utilitarios
 
             if (_ObjUsuario.TbPessoa.PESID > 0)
             {
-                AddListaSalvar(RetornaQueryUpdate(_ObjUsuario, "TB_PES_PESSOA"));
+                AddListaAtualizar(_ObjUsuario.TbPessoa);
                 _ObjUsuario.PESID = _ObjUsuario.TbPessoa.PESID;
-                AddListaSalvar(RetornaQueryUpdate(_ObjUsuario, "TB_USU_USUARIO"));
+                AddListaAtualizar(_ObjUsuario);
 
 
                 string telefone = RetornaObjeto("TB_TEL_TELEFONE", "PESID", _ObjUsuario.TbTelefone.PESID);
@@ -68,14 +68,13 @@ namespace WorkFlow.Utilitarios
                 if (!string.IsNullOrEmpty(telefone))
                 {
                     _ObjUsuario.TbTelefone.PESID = _ObjUsuario.PESID;
-                    AddListaSalvar(RetornaQueryUpdate(_ObjUsuario.TbTelefone, "TB_TEL_TELEFONE"));
+                    AddListaAtualizar(_ObjUsuario.TbTelefone);
                 }
 
                 else
                 {
-                    _ObjUsuario.TbTelefone.TELID = RetornaSequencial("SEQ_TEL");
                     _ObjUsuario.TbTelefone.PESID = _ObjUsuario.PESID;
-                    AddListaSalvar(RetornaQueryInclusao(_ObjUsuario.TbTelefone, "TB_TEL_TELEFONE"));
+                    AddListaSalvar(_ObjUsuario.TbTelefone);
                 }
 
                 string sEmail = RetornaObjeto("TB_EML_EMAIL", "PESID", _ObjUsuario.PESID);
@@ -83,41 +82,36 @@ namespace WorkFlow.Utilitarios
                 if (!string.IsNullOrEmpty(sEmail))
                 {
                     _ObjUsuario.TbEmail.PESID = _ObjUsuario.PESID;
-                    AddListaSalvar(RetornaQueryUpdate(_ObjUsuario.TbEmail, "TB_EML_EMAIL"));
+                    AddListaAtualizar(_ObjUsuario.TbEmail);
                 }
 
                 else
                 {
                     _ObjUsuario.TbEmail.EMLID = RetornaSequencial("SEQ_EML");
                     _ObjUsuario.TbEmail.PESID = _ObjUsuario.PESID;
-                    AddListaSalvar(RetornaQueryInclusao(_ObjUsuario.TbEmail, "TB_EML_EMAIL"));
+                    AddListaSalvar(_ObjUsuario.TbEmail);
                 }
             }
             else
             {
-                _ObjUsuario.PESID = RetornaSequencial("SEQ_PES");
-                AddListaSalvar(RetornaQueryInclusao(_ObjUsuario, "TB_PES_PESSOA"));
-
-                _ObjUsuario.USUID = RetornaSequencial("SEQ_USU");
+                AddListaSalvar(_ObjUsuario.TbPessoa);
                 _ObjUsuario.PESID = _ObjUsuario.PESID;
-                AddListaSalvar(RetornaQueryInclusao(_ObjUsuario, "TB_USU_USUARIO"));
+                AddListaSalvar(_ObjUsuario);
 
 
                 if (_ObjUsuario.TbTelefone.TELNUMERO != null || _ObjUsuario.TbTelefone.TELCELULAR != null)
                 {
-                    _ObjUsuario.TbTelefone.TELID = RetornaSequencial("SEQ_TEL");
                     _ObjUsuario.TbTelefone.PESID = _ObjUsuario.PESID;
-                    AddListaSalvar(RetornaQueryInclusao(_ObjUsuario.TbTelefone, "TB_TEL_TELEFONE"));
+                    AddListaSalvar(_ObjUsuario.TbTelefone);
                 }
 
                 if (_ObjUsuario.TbEmail.EMLEMAIL != null)
                 {
-                    _ObjUsuario.TbEmail.EMLID = RetornaSequencial("SEQ_EML");
                     _ObjUsuario.TbEmail.PESID = _ObjUsuario.PESID;
-                    AddListaSalvar(RetornaQueryInclusao(_ObjUsuario.TbEmail, "TB_EML_EMAIL"));
+                    AddListaSalvar(_ObjUsuario.TbEmail);
                 }
 
-                AddListaSalvar("UPDATE TB_PRV_PARAMETROSVALOR SET PRVVALOR = PRVVALOR + 1 WHERE PRVCAMPO = 'USUARIO'");
+                AddListaParametros("UPDATE TB_PRV_PARAMETROSVALOR SET PRVVALOR = PRVVALOR + 1 WHERE PRVCAMPO = 'USUARIO'");
             }
 
             ExecuteTransacao();
@@ -211,7 +205,7 @@ namespace WorkFlow.Utilitarios
             if (!string.IsNullOrEmpty(sRetornoEmail))
             {
                 string email = RetornaQueryDelete("TB_EML_EMAIL", "PESID", pesid);
-                AddListaSalvar(email);
+                AddListaDeletar(email);
             }
 
             string sRetornaTelefone = RetornaObjeto("TB_TEL_TELEFONE", "PESID", pesid);
@@ -219,14 +213,14 @@ namespace WorkFlow.Utilitarios
             if (!string.IsNullOrEmpty(sRetornaTelefone))
             {
                 string telefone = RetornaQueryDelete("TB_TEL_TELEFONE", "PESID", pesid);
-                AddListaSalvar(telefone);
+                AddListaDeletar(telefone);
             }
 
             string vendedor = RetornaQueryDelete("TB_USU_USUARIO", "PESID", pesid);
-            AddListaSalvar(vendedor);
+            AddListaDeletar(vendedor);
 
             string pessoa = RetornaQueryDelete("TB_PES_PESSOA", "PESID", pesid);
-            AddListaSalvar(pessoa);
+            AddListaDeletar(pessoa);
 
             ExecuteTransacao();
 

@@ -1,5 +1,9 @@
-﻿namespace UI.WEB.Model.Outros
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace UI.WEB.Model.Outros
 {
+
+    [Table("TB_PES_PESSOA")]
     public class EntityPessoa
     {
         public int    PESID { get; set; }

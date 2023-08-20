@@ -61,7 +61,15 @@ namespace WEBApp.Controllers
                 lista = sRetorno
             }, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult ExcluirProduto(int matid)
+        {
+            string sRetorno = wf.ExcluirProduto(matid);
 
+            return Json(new
+            {
+                retorno = sRetorno
+            }, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult GetProdutoByID(int matid)
         {
             EntityProduto Produto = new EntityProduto();
@@ -72,7 +80,6 @@ namespace WEBApp.Controllers
                 Produto = Produto
             }, JsonRequestBehavior.AllowGet);
         }
-
         public JsonResult ListaProdutos()
         {
 
@@ -84,8 +91,7 @@ namespace WEBApp.Controllers
             {
                 lista = lista
             }, JsonRequestBehavior.AllowGet);
-        }
-    
+        }    
         public JsonResult RetornaSequencial()
         {
             string retorno = wf.RetornaSequencial();
