@@ -190,6 +190,20 @@ namespace UI.WEB.Query
 
             return sb.ToString();
         }
+
+        public string CreateTableIndicacaoQuery()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("CREATE TABLE TB_IND_INDICACAO(");
+            sb.AppendLine("INDID int,");
+            sb.AppendLine("INDDESCRICAO varchar(40),");
+            sb.AppendLine("INDDEFAULTVENDA char(1),");
+            sb.AppendLine("INDSTATUS char(1)");
+            sb.AppendLine("PRIMARY KEY(INDID))");
+
+            return sb.ToString();
+        }
         public string CreateTableParametroValorQuery()
         {
             StringBuilder sb = new StringBuilder();
@@ -464,6 +478,19 @@ namespace UI.WEB.Query
             sb.AppendLine("INSERT INTO TB_TPV_TIPOVENDA(TPVID, TPVDESCRICAO, TPVDEFAULTVENDA) VALUES(NEXT VALUE FOR SEQ_TPV, 'BRINDE/CORTERIA', '0') ");
             sb.AppendLine("INSERT INTO TB_TPV_TIPOVENDA(TPVID, TPVDESCRICAO, TPVDEFAULTVENDA) VALUES(NEXT VALUE FOR SEQ_TPV, 'GARANTIA', '0')");
             sb.AppendLine("INSERT INTO TB_TPV_TIPOVENDA(TPVID, TPVDESCRICAO, TPVDEFAULTVENDA) VALUES(NEXT VALUE FOR SEQ_TPV, 'ORCAMENTO', '0')");
+
+            return sb.ToString();
+        }
+
+        public string InsertTablesIndicacaoQuery()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("INSERT INTO TB_IND_INDICACAO( INDID, INDDESCRICAO, INDDEFAULTVENDA, INDSTATUS) VALUES(NEXT VALUE FOR SEQ_IND, 'INDICACAO', '1', '1')");
+            sb.AppendLine("INSERT INTO TB_TPV_TIPOVENDA(INDID, INDDESCRICAO, INDDEFAULTVENDA, INDSTATUS) VALUES(NEXT VALUE FOR SEQ_IND, 'JA CLIENTE', '0', '1')");
+            sb.AppendLine("INSERT INTO TB_TPV_TIPOVENDA(INDID, INDDESCRICAO, INDDEFAULTVENDA, INDSTATUS) VALUES(NEXT VALUE FOR SEQ_IND, 'CONVENIOS', '0', '1') ");
+            sb.AppendLine("INSERT INTO TB_TPV_TIPOVENDA(INDID, INDDESCRICAO, INDDEFAULTVENDA, INDSTATUS) VALUES(NEXT VALUE FOR SEQ_IND, 'REDES SOCIAIS', '0', '1')");
+            sb.AppendLine("INSERT INTO TB_TPV_TIPOVENDA(INDID, INDDESCRICAO, INDDEFAULTVENDA, INDSTATUS) VALUES(NEXT VALUE FOR SEQ_IND, 'PANFLETAGEM', '0', '1')");
 
             return sb.ToString();
         }

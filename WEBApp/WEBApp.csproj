@@ -138,6 +138,7 @@
     <Compile Include="Controllers\FornecedorController.cs" />
     <Compile Include="Controllers\GrupoUsuarioController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IndicacaoController.cs" />
     <Compile Include="Controllers\LancamentoCaixaController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LojasController.cs" />
@@ -1292,6 +1293,7 @@
     <Folder Include="Template\assets\libs\pdfmake\src\" />
     <Folder Include="Template\assets\libs\raphael\dev\test\" />
     <Folder Include="Template\assets\libs\table-edits\src\" />
+    <Folder Include="Views\Indicacao\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

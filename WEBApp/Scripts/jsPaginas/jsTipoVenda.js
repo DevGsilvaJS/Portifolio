@@ -84,7 +84,6 @@ $(document).ready(function () {
     });
 });
 
-
 $("#aLista").click(function () {
     $("#btnSalvarFormulario").css('display', 'none');
 })

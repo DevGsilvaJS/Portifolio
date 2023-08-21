@@ -41,7 +41,6 @@ namespace UI.WEB.WorkFlow.Vendas.TabelasAuxiliares
             return lista;
 
         }
-
         public EntityTipoVenda RetornaObjInclusao()
         {
             EntityTipoVenda objInclusao = new EntityTipoVenda();
@@ -74,7 +73,6 @@ namespace UI.WEB.WorkFlow.Vendas.TabelasAuxiliares
             return sRetorno;
 
         }
-
         public EntityTipoVenda GetTipoVendaByID(int tpvid)
         {
 

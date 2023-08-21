@@ -42,6 +42,8 @@ namespace UI.WEB.WorkFlow.Outros
                "TB_USU_USUARIO",
                "TB_PES_PESSOA",
                "TB_PRV_PARAMETROVALOR",
+               "TB_IND_INDICACAO",
+               "TB_TPV_TIPOVENDA"
             };
 
             foreach (string tableName in tablesDrop)
@@ -90,6 +92,7 @@ namespace UI.WEB.WorkFlow.Outros
             lista.Add(Query.CreateTablePrecoVendaQuery());
             lista.Add(Query.CreateTableTelefoneQuery());
             lista.Add(Query.CreateTableTipoVendaQuery());
+            lista.Add(Query.CreateTableIndicacaoQuery());
             lista.Add(Query.CreateTableVendedorQuery());
             lista.Add(Query.CreateTableParametroValorQuery());
 
@@ -117,6 +120,7 @@ namespace UI.WEB.WorkFlow.Outros
             lista.Add(Query.InsertTablesCentroCustoQuery());
             lista.Add(Query.InsertTablesPlanoContasQuery());
             lista.Add(Query.InsertTablesTipoVendaQuery());
+            lista.Add(Query.InsertTablesIndicacaoQuery());
 
             foreach (var item in lista)
             {
