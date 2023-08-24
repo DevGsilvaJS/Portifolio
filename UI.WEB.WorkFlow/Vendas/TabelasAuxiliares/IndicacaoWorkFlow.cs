@@ -29,6 +29,7 @@ namespace UI.WEB.WorkFlow.Vendas.TabelasAuxiliares
 
             else
             {
+                objIndicacao.INDSTATUS = "1";
                 AddListaSalvar(objIndicacao);
             }
 
@@ -43,7 +44,7 @@ namespace UI.WEB.WorkFlow.Vendas.TabelasAuxiliares
 
             if (!string.IsNullOrEmpty(sIndicacao))
             {
-                AddListaDeletar(RetornaQueryDelete("TB_IND_INDIDICACAO", "INDID", idnid));
+                AddListaDeletar(RetornaQueryDelete("TB_IND_INDICACAO", "INDID", idnid));
                 sRetorno = ExecuteTransacao();
             }
 

@@ -1268,6 +1268,7 @@
     <Content Include="Views\Vendedor\Index.cshtml" />
     <Content Include="Views\Fornecedor\Index.cshtml" />
     <Content Include="Views\ResetTables\Index.cshtml" />
+    <Content Include="Views\Indicacao\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1293,7 +1294,6 @@
     <Folder Include="Template\assets\libs\pdfmake\src\" />
     <Folder Include="Template\assets\libs\raphael\dev\test\" />
     <Folder Include="Template\assets\libs\table-edits\src\" />
-    <Folder Include="Views\Indicacao\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

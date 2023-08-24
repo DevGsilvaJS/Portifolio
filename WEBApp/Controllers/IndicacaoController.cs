@@ -32,7 +32,7 @@ namespace WEBApp.Controllers
                 lista = lista
             }, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult ExcluirTipoVenda(int indid)
+        public JsonResult ExcluirIndicacao(int indid)
         {
             string sRetorno = wf.ExcluirIndicacao(indid);
 
@@ -41,17 +41,17 @@ namespace WEBApp.Controllers
                 retorno = sRetorno
             }, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult GetTipoVendaByID(int tpvid)
+        public JsonResult GetIndicacaoByID(int indid)
         {
             EntityIndicacao _Indicacao = new EntityIndicacao();
-            _Indicacao = wf.GetIndicacaoID(tpvid);
+            _Indicacao = wf.GetIndicacaoID(indid);
 
             return Json(new
             {
                 retorno = _Indicacao
             }, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult GravarTipoVenda(EntityIndicacao _Indicacao)
+        public JsonResult GravarIndicacao(EntityIndicacao _Indicacao)
         {
             string sRetorno = wf.GravarIndicacao(_Indicacao);
 

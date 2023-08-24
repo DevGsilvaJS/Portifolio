@@ -411,6 +411,23 @@ namespace UI.WEB.Query
 
             return sb.ToString();
         }
+        public string CreateTableConvenio()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("CREATE TABLE TB_CON_CONVENIO(");
+            sb.AppendLine("   CONID int,");
+            sb.AppendLine("   EDNID int,");
+            sb.AppendLine("   TELID int,");
+            sb.AppendLine("   CONEMPRESA varchar(70),");
+            sb.AppendLine("   CONNUMCONTRATO varchar(15),");
+            sb.AppendLine("   CONPERCDESCONTO int,");
+            sb.AppendLine("   CONOBSERVACOES varchar(250),");
+            sb.AppendLine("   PRIMARY KEY(CONID),");
+            sb.AppendLine("   FOREIGN KEY(EDNID) REFERENCES TB_EDN_ENDERECO(EDNID),");
+            sb.AppendLine("   FOREIGN KEY(TELID) REFERENCES TB_TEL_TELEFONE(TELID))");
+
+            return sb.ToString();
+        }
         public string InsertTableParametrosQuery()
         {
             StringBuilder sb = new StringBuilder();
@@ -468,7 +485,6 @@ namespace UI.WEB.Query
 
             return sb.ToString();
         }
-
         public string InsertTablesTipoVendaQuery()
         {
             StringBuilder sb = new StringBuilder();
@@ -481,16 +497,15 @@ namespace UI.WEB.Query
 
             return sb.ToString();
         }
-
         public string InsertTablesIndicacaoQuery()
         {
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine("INSERT INTO TB_IND_INDICACAO( INDID, INDDESCRICAO, INDDEFAULTVENDA, INDSTATUS) VALUES(NEXT VALUE FOR SEQ_IND, 'INDICACAO', '1', '1')");
-            sb.AppendLine("INSERT INTO TB_TPV_TIPOVENDA(INDID, INDDESCRICAO, INDDEFAULTVENDA, INDSTATUS) VALUES(NEXT VALUE FOR SEQ_IND, 'JA CLIENTE', '0', '1')");
-            sb.AppendLine("INSERT INTO TB_TPV_TIPOVENDA(INDID, INDDESCRICAO, INDDEFAULTVENDA, INDSTATUS) VALUES(NEXT VALUE FOR SEQ_IND, 'CONVENIOS', '0', '1') ");
-            sb.AppendLine("INSERT INTO TB_TPV_TIPOVENDA(INDID, INDDESCRICAO, INDDEFAULTVENDA, INDSTATUS) VALUES(NEXT VALUE FOR SEQ_IND, 'REDES SOCIAIS', '0', '1')");
-            sb.AppendLine("INSERT INTO TB_TPV_TIPOVENDA(INDID, INDDESCRICAO, INDDEFAULTVENDA, INDSTATUS) VALUES(NEXT VALUE FOR SEQ_IND, 'PANFLETAGEM', '0', '1')");
+            sb.AppendLine("INSERT INTO TB_IND_INDICACAO(INDID, INDDESCRICAO, INDDEFAULTVENDA, INDSTATUS) VALUES(NEXT VALUE FOR SEQ_IND, 'JA CLIENTE', '0', '1')");
+            sb.AppendLine("INSERT INTO TB_IND_INDICACAO(INDID, INDDESCRICAO, INDDEFAULTVENDA, INDSTATUS) VALUES(NEXT VALUE FOR SEQ_IND, 'CONVENIOS', '0', '1') ");
+            sb.AppendLine("INSERT INTO TB_IND_INDICACAO(INDID, INDDESCRICAO, INDDEFAULTVENDA, INDSTATUS) VALUES(NEXT VALUE FOR SEQ_IND, 'REDES SOCIAIS', '0', '1')");
+            sb.AppendLine("INSERT INTO TB_IND_INDICACAO(INDID, INDDESCRICAO, INDDEFAULTVENDA, INDSTATUS) VALUES(NEXT VALUE FOR SEQ_IND, 'PANFLETAGEM', '0', '1')");
 
             return sb.ToString();
         }
