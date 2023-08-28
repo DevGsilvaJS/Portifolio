@@ -56,9 +56,7 @@ namespace WEBApp.Controllers
             {
                 retorno = _TipoVenda
             }, JsonRequestBehavior.AllowGet);
-        }
-
-        
+        }        
 
         public JsonResult GravarTipoVenda(EntityTipoVenda _TipoVenda)
         {

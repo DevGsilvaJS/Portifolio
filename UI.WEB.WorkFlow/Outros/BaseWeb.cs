@@ -112,7 +112,7 @@ namespace UI.WEB.WorkFlow.Outros
                 {
                     continue;
                 }
-                if (updateCommand.Length >= 2 && propertyName.EndsWith("ID") && propertyValue != null && !propertyValue.Equals(0))
+                if (updateCommand.Length >= 2 && propertyName.EndsWith("ID") && propertyValue != null && !propertyValue.Equals(0) && where == "")
                 {
                     where = " WHERE " + propertyName + " = " + propertyValue;
                 }
@@ -277,7 +277,7 @@ namespace UI.WEB.WorkFlow.Outros
             {
                 sRetorno = dr[campo].ToString();
             }
-            return sRetorno;  // O valor não existe na tabela
+            return sRetorno;
         }
 
     }

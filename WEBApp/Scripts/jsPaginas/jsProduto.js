@@ -254,7 +254,6 @@ function fnListaDados() {
     });
 }
 
-
 function fnEditarProduto(matid) {
 
     $.ajax({

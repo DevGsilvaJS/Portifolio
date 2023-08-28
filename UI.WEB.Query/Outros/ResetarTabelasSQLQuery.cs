@@ -190,7 +190,6 @@ namespace UI.WEB.Query
 
             return sb.ToString();
         }
-
         public string CreateTableIndicacaoQuery()
         {
             StringBuilder sb = new StringBuilder();
