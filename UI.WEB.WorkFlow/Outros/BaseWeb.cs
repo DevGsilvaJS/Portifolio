@@ -254,6 +254,7 @@ namespace UI.WEB.WorkFlow.Outros
                     }
 
                     scope.Complete();
+                    retorno = "OK";
                 }
                 catch (Exception ex)
                 {

@@ -23,27 +23,7 @@ namespace UI.WEB.WorkFlow.Estoque
 
             if (objProduto.MATID > 0)
             {
-                AddListaAtualizar(objProduto);
-                objProduto.TbAtributos.MATID = objProduto.MATID;
-                AddListaAtualizar(objProduto.TbAtributos);
-
-                string bLinha = RetornaObjeto("TB_ARL_ATRLINHAPROD", "ARLDESCRICAO", objProduto.TbLinha.ARLDESCRICAO);
-
-                if (!string.IsNullOrEmpty(bLinha))
-                {
-               
-                }
-
-                AddListaAtualizar(objProduto.TbLinha);
-                AddListaAtualizar(objProduto.TbGrife);
-                AddListaAtualizar(objProduto.TbModelo);
-                AddListaAtualizar(objProduto.TbCor);
-                AddListaAtualizar(objProduto.TbCorNumerica);
-                AddListaAtualizar(objProduto.TbSublinha1);
-                AddListaAtualizar(objProduto.TbSublinha2);
-                AddListaAtualizar(objProduto.TbTamanho);
-                AddListaAtualizar(objProduto.TbMpc);
-                AddListaAtualizar(objProduto.TbMpv);
+                AtualizarProduto(objProduto);
             }
             else
             {
@@ -89,9 +69,6 @@ namespace UI.WEB.WorkFlow.Estoque
 
                 AddListaSalvar(objProduto.TbAtributos);
 
-
-
-
                 objProduto.TbMpv.MATID = objProduto.MATID;
 
                 if (!string.IsNullOrEmpty(objProduto.TbMpv.MPVPRECOVENDA))
@@ -126,6 +103,39 @@ namespace UI.WEB.WorkFlow.Estoque
                 AddListaParametros("UPDATE TB_PRV_PARAMETROVALOR SET PRVVALOR = PRVVALOR + 1 WHERE PRVCAMPO = 'ARMACAO'");
             }
             string sRetorno = ExecuteTransacao();
+
+            db.FechaConexao(db.MinhaConexao());
+
+            return sRetorno;
+        }
+
+        public string AtualizarProduto (EntityProduto objProduto)
+        {
+            string sRetorno = "";
+
+
+            AddListaAtualizar(objProduto);
+            objProduto.TbAtributos.MATID = objProduto.MATID;
+            AddListaAtualizar(objProduto.TbAtributos);
+
+            string bLinha = RetornaObjeto("TB_ARL_ATRLINHAPROD", "ARLDESCRICAO", objProduto.TbLinha.ARLDESCRICAO);
+
+            if (!string.IsNullOrEmpty(bLinha))
+            {
+
+            }
+
+            AddListaAtualizar(objProduto.TbLinha);
+            AddListaAtualizar(objProduto.TbGrife);
+            AddListaAtualizar(objProduto.TbModelo);
+            AddListaAtualizar(objProduto.TbCor);
+            AddListaAtualizar(objProduto.TbCorNumerica);
+            AddListaAtualizar(objProduto.TbSublinha1);
+            AddListaAtualizar(objProduto.TbSublinha2);
+            AddListaAtualizar(objProduto.TbTamanho);
+            AddListaAtualizar(objProduto.TbMpc);
+            AddListaAtualizar(objProduto.TbMpv);
+
 
             return sRetorno;
         }

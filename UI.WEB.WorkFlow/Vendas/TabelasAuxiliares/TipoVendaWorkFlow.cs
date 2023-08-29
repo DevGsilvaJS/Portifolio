@@ -48,6 +48,8 @@ namespace UI.WEB.WorkFlow.Vendas.TabelasAuxiliares
         }
         public string GravarTipoVenda(EntityTipoVenda ObjTipoVenda)
         {
+
+            
             string sRetorno = "NOTOK";
 
             if (ObjTipoVenda.TPVID > 0)

@@ -16,8 +16,6 @@ namespace WEBApp.Controllers
         {
             return View();
         }
-
-
         public JsonResult RetornaObjInclusao()
         {
             return Json(new
@@ -36,7 +34,6 @@ namespace WEBApp.Controllers
                 lsTipoVenda = lsTipoVenda
             }, JsonRequestBehavior.AllowGet);
         }
-
         public JsonResult ExcluirTipoVenda(int tpvid)
         {
             string sRetorno = wf.ExcluirTipoVenda(tpvid);
@@ -46,7 +43,6 @@ namespace WEBApp.Controllers
                 retorno = sRetorno
             }, JsonRequestBehavior.AllowGet);
         }
-
         public JsonResult GetTipoVendaByID(int tpvid)
         {
             EntityTipoVenda _TipoVenda = new EntityTipoVenda();
@@ -57,7 +53,6 @@ namespace WEBApp.Controllers
                 retorno = _TipoVenda
             }, JsonRequestBehavior.AllowGet);
         }        
-
         public JsonResult GravarTipoVenda(EntityTipoVenda _TipoVenda)
         {
             string sRetorno = wf.GravarTipoVenda(_TipoVenda);

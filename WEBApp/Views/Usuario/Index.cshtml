@@ -1,18 +1,173 @@
 ﻿
 @{
-    Layout = null;
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    <div> 
+<!-- Custom Tabs -->
+<div class="nav-tabs-custom">
+    <div class="tabs">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="#tab1" id="aLista" data-toggle="tab">Listagem</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#tab2" id="aCadastro" data-toggle="tab">Registro</a>
+            </li>
+        </ul>
     </div>
-</body>
-</html>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tab1">
+            <table id="tbUsuario" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                <thead>
+                    <tr>
+                        <td>Acao</td>
+                        <td>Nome</td>
+                        <td>Email</td>
+                        <td>Status</td>
+                    </tr>
+                </thead>
+
+                <tbody>
+                </tbody>
+            </table>
+
+        </div>
+        <!-- /.tab-pane -->
+        <div class="tab-pane" id="tab2">
+
+
+            <div class="card">
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- general form elements -->
+                            <div class="box box-primary">
+                                <form role="form">
+                                    <div class="box-body">
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label>Código</label>
+                                                    <input type="text" class="form-control" name="nome" id="txtCodigoUsuario" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Nome</label>
+                                                    <input type="text" class="form-control" name="SobreNome" id="txtNomeUsuario" maxlength="25" style="text-transform: uppercase">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Sobrenome</label>
+                                                    <input type="text" class="form-control" id="txtSobreNomeUsuario" maxlength="25" style="text-transform: uppercase">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label>STATUS</label>
+                                                    <select class="form-control" id="ddlStatus">
+                                                        <option value="1">ATIVO</option>
+                                                        <option value="0">INATIVO</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label>Senha</label>
+                                                    <input type="password" class="form-control" id="txtSenhaUsuario" maxlength="25">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label>Confirmação da senha</label>
+                                                    <input type="password" class="form-control" id="txtConfSenhaUsuario" maxlength="25">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <label>E-mail</label>
+                                                <input type="text" class="form-control" id="txtEmailUsuario" maxlength="25" style="text-transform: uppercase">
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <label>Telefone</label>
+                                                <input type="text" class="form-control" id="txtTelefone" placeholder="Telefone">
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <label>Celular</label>
+                                                <input type="text" class="form-control" id="txtCelular" placeholder="Celular">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+
+                <div class="card-body">
+                    <div class="col-md-2">
+                        <div class="input-group margin">
+                            <input type="text" id="txtValorCep" class="form-control" placeholder="BUSCAR CEP">
+                            <span class="input-group-btn">
+                                <button type="button" id="btnBuscarCep" class="btn btn-info btn-flat">Go!</button>
+                            </span>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label for="">UF</label>
+                            <select class="form-control" id="ddlUf">
+                                <option></option>
+                                <option value="SP">SP</option>
+                                <option value="PR">PR</option>
+                                <option value="RJ">RJ</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label>Endereço</label>
+                            <input type="text" class="form-control" id="txtLogradouro" maxlength="25" style="text-transform: uppercase">
+                        </div>
+
+                        <div class="col-md-2">
+                            <label>Número</label>
+                            <input type="text" class="form-control" id="txtNumero" maxlength="5" style="text-transform: uppercase">
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <label>CIDADE</label>
+                            <input type="text" class="form-control" id="txtCidade" maxlength="25" style="text-transform: uppercase">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Bairro</label>
+                            <input type="text" class="form-control" id="txtBairro" maxlength="25" style="text-transform: uppercase">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label>Complemento</label>
+                            <input type="text" class="form-control" id="txtComplemento" maxlength="30" style="text-transform: uppercase">
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="~/Scripts/jsPaginas/jsUsuario.js"></script>
