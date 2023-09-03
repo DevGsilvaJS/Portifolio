@@ -361,4 +361,23 @@ function buscaCep(cep) {
     });
 }
 
+function checkPasswordStrength() {
+    var password = document.getElementById("txtSenhaUsuario").value;
+    var strengthMeter = document.getElementById("strength-meter");
+
+    var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\$%^&*])");
+    var mediumRegex = new RegExp("^(?=.*[a-zA-Z])(?=.*[0-9])");
+
+    if (strongRegex.test(password)) {
+        strengthMeter.className = "strong";
+        strengthMeter.textContent = "Forte";
+    } else if (mediumRegex.test(password)) {
+        strengthMeter.className = "medium";
+        strengthMeter.textContent = "Média";
+    } else {
+        strengthMeter.className = "weak";
+        strengthMeter.textContent = "Fraca";
+    }
+}
+
 

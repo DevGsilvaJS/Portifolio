@@ -21,21 +21,16 @@ namespace WEBApp.Controllers
         public JsonResult ValidaLogin(string Usuario, string Senha)
         {
             EntityUsuario usu = new EntityUsuario();
+            EntityUsuario _Usuario = new EntityUsuario();
 
-            ////bool isLogado = wf.ValidaUsuario(Usuario, Senha);
+            _Usuario = wf.ValidaUsuario(Usuario, Senha);
 
-            //if (usu.TbEmail.EMLEMAIL != null && usu.TbEmail.EMLEMAIL != "") {
-            //    Session.Add("_userLogado", true);        
-            //}
-
-            if (Usuario != null && Senha != null)
+            if (_Usuario.TbEmail.EMLEMAIL != null && _Usuario.TbEmail.EMLEMAIL != "")
             {
-                if (Usuario == "ADMIN" && Senha == "ADMIN")
-                {
-                    Session.Add("_userLogado", true);
-                }
+                Session.Add("_userLogado", true);
             }
- 
+
+
             try
             {
                 var resultado = new

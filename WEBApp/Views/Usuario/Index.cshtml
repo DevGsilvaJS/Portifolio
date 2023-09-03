@@ -3,6 +3,29 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<style>
+    .password-strength {
+        width: 300px;
+        margin: 20px auto;
+    }
+
+        .password-strength p {
+            font-weight: bold;
+        }
+
+    .weak {
+        color: red;
+    }
+
+    .medium {
+        color: orange;
+    }
+
+    .strong {
+        color: green;
+    }
+</style>
 <!-- Custom Tabs -->
 <div class="nav-tabs-custom">
     <div class="tabs">
@@ -76,16 +99,20 @@
 
                                             <div class="col-md-2">
                                                 <div class="form-group">
-                                                    <label>Senha</label>
-                                                    <input type="password" class="form-control" id="txtSenhaUsuario" maxlength="25">
+                                                    <label for="txtSenhaUsuario">Senha</label>
+                                                    <input type="password" class="form-control" id="txtSenhaUsuario" oninput="checkPasswordStrength()" />
+                                                    <div class="password-strength">
+                                                        <p>Força da Senha:</p>
+                                                        <div id="strength-meter">
+                                                            <div class="weak">Fraca</div>
+                                                            <div class="medium">Média</div>
+                                                            <div class="strong">Forte</div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2">
-                                                <div class="form-group">
-                                                    <label>Confirmação da senha</label>
-                                                    <input type="password" class="form-control" id="txtConfSenhaUsuario" maxlength="25">
-                                                </div>
-                                            </div>
+
+
 
                                             <div class="col-md-4">
                                                 <label>E-mail</label>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using UI.WEB.Model.Utilitarios;
@@ -15,7 +16,7 @@ namespace WorkFlow.Utilitarios
     {
         DBComando db = new DBComando();
 
-        public bool ValidaUsuario(string email, string senha)
+        public EntityUsuario ValidaUsuario(string email, string senha)
         {
             EntityUsuario _ObjUsuario = new EntityUsuario();
             //Classe que retorna uma conexao com banco de dados
@@ -37,14 +38,14 @@ namespace WorkFlow.Utilitarios
                 //Verifica se tem dados na linha
                 while (_DataReader.Read())
                 {
-                    _Usuario.TbEmail.EMLEMAIL = _DataReader["EMLEMAIL"].ToString();
-                    _Usuario.USUSENHA = _DataReader["USUSENHA"].ToString();
+                    _ObjUsuario.TbEmail.EMLEMAIL = _DataReader["EMLEMAIL"].ToString();
+                    _ObjUsuario.USUSENHA = _DataReader["USUSENHA"].ToString();
                 }
             }
 
             db.FechaConexao(db.MinhaConexao());
 
-            return true;
+            return _ObjUsuario;
         }
         public EntityUsuario RetornaObjInclusao()
         {
@@ -55,7 +56,7 @@ namespace WorkFlow.Utilitarios
         public string GravarUsuario(EntityUsuario _Usuario)
         {
 
-            string retorno = "OK";
+            string retorno = "NOTOK";
 
             if (_Usuario.TbPessoa.PESID > 0)
             {
@@ -63,6 +64,13 @@ namespace WorkFlow.Utilitarios
             }
             else
             {
+                byte[] salt = GenerateSalt();
+
+                byte[] hashedPassword = HashPassword(_Usuario.USUSENHA, salt);
+
+                _Usuario.USUSENHA = BitConverter.ToString(hashedPassword).Replace("-", "").ToLower();
+
+
                 AddListaSalvar(_Usuario.TbPessoa);
 
                 int PESID = _Usuario.TbPessoa.PESID;
@@ -89,6 +97,12 @@ namespace WorkFlow.Utilitarios
                     _Usuario.TbEndereco.PESID = PESID;
                     AddListaSalvar(_Usuario.TbEndereco);
                 }
+
+
+
+
+
+
 
                 AddListaParametros("UPDATE TB_PRV_PARAMETROVALOR SET PRVVALOR = PRVVALOR + 1 WHERE PRVCAMPO = 'USUARIO'");
             }
@@ -231,6 +245,14 @@ namespace WorkFlow.Utilitarios
                 AddListaDeletar(email);
             }
 
+            string sEndereco = RetornaObjeto("TB_EDN_ENDERECO", "PESID", pesid);
+
+            if (!string.IsNullOrEmpty(sEndereco))
+            {
+                string endereco = RetornaQueryDelete("TB_EDN_ENDERECO", "PESID", pesid);
+                AddListaDeletar(endereco);
+            }
+
             string sRetornaTelefone = RetornaObjeto("TB_TEL_TELEFONE", "PESID", pesid);
 
             if (!string.IsNullOrEmpty(sRetornaTelefone))
@@ -266,6 +288,29 @@ namespace WorkFlow.Utilitarios
 
             db.FechaConexao(db.MinhaConexao());
             return retorno;
+        }
+        public static byte[] GenerateSalt()
+        {
+            byte[] salt = new byte[16]; // 16 bytes geralmente é suficiente
+            using (var rng = new RNGCryptoServiceProvider())
+            {
+                rng.GetBytes(salt);
+            }
+            return salt;
+        }
+        public static byte[] HashPassword(string senha, byte[] salt)
+        {
+            using (var sha256 = new SHA256Managed())
+            {
+                byte[] passwordBytes = System.Text.Encoding.UTF8.GetBytes(senha);
+                byte[] saltedPassword = new byte[passwordBytes.Length + salt.Length];
+
+                // Concatenar a senha com o salt
+                passwordBytes.CopyTo(saltedPassword, 0);
+                salt.CopyTo(saltedPassword, passwordBytes.Length);
+
+                return sha256.ComputeHash(saltedPassword);
+            }
         }
     }
 }
