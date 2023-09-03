@@ -38,7 +38,6 @@ namespace WEBApp.Controllers
                 ObjInclusao = wf.RetornaObjInclusao()
             }, JsonRequestBehavior.AllowGet);
         }
-
         public JsonResult GravarUsuario(EntityUsuario _Usuario)
         {
             string sRetorno = wf.GravarUsuario(_Usuario);
@@ -48,7 +47,6 @@ namespace WEBApp.Controllers
                 retorno = sRetorno
             }, JsonRequestBehavior.AllowGet);
         }
-
         public JsonResult ListaDados()
         {
             List<EntityUsuario> lsUsuario = new List<EntityUsuario>();
@@ -58,6 +56,25 @@ namespace WEBApp.Controllers
             return Json(new
             {
                 lsUsuario = lsUsuario
+            }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult ExcluirUsuario(int pesid)
+        {
+            string sRetorno = wf.ExcluirUsuario(pesid);
+
+            return Json(new
+            {
+                retorno = sRetorno
+            }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetUsuarioByID(int pesid)
+        {
+            EntityUsuario _Usuario = new EntityUsuario();
+            _Usuario = wf.GetUsuarioByID(pesid);
+
+            return Json(new
+            {
+                retorno = _Usuario
             }, JsonRequestBehavior.AllowGet);
         }
     }

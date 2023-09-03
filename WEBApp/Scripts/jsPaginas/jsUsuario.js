@@ -82,6 +82,7 @@ function fnRetornaObjInclusao() {
     });
 
 }
+
 function fnRetornaSequencial() {
 
     $.ajax({
@@ -240,8 +241,8 @@ function fnListaDados() {
                 for (var i = 0; i < Lista.length; i++) {
                     debugger;
 
-                    var btnEditar = '<button id="' + Lista[i].USUID + '"  name="btnEdicao" type="button" class="btn  btn-primary" onClick="fnEditarTipoVenda(this)">Editar</button>';
-                    var btnExcluir = '<button id="' + Lista[i].USUID + '"  name="btnDeletar" type="button" class="btn  btn-danger" onClick="fnExcluirTipoVenda(this)">Deletar</button>';
+                    var btnEditar = '<button id="' + Lista[i].PESID + '"  name="btnEdicao" type="button" class="btn  btn-primary" onClick="fnEditarUsuario(this)">Editar</button>';
+                    var btnExcluir = '<button id="' + Lista[i].PESID + '"  name="btnDeletar" type="button" class="btn  btn-danger" onClick="fnExcluirUsuario(this)">Deletar</button>';
 
                     var Linha = [btnEditar + btnExcluir,
                     Lista[i].TbPessoa.PESNOME,
@@ -262,14 +263,14 @@ function fnListaDados() {
     });
 }
 
-function fnExcluirTipoVenda(tpvid) {
+function fnExcluirUsuario(pesid) {
 
 
     $.ajax({
         type: "GET",
         contentType: "application/json",
-        url: "TipoVenda/ExcluirTipoVenda",
-        data: { tpvid: tpvid.id },
+        url: "Usuario/ExcluirUsuario",
+        data: { pesid: pesid.id },
         dataType: "JSON",
         cache: false,
         async: false,
@@ -286,13 +287,13 @@ function fnExcluirTipoVenda(tpvid) {
     });
 }
 
-function fnEditarTipoVenda(tpvid) {
+function fnEditarUsuario(pesid) {
 
     $.ajax({
         type: "GET",
         contentType: "application/json",
-        url: "TipoVenda/GetTipoVendaByID",
-        data: { tpvid: tpvid.id },
+        url: "Usuario/GetUsuarioByID",
+        data: { pesid: pesid.id },
         dataType: "JSON",
         cache: false,
         async: false,
@@ -300,11 +301,32 @@ function fnEditarTipoVenda(tpvid) {
         },
         success: function (result) {
             debugger;
-            _TipoVenda = result.retorno
+            _Usuario = result.retorno
 
-            IDPRINCIPAL = _TipoVenda.TPVID;
-            $("#txtDescricaoTipoVenda").val(_TipoVenda.TPVDESCRICAO);
-            $("#ckbDefaultVenda").prop("checked", _TipoVenda.TPVDEFAULTVENDA == 1);
+            $("#txtCodigoUsuario").val(_Usuario.USUSEQUENCIAL);
+            $("#ddlStatus").val(_Usuario.USUSTATUS);
+            $("#txtSenhaUsuario").val(_Usuario.USUSENHA);
+
+            $("#txtNomeUsuario").val(_Usuario.TbPessoa.PESNOME);
+            $("#txtSobreNomeUsuario").val(_Usuario.TbPessoa.PESSOBRENOME);
+
+
+            $("#txtEmailUsuario").val(_Usuario.TbEmail.EMLEMAIL);
+
+
+
+            $("#txtTelefone").val(_Usuario.TbTelefone.TELDDD + _Usuario.TbTelefone.TELNUMERO);
+            $("#txtCelular").val(_Usuario.TbTelefone.TELDDDC + _Usuario.TbTelefone.TELCELULAR);
+
+            $("#txtEmailUsuario").val(_Usuario.TbEmail.EMLEMAIL);
+            $("#txtCep").val(_Usuario.TbEndereco.EDNCEP);
+            $("#ddlUf").val(_Usuario.TbEndereco.EDNUF);
+            $("#txtCidade").val(_Usuario.TbEndereco.EDNCIDADE);
+            $("#txtBairro").val(_Usuario.TbEndereco.EDNBAIRRO);
+            $("#txtLogradouro").val(_Usuario.TbEndereco.EDNLOGRADOURO);
+            $("#txtNumero").val(_Usuario.TbEndereco.EDNNUMERO);
+            $("#txtComplemento").val(_Usuario.TbEndereco.EDNCOMPLEMENTO);
+
 
             STATUS = 'ALTERACAO';
             $("#aCadastro").tab('show');

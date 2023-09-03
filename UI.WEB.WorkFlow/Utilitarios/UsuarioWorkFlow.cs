@@ -66,9 +66,7 @@ namespace WorkFlow.Utilitarios
                 AddListaSalvar(_Usuario.TbPessoa);
 
                 int PESID = _Usuario.TbPessoa.PESID;
-
                 _Usuario.PESID = PESID;
-                _Usuario.USUSTATUS = "1";
 
                 AddListaSalvar(_Usuario);
 
@@ -175,45 +173,55 @@ namespace WorkFlow.Utilitarios
             return lsUsuarios;
 
         }
-        public EntityUsuario GetUsuarioID(int pesid)
+        public EntityUsuario GetUsuarioByID(int pesid)
         {
 
             EntityUsuario _ObjUsuario = new EntityUsuario();
-            StringBuilder sb = new StringBuilder();
-
-            sb.AppendLine("    SELECT                                                                                               ");
-            sb.AppendLine("       PES.PESID                                                                                                 ");
-            sb.AppendLine("     , (SELECT PRVVALOR from TB_PRV_PARAMETROSVALOR WHERE PRVCAMPO = 'USUARIO') USUSEQUENCIAL");
-            sb.AppendLine("     , PES.PESNOME                                                                                         ");
-            sb.AppendLine("     , PES.PESSOBRENOME                                                                             ");
-            sb.AppendLine("     , USU.USUSTATUS                                                                                       ");
-            sb.AppendLine("     , USU.USUSENHA                                                                                      ");
-            sb.AppendLine("     , EML.EMLEMAIL                                                                                      ");
-            sb.AppendLine("  FROM TB_PES_PESSOA PES                                                                     ");
-            sb.AppendLine("      INNER JOIN TB_USU_USUARIO USU ON USU.PESID = PES.PESID   ");
-            sb.AppendLine("      LEFT JOIN TB_EML_EMAIL EML ON EML.PESID = PES.PESID        ");
-            sb.AppendLine("      LEFT JOIN TB_TEL_TELEFONE TEL ON TEL.PESID = PES.PESID       ");
-            sb.AppendLine("   WHERE PES.PESID = " + pesid);
+            UsuarioQuery Query = new UsuarioQuery();
 
 
-            SqlDataReader dr = ListarDadosEntity(sb.ToString());
+
+            SqlCommand _Comando = new SqlCommand(Query.GetUsuarioByIDQuery(), db.MinhaConexao());
+
+            SqlParameter parameter = new SqlParameter("@PESID", pesid);
+            _Comando.Parameters.Add(parameter);
+            _Comando.CommandType = CommandType.Text;
+            SqlDataReader dr = _Comando.ExecuteReader();
+
 
             if (dr.HasRows)
             {
                 while (dr.Read())
                 {
+                    _ObjUsuario.USUID = int.Parse(dr["USUID"].ToString());
                     _ObjUsuario.TbPessoa.PESID = int.Parse(dr["PESID"].ToString());
-                    _ObjUsuario.TbPessoa.PESNOME = dr["PESNOME"].ToString();
-                    _ObjUsuario.TbPessoa.PESSOBRENOME = dr["PESSOBRENOME"].ToString();
+                    _ObjUsuario.TbTelefone.TELID = int.Parse(dr["TELID"].ToString());
+                    _ObjUsuario.TbEndereco.EDNID = int.Parse(dr["EDNID"].ToString());
+                    _ObjUsuario.TbEmail.EMLID = int.Parse(dr["EMLID"].ToString());
+                    _ObjUsuario.USUSEQUENCIAL = dr["USUSEQUENCIAL"].ToString();
                     _ObjUsuario.USUSTATUS = dr["USUSTATUS"].ToString();
                     _ObjUsuario.USUSENHA = dr["USUSENHA"].ToString();
+                    _ObjUsuario.TbPessoa.PESNOME = dr["PESNOME"].ToString();
+                    _ObjUsuario.TbPessoa.PESSOBRENOME = dr["PESSOBRENOME"].ToString();
                     _ObjUsuario.TbEmail.EMLEMAIL = dr["EMLEMAIL"].ToString();
+                    _ObjUsuario.TbTelefone.TELDDD = dr["TELDDD"].ToString();
+                    _ObjUsuario.TbTelefone.TELNUMERO = dr["TELNUMERO"].ToString();
+                    _ObjUsuario.TbTelefone.TELDDDC = dr["TELDDDC"].ToString();
+                    _ObjUsuario.TbTelefone.TELCELULAR = dr["TELCELULAR"].ToString();
+                    _ObjUsuario.TbEndereco.EDNCEP = dr["EDNCEP"].ToString();
+                    _ObjUsuario.TbEndereco.EDNCIDADE = dr["EDNCIDADE"].ToString();
+                    _ObjUsuario.TbEndereco.EDNUF = dr["EDNUF"].ToString();
+                    _ObjUsuario.TbEndereco.EDNLOGRADOURO = dr["EDNLOGRADOURO"].ToString();
+                    _ObjUsuario.TbEndereco.EDNBAIRRO = dr["EDNBAIRRO"].ToString();
+                    _ObjUsuario.TbEndereco.EDNNUMERO = dr["EDNNUMERO"].ToString();
+                    _ObjUsuario.TbEndereco.EDNCOMPLEMENTO = dr["EDNCOMPLEMENTO"].ToString();
+
                 }
             }
 
             return _ObjUsuario;
         }
-        public string DeletarUsuario(int pesid)
+        public string ExcluirUsuario(int pesid)
         {
             string sRetornoEmail = RetornaObjeto("TB_EML_EMAIL", "PESID", pesid);
 
@@ -231,11 +239,11 @@ namespace WorkFlow.Utilitarios
                 AddListaDeletar(telefone);
             }
 
-            string vendedor = RetornaQueryDelete("TB_USU_USUARIO", "PESID", pesid);
-            AddListaDeletar(vendedor);
+            string sUsuario = RetornaQueryDelete("TB_USU_USUARIO", "PESID", pesid);
+            AddListaDeletar(sUsuario);
 
-            string pessoa = RetornaQueryDelete("TB_PES_PESSOA", "PESID", pesid);
-            AddListaDeletar(pessoa);
+            string sPessoa = RetornaQueryDelete("TB_PES_PESSOA", "PESID", pesid);
+            AddListaDeletar(sPessoa);
 
             ExecuteTransacao();
 

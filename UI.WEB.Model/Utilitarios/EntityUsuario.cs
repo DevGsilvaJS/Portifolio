@@ -16,6 +16,7 @@ namespace UI.WEB.Model.Utilitarios
         public int PESID { get; set; }
         public string USUSENHA { get; set; }
         public string USUSTATUS { get; set; }
+        public string USUSEQUENCIAL { get; set; }
         public EntityPessoa TbPessoa { get; set; }
         public EntityEmail TbEmail { get; set; }
         public EntityEndereco TbEndereco { get; set; }
