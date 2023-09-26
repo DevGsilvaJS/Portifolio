@@ -54,5 +54,16 @@ namespace WEBApp.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult RetornaEntityProduto(string produto)
+        {
+            List<EntityProduto> Produto = new List<EntityProduto>();
+            Produto = wf.RetornaEntityProduto(produto);
+
+            return Json(new
+            {
+                Produto = Produto
+            }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

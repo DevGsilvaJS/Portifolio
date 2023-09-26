@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,6 +8,8 @@ using UI.WEB.Model.Estoque.Atributos.Caracteristicas;
 
 namespace UI.WEB.Model.Estoque.Atributos
 {
+
+    [Table("TB_AAT_ATRIBUTOS")]
     public class EntityAtributosProduto
     {
         public int AATID { get; set; }

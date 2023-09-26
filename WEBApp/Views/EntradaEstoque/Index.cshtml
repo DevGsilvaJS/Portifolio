@@ -4,14 +4,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-<style>
-    input[type=number]::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-    }
-</style>
-
-
 <html lang="pt-br">
 <head>
     <title>Título da página</title>
@@ -90,7 +82,7 @@
 
                             <div class="col-md-3">
                                 <label>Valor Total da Nota</label>
-                                <input type="number" class="form-control" id="txtValorNota">
+                                <input type="text" class="form-control" id="txtValorNota">
                             </div>
                         </div>
 
@@ -128,7 +120,7 @@
 
                             <div class="col-md-2">
                                 <label>Quantidade</label>
-                                <input type="number" class="form-control" id="txtQtd">
+                                <input type="text" class="form-control" id="txtQtd">
                             </div>
                         </div>
 
@@ -136,13 +128,13 @@
                         <div class="row">
 
                             <div class="col-md-2">
-                                <label>Valor Unitário R$</label>
+                                <label>Valor Unitário <span style="color:red">R$</span></label>
                                 <input type="text" id="txtValorUnitario" class="form-control" />
                             </div>
 
                             <div class="col-md-2">
-                                <label>Valor IPI <span style="color: red"></span></label>
-                                <input type="text" id="txtIPI" class="form-control" onblur="CalcularCustoTotal();" />
+                                <label>Total IPI <span style="color:red">R$</span></label>
+                                <input type="text" id="txtIPI" class="form-control" />
                             </div>
 
                             <div class="col-md-2">
@@ -151,21 +143,25 @@
                             </div>
 
                             <div class="col-md-2">
-                                <label>Markup % </label>
-                                <input type="number" id="txtMarkup" class="form-control" onblur="CalculoPrecoVenda();" />
+                                <label>Markup <span style="color:lawngreen">%</span></label>
+                                <input type="text" id="txtMarkup" class="form-control" />
                             </div>
 
-                            <div class="col-md-2">
+                            <div class="col-xl-3 col-lg-4 col-sm-6">
                                 <label>Valor de Venda <span style="color:lawngreen">R$</span></label>
-                                <input class="form-control" type="text" id="txtValorVenda" />
+                                <div class="input-group input-group">
+                                    <input type="text" class="form-control" id="txtMvmvalvenda">
+                                    <span class="input-group-btn">
+
+
+                                        <button type="button" id="btnAdicionarItemGrid" class="btn btn-social-icon" style="border: solid 1px;">
+                                            <i class="mdi mdi-content-save-outline"></i>
+                                        </button>
+                                    </span>
+                                </div>
+
                             </div>
 
-                            <div class="col-md-1" style=" padding-left: 0px">
-                                <label>Ação</label>
-                                <button id="btnSalvar" class="btn btn-social-icon" disabled>
-                                    <i class="fa fa-save"></i>
-                                </button>
-                            </div>
                         </div>
                     </div>
 
@@ -182,7 +178,6 @@
                                             <tr>
                                                 <td>Ação</td>
                                                 <td>Item</td>
-                                                <td>Código</td>
                                                 <td>Fantasia</td>
                                                 <td>Quantidade</td>
                                                 <td>V. Custo Total</td>
@@ -204,53 +199,39 @@
 
                         </div>
                     </div>
-                   
 
-                   
+
+
                 </div>
             </form>
         </div>
     </div>
 
-    <div class="col-md-3">
-        <button id="btnGravarEntrada" type="button" class="btn btn-success" disabled>SALVAR</button>
-    </div>
-
-
-    <div class="modal fade" id="txtModal">
-        <div class="modal-dialog">
+    <div class="modal fade bs-example-modal-lg" id="txtModal" tabindex="-1" aria-labelledby="myLargeModalLabel" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" id="btnFecharModal" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title">Lista de Produtos</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="box box-primary">
-                        <div class="md-12">
-                            <table id="tbListagemProdutos" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
-                                <thead>
-                                    <tr>
-                                        <td>Ação</td>
-                                        <td>Código</td>
-                                        <td>Fantasia</td>
-                                        <td>Material</td>
-                                        <td>Grife</td>
-                                        <td>Cor</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
+
+                    <table id="tbListaProdutosEntrada" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                        <thead>
+                            <tr>
+                                <td>Ação</td>
+                                <td>Código</td>
+                                <td>Fantasia</td>
+                                <td>Grife</td>
+                                <td>Cor</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+
                 </div>
-            </div>
-        </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
     </div>
 
 </body>

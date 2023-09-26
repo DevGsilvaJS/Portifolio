@@ -65,9 +65,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Estoque\EntradaEstoqueWorkFlow.cs" />
     <Compile Include="Estoque\FornecedorWorkFlow.cs" />
     <Compile Include="Estoque\InventarioWorkFlow.cs" />
+    <Compile Include="Estoque\EntradaEstoqueWorkFlow.cs" />
     <Compile Include="Estoque\ProdutoWorkFlow.cs" />
     <Compile Include="Estoque\SaidaEstoqueWorkFlow.cs" />
     <Compile Include="Estoque\TransferenciaEstoqueWorkFlow.cs" />

@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,7 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Estoque\EntradaEstoqueQuery.cs" />
     <Compile Include="Estoque\ProdutoQuery.cs" />
+    <Compile Include="Fiscal\EntityCfop.cs" />
     <Compile Include="Outros\ResetarTabelasSQLQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilitarios\UsuarioQuery.cs" />

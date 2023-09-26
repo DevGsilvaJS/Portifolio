@@ -52,13 +52,14 @@
     <Compile Include="Estoque\Atributos\Caracteristicas\EntitySublinha2Produto.cs" />
     <Compile Include="Estoque\Atributos\Caracteristicas\EntityTamanhoProduto.cs" />
     <Compile Include="Estoque\Atributos\EntityAtributosProduto.cs" />
-    <Compile Include="Estoque\EntityEntradaEstoque.cs" />
     <Compile Include="Estoque\EntityFornecedor.cs" />
     <Compile Include="Estoque\EntityInventario.cs" />
     <Compile Include="Estoque\Atributos\Caracteristicas\EntityLinhaProduto.cs" />
+    <Compile Include="Estoque\EntityItensEntrada.cs" />
     <Compile Include="Estoque\EntityProduto.cs" />
     <Compile Include="Estoque\EntitySaidaEstoque.cs" />
     <Compile Include="Estoque\EntityTransferenciaEstoque.cs" />
+    <Compile Include="Estoque\EntityNotaFiscal.cs" />
     <Compile Include="Estoque\TabelaPrecos\EntityMPV.cs" />
     <Compile Include="Estoque\TabelaPrecos\EntiyMPC.cs" />
     <Compile Include="Financeiro\EntityBaixaVencimento.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Financeiro\EntityFormaPagamento.cs" />
     <Compile Include="Financeiro\Tabelas Auxiliares\EntityCentroCusto.cs" />
     <Compile Include="Financeiro\Tabelas Auxiliares\EntityPlanoContas.cs" />
+    <Compile Include="Fiscal\Tabelas Auxiliares\EntityCFOP.cs" />
     <Compile Include="Fiscal\Tabelas Auxiliares\EntityNCM.cs" />
     <Compile Include="Outros\EntityTelefone.cs" />
     <Compile Include="Outros\EntityEmail.cs" />

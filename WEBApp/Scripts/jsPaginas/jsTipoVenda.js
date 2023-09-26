@@ -137,9 +137,27 @@ function fnSalvarDados() {
         success: function (result) {
             debugger;
 
+
+
+            $(document).ready(function () {
+                var resposta = confirm("Você tem certeza de que deseja continuar?");
+
+                if (resposta) {
+                    // O usuário clicou em "OK", faça algo aqui
+                    alert("Ação confirmada!");
+                } else {
+                    // O usuário clicou em "Cancelar" ou fechou a caixa de diálogo
+                    alert("Ação cancelada!");
+                }
+            });
+
+
             result.retorno = "OK";
 
-            fnListaDados();     
+
+
+
+            fnListaDados();
 
         },
         error: function (jqXHR, exception) {
@@ -196,7 +214,7 @@ function fnListaDados() {
 }
 
 function fnExcluirTipoVenda(tpvid) {
-    
+
 
     $.ajax({
         type: "GET",

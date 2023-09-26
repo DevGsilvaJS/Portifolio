@@ -64,12 +64,6 @@ namespace WorkFlow.Utilitarios
             }
             else
             {
-                byte[] salt = GenerateSalt();
-
-                byte[] hashedPassword = HashPassword(_Usuario.USUSENHA, salt);
-
-                _Usuario.USUSENHA = BitConverter.ToString(hashedPassword).Replace("-", "").ToLower();
-
 
                 AddListaSalvar(_Usuario.TbPessoa);
 
