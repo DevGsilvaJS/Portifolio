@@ -142,6 +142,7 @@ D:\Projetos\WEBApp\WEBApp\bin\System.Web.WebPages.Razor.dll
 D:\Projetos\WEBApp\WEBApp\bin\UI.WEB.Model.dll
 D:\Projetos\WEBApp\WEBApp\bin\UI.WEB.WorkFlow.dll
 D:\Projetos\WEBApp\WEBApp\bin\WebGrease.dll
+D:\Projetos\WEBApp\WEBApp\bin\UI.WEB.Query.dll
 D:\Projetos\WEBApp\WEBApp\bin\UI.WEB.Model.pdb
 D:\Projetos\WEBApp\WEBApp\bin\UI.WEB.WorkFlow.pdb
 D:\Projetos\WEBApp\WEBApp\bin\System.Web.Helpers.xml
@@ -156,10 +157,9 @@ D:\Projetos\WEBApp\WEBApp\bin\Antlr3.Runtime.pdb
 D:\Projetos\WEBApp\WEBApp\bin\System.Diagnostics.DiagnosticSource.xml
 D:\Projetos\WEBApp\WEBApp\bin\Microsoft.AspNet.TelemetryCorrelation.xml
 D:\Projetos\WEBApp\WEBApp\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Projetos\WEBApp\WEBApp\bin\UI.WEB.Query.pdb
 D:\Projetos\WEBApp\WEBApp\obj\Debug\WEBApp.csproj.AssemblyReference.cache
 D:\Projetos\WEBApp\WEBApp\obj\Debug\WEBApp.csproj.CoreCompileInputs.cache
 D:\Projetos\WEBApp\WEBApp\obj\Debug\WEBApp.csproj.CopyComplete
 D:\Projetos\WEBApp\WEBApp\obj\Debug\WEBApp.dll
 D:\Projetos\WEBApp\WEBApp\obj\Debug\WEBApp.pdb
-D:\Projetos\WEBApp\WEBApp\bin\UI.WEB.Query.dll
-D:\Projetos\WEBApp\WEBApp\bin\UI.WEB.Query.pdb

@@ -18,6 +18,12 @@ namespace UI.WEB.WorkFlow.Estoque
 
         DBComando db = new DBComando();
 
+        public List<EntityItensEntrada> RetornaListaEntrada()
+        {
+            List<EntityItensEntrada> listaEntrada = new List<EntityItensEntrada>();
+
+            return listaEntrada;
+        }
         public EntityNotaFiscal RetornaObjInclusao()
         {
             EntityNotaFiscal obj = new EntityNotaFiscal();
@@ -113,23 +119,20 @@ namespace UI.WEB.WorkFlow.Estoque
 
 
         }
-
-        public string SalvarEntradaEstoque(EntityNotaFiscal EntradaEstoque)
+        public string GravarEntradaEstoque(EntityNotaFiscal EntradaEstoque)
         {
             string sRetorno = "";
 
-            //MVN
+
             AddListaSalvar(EntradaEstoque);
 
-            //MVM
-            AddListaSalvar(EntradaEstoque.TbItensEntrada);
-
-
-            //Itens da entrada
             foreach (var item in EntradaEstoque.ListaEntrada)
             {
+                item.MVNID = EntradaEstoque.MVNID;
                 AddListaAtualizar(item);
             }
+
+            ExecuteTransacao();
 
             //MEC
 

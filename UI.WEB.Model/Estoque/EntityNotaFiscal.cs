@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using UI.WEB.Model.Fiscal.Tabelas_Auxiliares;
 
 namespace UI.WEB.Model.Estoque
 {
+    [Table("TB_MVN_MOVMATNOTA")]
     public class EntityNotaFiscal
     {
 
@@ -20,22 +22,11 @@ namespace UI.WEB.Model.Estoque
         public string MVNSUBSERIENOTA { get; set; }
         public string MVNTOTALNOTA { get; set; }
         public EntityItensEntrada TbItensEntrada { get; set; }
-        public EntityCFOP TbCfop { get; set; }
-        public EntityFornecedor TbFornecedor { get; set; }
-        public EntityProduto TbProduto { get; set; }
-        public EntityMPV TbMpv { get; set; }
-        public EntiyMPC TbMpc { get; set; }
         public List<EntityItensEntrada> ListaEntrada { get; set; }
-
         public EntityNotaFiscal()
         {
             ListaEntrada = new List<EntityItensEntrada>();
             TbItensEntrada = new EntityItensEntrada();
-            TbCfop = new EntityCFOP();
-            TbFornecedor = new EntityFornecedor();
-            TbProduto = new EntityProduto();
-            TbMpc = new EntiyMPC();
-            TbMpv = new EntityMPV();
         }
     }
 }

@@ -30,8 +30,16 @@ namespace WEBApp.Controllers
                 ObjInclusao = obj
             }, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult RetornaListaEntrada()
+        {
+            List<EntityItensEntrada> listaEntrada = new List<EntityItensEntrada>();
+            listaEntrada = wf.RetornaListaEntrada();
 
-
+            return Json(new
+            {
+                listaEntrada = listaEntrada
+            }, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult RetornaComboFornecedores()
         {
             List<EntityFornecedor> listaFornecedores = new List<EntityFornecedor>();
@@ -42,7 +50,6 @@ namespace WEBApp.Controllers
                 listaFornecedores = listaFornecedores
             }, JsonRequestBehavior.AllowGet);
         }
-
         public JsonResult RetornaComboCfops()
         {
             List<EntityCFOP> listaCfops = new List<EntityCFOP>();
@@ -53,7 +60,6 @@ namespace WEBApp.Controllers
                 listaCfops = listaCfops
             }, JsonRequestBehavior.AllowGet);
         }
-
         public JsonResult RetornaEntityProduto(string produto)
         {
             List<EntityProduto> Produto = new List<EntityProduto>();
@@ -63,6 +69,15 @@ namespace WEBApp.Controllers
             {
                 Produto = Produto
             }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GravarEntradaEstoque(EntityNotaFiscal _EntradaEstoque)
+        {
+            string sRetorno = wf.GravarEntradaEstoque(_EntradaEstoque);
+
+            return Json(new
+            {
+                retorno = sRetorno
+            });
         }
 
     }

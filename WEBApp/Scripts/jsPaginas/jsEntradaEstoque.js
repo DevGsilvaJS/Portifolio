@@ -2,14 +2,17 @@
 oTabListaProdutosEntrada = null;
 var ListaItensPesquisa = [];
 ListaGrid = [];
+listaEntrada = [];
 var ListaItensGrid = new Array();
-var posicaoGrid = 1;
+var posicaoGrid = 0;
 _EntradaEstoque = null
 IDPRINCIPAL = null;
 var custoUnitario = 0;
 var valorIpi = 0;
 var custoTotal = 0;
 var totalNota = 0;
+var STATUSPAGINA = "INSERCAO";
+var indiceItem = null;
 
 $(document).ready(function () {
     jQueryInit();
@@ -53,8 +56,8 @@ function fnCriaTela() {
         "bAutoWidth": false,
         "aaSorting": [[1, "asc"]],
         "aoColumns": [
-            { sWidth: '15%', "bSortable": false },
-            { sWidth: '4%' },//Numero          
+            { sWidth: '12%', "bSortable": false },
+            { sWidth: '10%' },//Numero          
             { sWidth: '10%' },//Titulo
             { sWidth: '10%' },//Titulo
             { sWidth: '10%' },//Titulo
@@ -66,14 +69,15 @@ function fnCriaTela() {
     });
 
     fnRetornaObjInclusao();
+    fnRetornaListaEntrada();
     fnSetDataAtual();
     fnRetornaComboFornecedores();
     fnRetornaComboCfops();
 
-    $('#txtValorUnitario').inputmask('R$ 9{1,},99');
-    $('#txtIPI').inputmask('R$ 9{1,},99');
-    $('#txtCustoTotal').inputmask('R$ 9{1,},99');
-    $('#txtMvmvalvenda').inputmask('R$ 9{1,},99');
+    $('#txtValorUnitario').inputmask('9{1,},99');
+    $('#txtIPI').inputmask('9{1,},99');
+    $('#txtCustoTotal').inputmask('9{1,},99');
+    $('#txtMvmvalvenda').inputmask('9{1,},99');
 
 }
 
@@ -144,13 +148,38 @@ function fnRetornaObjInclusao() {
 
 }
 
+function fnRetornaListaEntrada() {
+
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "EntradaEstoque/RetornaListaEntrada",
+        dataType: "JSON",
+        cache: false,
+        async: false,
+        beforeSend: function () {
+
+        },
+        success: function (result) {
+
+
+            listaEntrada = result.listaEntrada;
+
+        },
+        error: function (jqXHR, exception) {
+        },
+        compvare: function () {
+        }
+    });
+
+}
+
 $(document).ready(function () {
     $('.nav-tabs a').on('click', function (e) {
         e.preventDefault();
         $(this).tab('show');
     });
 });
-
 
 $("#aLista").click(function () {
     $("#btnSalvarFormulario").css('display', 'none');
@@ -166,11 +195,10 @@ $("#aCadastro").click(function () {
 $("#btnPesquisarProduto").click(function () {
 
     fnLimpaGrid();
-
+    STATUSPAGINA = 'INSERCAO';
     fnBuscarProduto($("#txtFantasia").val());
 
 })
-
 
 $("#txtIPI").blur(function () {
 
@@ -196,20 +224,34 @@ function textoParaNumero(texto) {
 function fnCalculoCustoTotal() {
 
 
+
+
     var quantidade = 0;
     var custoUnitario = 0;
     var valorIpi = 0;
+    var resultado = 0;
 
     custoUnitario = removerMascara($("#txtValorUnitario").val());
     valorIpi = removerMascara($("#txtIPI").val());
     quantidade = $("#txtQtd").val();
 
+    custoUnitario = textoParaNumero(custoUnitario);
+    valorIpi = textoParaNumero(valorIpi);
 
 
-    custoUnitario = parseFloat(custoUnitario.replace(',', '.'));
-    valorIpi = parseFloat(valorIpi.replace(',', '.'));
 
-    var resultado = quantidade * (custoUnitario + valorIpi);
+
+    if (quantidade == "") {
+        quantidade = 0;
+
+        resultado = parseFloat(custoUnitario + valorIpi)
+
+    }
+
+    else {
+        quantidade = textoParaNumero(quantidade);
+        resultado = parseFloat((custoUnitario + valorIpi) * quantidade);
+    }
 
 
     custoTotal = resultado.toFixed(2).replace('.', ',');
@@ -250,16 +292,22 @@ function fnCalculoValorVenda() {
 
 $(document).ready(function () {
     $('#btnSalvarFormulario').on('click', function () {
-        fnSalvarDados();
+
+        fnSalvarEntrada();
+
     });
 });
 
-function fnSalvarDados() {
+function fnSalvarEntrada() {
 
-    _EntradaEstoque.TPVID = IDPRINCIPAL;
-    _EntradaEstoque.TPVDESCRICAO = $("#txtDescricaoEntradaEstoque").val();
-    _EntradaEstoque.TPVDEFAULTVENDA = $("#ckbDefaultVenda").prop("checked") ? 1 : 0;
-
+    _EntradaEstoque.FORID = $("#sslFornecedor").val();
+    _EntradaEstoque.MVNDATAENTRADA = $("#dtDataMvm").val();
+    _EntradaEstoque.MVNNUMNOTA = $("#txtNumeroNota").val();
+    _EntradaEstoque.MVNMODELONOTA = $("#sslTipoNf").val();
+    _EntradaEstoque.MVNSERIENOTA = $("#txtSerie").val();
+    _EntradaEstoque.MVNSUBSERIENOTA = $("#txtSubSerie").val();
+    _EntradaEstoque.MVNTOTALNOTA = $("#txtValorNota").val();
+    _EntradaEstoque.TbItensEntrada.COPID = $("#sslCFOP").val();
 
     $.ajax({
 
@@ -464,6 +512,8 @@ function fnPopulaGrid(ProdutoSelecionado) {
 
             $("#txtProduto").val(ListaItensPesquisa[i].MATFANTASIA);
 
+            $("#txtQtd").val('1');
+
             $('#txtModal').modal('hide');
 
         }
@@ -473,29 +523,42 @@ function fnPopulaGrid(ProdutoSelecionado) {
 
 $("#btnAdicionarItemGrid").click(function () {
 
+    debugger;
+
     if (IDPRINCIPAL == null) {
         return false;
     }
 
-    fnPreencheGrid(IDPRINCIPAL);
+    if (STATUSPAGINA == "INSERCAO") {
+        fnPreencheGrid(IDPRINCIPAL);
+    }
+
+    else if (STATUSPAGINA == "EDICAO") {
+        fnAtualizarItemGrid(indiceItem);
+    }
+
 
 })
 
 function fnPreencheGrid(mATID) {
 
+    debugger;
+
+
     for (var i = 0; i < ListaItensPesquisa.length; i++) {
 
         if (mATID === ListaItensPesquisa[i].MATID) {
-           
-            _EntradaEstoque.TbProduto.MATID = IDPRINCIPAL
 
+            _EntradaEstoque.TbItensEntrada = new Object();
 
-            var btnEditar = '<button id="' + _EntradaEstoque.TbProduto.MATID + '"  name="btnEdicao" type="button" style="margin:5px;"  class="btn  btn-primary" onClick="fnEditarTipoVenda(this)">Editar</button>';
-            var btnExcluir = '<button id="' + _EntradaEstoque.TbProduto.MATID + '"  name="btnEdicao" type="button" class="btn  btn-danger" onClick="fnEditarTipoVenda(this)">Excluir</button>';
+            _EntradaEstoque.TbItensEntrada.MATID = IDPRINCIPAL
+
+            var btnEditar = '<button id="' + _EntradaEstoque.TbItensEntrada.MATID + '"  name="btnEdicao" type="button" style="margin:5px;"  class="btn  btn-primary" onClick="fnEditarItemGrid(this)">Editar</button>';
+            var btnExcluir = '<button id="' + _EntradaEstoque.TbItensEntrada.MATID + '"  name="btnExclusao" type="button" class="btn  btn-danger" onClick="fnExcluirItemGrid(this)">Excluir</button>';
 
             var Linha = [btnEditar + btnExcluir,
                 posicaoGrid,
-            _EntradaEstoque.TbProduto.MATFANTASIA = $("#txtProduto").val(),
+            MATFANTASIA = $("#txtProduto").val(),
             _EntradaEstoque.TbItensEntrada.MVMQUANTIDADE = $("#txtQtd").val(),
             _EntradaEstoque.TbItensEntrada.MVMVALUNITARIO = $("#txtValorUnitario").val(),
             _EntradaEstoque.TbItensEntrada.MVMVALIPI = $("#txtIPI").val(),
@@ -508,32 +571,13 @@ function fnPreencheGrid(mATID) {
 
             oTabEntradaEstoque.rows.add(ListaGrid).draw();
 
-            debugger;
+            _EntradaEstoque.ListaEntrada.push(_EntradaEstoque.TbItensEntrada);
 
-            var custo = removerMascara($("#txtCustoTotal").val());
-            custo = textoParaNumero(custo);
+            fnCalcularTotalNota($("#txtCustoTotal").val());
 
+            fnLimpaGrid();
 
-            totalNota += custo;
-
-
-            totalNota = totalNota.toFixed(2).replace('.', ',');
-
-            $("#txtValorNota").val(totalNota);
-
-
-            var regex = /id="([^"]+)"/;
-            var match = btnEditar.match(regex);
-
-            if (match && match.length > 1) {
-                var matid = match[1];
-                console.log(matid); // matid conterá o valor de _EntradaEstoque.TbProduto.MATID
-            }
-
-            Linha[0] = matid;
-
-
-
+            IDPRINCIPAL = null;
 
         }
     }
@@ -549,5 +593,71 @@ function fnLimpaGrid() {
     $("#txtCustoTotal").val('');
     $("#txtMarkup").val('');
     $("#txtMvmvalvenda").val('');
+}
+
+function fnCalcularTotalNota(valorCusto) {
+
+    var custo = removerMascara(valorCusto);
+    custo = textoParaNumero(custo);
+
+    totalNota += custo;
+
+    $("#txtValorNota").val(totalNota.toFixed(2));
+
+}
+
+function fnExcluirItemGrid(id) {
+
+    for (var i = 0; i < _EntradaEstoque.ListaEntrada.length; i++) {
+        if (_EntradaEstoque.ListaEntrada[i].MATID == id.id) {
+
+            _EntradaEstoque.ListaEntrada.splice(i, 1);
+
+            oTabEntradaEstoque.row(i).remove().draw();
+
+        }
+    }
+}
+
+function fnEditarItemGrid(id) {
+
+    STATUSPAGINA = "EDICAO";
+    IDPRINCIPAL = id.id;
+    var minhaTabela = $('#tbMovimentacao').DataTable();
+
+    var linha = id.closest('tr');
+    indiceItem = linha.querySelector('td:nth-child(2)').textContent;
+
+    $("#txtProduto").val(linha.querySelector('td:nth-child(3)').textContent);
+    $("#txtQtd").val(linha.querySelector('td:nth-child(4)').textContent);
+    $("#txtValorUnitario").val(linha.querySelector('td:nth-child(5)').textContent);
+    $("#txtIPI").val(linha.querySelector('td:nth-child(6)').textContent);
+    $("#txtCustoTotal").val(linha.querySelector('td:nth-child(7)').textContent);
+    $("#txtMarkup").val(linha.querySelector('td:nth-child(8)').textContent);
+    $("#txtMvmvalvenda").val(linha.querySelector('td:nth-child(9)').textContent);
+
+
+}
+
+function fnAtualizarItemGrid(indiceItem) {
+
+
+    var minhaTabela = $('#tbMovimentacao').DataTable();
+
+    var linha = minhaTabela.row(indiceItem);
+    var valoresDaLinha = linha.data();
+
+    valoresDaLinha[3] = $("#txtQtd").val();
+    valoresDaLinha[4] = $("#txtValorUnitario").val();
+    valoresDaLinha[5] = $("#txtIPI").val();
+    valoresDaLinha[6] = $("#txtCustoTotal").val();
+    valoresDaLinha[7] = $("#txtMarkup").val();
+    valoresDaLinha[8] = $("#txtMvmvalvenda").val();
+
+    linha.data(valoresDaLinha);
+
+
+    minhaTabela.draw();
+
 }
 

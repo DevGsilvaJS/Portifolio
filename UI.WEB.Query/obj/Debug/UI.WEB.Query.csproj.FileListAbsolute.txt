@@ -1,6 +1,6 @@
 D:\Projetos\WEBApp\UI.WEB.Query\bin\Debug\UI.WEB.Query.dll
 D:\Projetos\WEBApp\UI.WEB.Query\bin\Debug\UI.WEB.Query.pdb
+D:\Projetos\WEBApp\UI.WEB.Query\obj\Debug\UI.WEB.Query.csproj.AssemblyReference.cache
 D:\Projetos\WEBApp\UI.WEB.Query\obj\Debug\UI.WEB.Query.csproj.CoreCompileInputs.cache
 D:\Projetos\WEBApp\UI.WEB.Query\obj\Debug\UI.WEB.Query.dll
 D:\Projetos\WEBApp\UI.WEB.Query\obj\Debug\UI.WEB.Query.pdb
-D:\Projetos\WEBApp\UI.WEB.Query\obj\Debug\UI.WEB.Query.csproj.AssemblyReference.cache
