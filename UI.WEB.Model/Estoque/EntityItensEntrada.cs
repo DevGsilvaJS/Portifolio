@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace UI.WEB.Model.Estoque
 {
 
-    [Table("TB_MVM_MOVMATITE")]
+    [Table("TB_MVM_MOVMATITEM")]
     public class EntityItensEntrada
     {
 
@@ -22,6 +22,7 @@ namespace UI.WEB.Model.Estoque
         public string MVMVALCUSTO { get; set; }
         public string MVMMARKUP { get; set; }
         public string MVMVALVENDA { get; set; }
+        public string MVMTIPO { get; set; }
 
     }
 }

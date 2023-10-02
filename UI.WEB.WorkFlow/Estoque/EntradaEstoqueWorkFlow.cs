@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UI.WEB.Model.Estoque;
+using UI.WEB.Model.Estoque.TabelaPrecos;
 using UI.WEB.Model.Fiscal.Tabelas_Auxiliares;
 using UI.WEB.Query.Estoque;
 using UI.WEB.Query.Fiscal;
@@ -17,6 +18,8 @@ namespace UI.WEB.WorkFlow.Estoque
     {
 
         DBComando db = new DBComando();
+
+        public object EntityMPC { get; private set; }
 
         public List<EntityItensEntrada> RetornaListaEntrada()
         {
@@ -122,6 +125,7 @@ namespace UI.WEB.WorkFlow.Estoque
         public string GravarEntradaEstoque(EntityNotaFiscal EntradaEstoque)
         {
             string sRetorno = "";
+            EntradaEstoqueQuery Query = new EntradaEstoqueQuery();
 
 
             AddListaSalvar(EntradaEstoque);
@@ -129,13 +133,61 @@ namespace UI.WEB.WorkFlow.Estoque
             foreach (var item in EntradaEstoque.ListaEntrada)
             {
                 item.MVNID = EntradaEstoque.MVNID;
-                AddListaAtualizar(item);
+                item.MVMVALCUSTO = item.MVMVALCUSTO.Replace(",", ".");
+                item.MVMVALIPI = item.MVMVALIPI.Replace(",", ".");
+                item.MVMVALVENDA = item.MVMVALVENDA.Replace(",", ".");
+                item.MVMVALUNITARIO = item.MVMVALUNITARIO.Replace(",", ".");
+
+                AddListaSalvar(item);
+
+
+                EntityEstoque Estoque = new EntityEstoque();
+
+                SqlCommand _Comando = new SqlCommand(Query.retornaQuantidadeQuery(), db.MinhaConexao());
+
+                SqlParameter parametro = new SqlParameter("MATID", item.MATID);
+                _Comando.Parameters.Add(parametro);
+                _Comando.CommandType = CommandType.Text;
+
+                SqlDataReader dr = _Comando.ExecuteReader();
+
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        Estoque.MECQUANTIDADE = int.Parse(dr["MECQUANTIDADE"].ToString());       
+
+                    }
+                }
+
+                Estoque.MATID = item.MATID;
+                Estoque.MECQUANTIDADE = Estoque.MECQUANTIDADE + int.Parse(item.MVMQUANTIDADE);
+
+                AddListaAtualizar(Estoque);
+
+                EntityMPV TB_MPV_MATPRECOVENDA = new EntityMPV();
+
+                TB_MPV_MATPRECOVENDA.MATID = item.MATID;
+                TB_MPV_MATPRECOVENDA.MPVMARKUP = item.MVMMARKUP;
+                TB_MPV_MATPRECOVENDA.MPVPRECOVENDA = item.MVMVALVENDA;
+
+                AddListaAtualizar(TB_MPV_MATPRECOVENDA);
+
+                EntityMPC TB_MPC_MATPRECOCUSTO = new EntityMPC();
+
+                string dataAtual = DateTime.Now.ToString("dd/MM/yyyy");
+
+
+                TB_MPC_MATPRECOCUSTO.MATID = item.MATID;
+                TB_MPC_MATPRECOCUSTO.MPCPRECOCUSTO = item.MVMVALUNITARIO;
+                TB_MPC_MATPRECOCUSTO.MPCDTALTERACAO = dataAtual;
+
+                AddListaAtualizar(TB_MPC_MATPRECOCUSTO);
+
+
             }
 
             ExecuteTransacao();
-
-            //MEC
-
 
             return sRetorno;
         }

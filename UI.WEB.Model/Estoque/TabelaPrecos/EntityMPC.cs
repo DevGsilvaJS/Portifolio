@@ -9,7 +9,7 @@ namespace UI.WEB.Model.Estoque.TabelaPrecos
 {
 
     [Table("TB_MPC_MATPRECOCUSTO")]
-    public class EntiyMPC
+    public class EntityMPC
     {
         public int MPCID { get; set; }
         public int MATID { get; set; }

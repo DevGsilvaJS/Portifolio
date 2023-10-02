@@ -300,6 +300,12 @@ $(document).ready(function () {
 
 function fnSalvarEntrada() {
 
+    debugger;
+
+    for (var i = 0; i < _EntradaEstoque.ListaEntrada.length; i++) {
+        _EntradaEstoque.ListaEntrada[i].MVMTIPO = "E";
+    }
+
     _EntradaEstoque.FORID = $("#sslFornecedor").val();
     _EntradaEstoque.MVNDATAENTRADA = $("#dtDataMvm").val();
     _EntradaEstoque.MVNNUMNOTA = $("#txtNumeroNota").val();

@@ -100,6 +100,13 @@ namespace UI.WEB.WorkFlow.Estoque
                 }
 
 
+                objProduto.TbMec.MATID = objProduto.MATID;
+                objProduto.TbMec.MECQUANTIDADE = 0;
+                AddListaSalvar(objProduto.TbMec);
+
+                
+
+
                 AddListaParametros("UPDATE TB_PRV_PARAMETROVALOR SET PRVVALOR = PRVVALOR + 1 WHERE PRVCAMPO = 'ARMACAO'");
             }
             string sRetorno = ExecuteTransacao();
@@ -108,7 +115,6 @@ namespace UI.WEB.WorkFlow.Estoque
 
             return sRetorno;
         }
-
         public string AtualizarProduto (EntityProduto objProduto)
         {
             string sRetorno = "";

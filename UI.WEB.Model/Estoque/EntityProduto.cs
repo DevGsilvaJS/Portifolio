@@ -37,7 +37,8 @@ namespace UI.WEB.Model.Estoque
         public EntityCorNumericaProduto TbCorNumerica { get; set; }
         public EntityCorProduto TbCor { get; set; }
         public EntityMPV  TbMpv { get; set; }
-        public EntiyMPC TbMpc { get; set; }
+        public EntityMPC TbMpc { get; set; }
+        public EntityEstoque TbMec { get; set; }
 
         public EntityProduto()
         {
@@ -52,7 +53,8 @@ namespace UI.WEB.Model.Estoque
             TbTamanho = new EntityTamanhoProduto();
             TbCorNumerica = new EntityCorNumericaProduto();
             TbMpv = new EntityMPV();
-            TbMpc = new EntiyMPC();
+            TbMpc = new EntityMPC();
+            TbMec = new EntityEstoque();
         }
     }
 }

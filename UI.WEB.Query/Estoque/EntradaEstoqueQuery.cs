@@ -55,5 +55,19 @@ namespace UI.WEB.Query.Estoque
 
             return sb.ToString();
         }
+
+        public string retornaQuantidadeQuery()
+        {
+            StringBuilder sb = new StringBuilder();
+
+
+            sb.AppendLine(" SELECT                                                ");
+            sb.AppendLine("    CAST(MECQUANTIDADE AS INT) AS MECQUANTIDADE        ");
+            sb.AppendLine(" FROM TB_MEC_MATESTCONTROLE MEC                        ");
+            sb.AppendLine("    WHERE MEC.MATID = @MATID                           ");
+
+
+            return sb.ToString();
+        }
     }
 }
