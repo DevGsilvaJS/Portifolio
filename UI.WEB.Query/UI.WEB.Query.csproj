@@ -48,6 +48,7 @@
     <Compile Include="Outros\ResetarTabelasSQLQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilitarios\UsuarioQuery.cs" />
+    <Compile Include="Venda\ClienteQuery.cs" />
     <Compile Include="Venda\TabelasAuxiliares\ConvenioQuery.cs" />
     <Compile Include="Venda\TabelasAuxiliares\IndicacaoQuery.cs" />
     <Compile Include="Venda\TabelasAuxiliares\TipoVendaQuery.cs" />

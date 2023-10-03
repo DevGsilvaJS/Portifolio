@@ -9,7 +9,7 @@ using UI.WEB.Model.Outros;
 namespace UI.WEB.WorkFlow.Vendas
 {
     [Table("TB_CLI_CLIENTE")]
-    public class EntitiesCliente
+    public class EntityCliente
     {
         public int CLIID { get; set; }
         public int PESID { get; set; }
@@ -17,12 +17,13 @@ namespace UI.WEB.WorkFlow.Vendas
         public string CLISTATUS { get; set; }
         public string CLIESTADOCIVIL { get; set; }
         public string CLISALARIO { get; set; }
+        public string CLISEQUENCIAL { get; set; }
         public EntityPessoa TbPessoa { get; set; }
         public EntityEndereco TbEndereco { get; set; }
         public EntityEmail TbEmail { get; set; }
         public EntityTelefone TbTelefone { get; set; }
 
-        public EntitiesCliente()
+        public EntityCliente()
         {
             CLISEXO = "";
             CLISTATUS = "";

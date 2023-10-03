@@ -1,18 +1,186 @@
-﻿
-@{
-    Layout = null;
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
+<div class="nav-tabs-custom">
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    <div> 
+    <div>
+        <label>Cliente</label>
     </div>
-</body>
-</html>
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" href="#tab1" id="aLista" data-toggle="tab">Listagem</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#tab2" id="aCadastro" data-toggle="tab">Registro</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active" id="tab1">
+
+            <table id="tbCliente" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                <thead>
+                    <tr>
+                        <td>Ação</td>
+                        <td>Código</td>
+                        <td>Nome</td>
+                        <td>Cpf</td>
+                        <td>Rg</td>
+                        <td>Sexo</td>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+
+        <div class="tab-pane" id="tab2">
+            <div class="card">
+
+                <div class="card-body">
+
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label>Código</label>
+                                <input class="form-control" type="text" id="txtCodigoCliente" disabled>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>CPF</label>
+                                <input class="form-control" type="text" id="txtCpfCliente">
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>RG</label>
+                                <input class="form-control" type="text" id="txtRgCliente">
+                            </div>
+
+                            <div class="col-md-2">
+                                <label>Data de Nascimento</label>
+                                <input class="form-control" type="date" id="dtNascimentoCliente">
+                            </div>
+
+                            <div class="col-md-2">
+
+                                <label for="">Sexo</label>
+                                <select class="form-control" id="dllSexoCliente">
+                                    <option></option>
+                                    <option value="M">MASCULINO</option>
+                                    <option value="F">FEMININO</option>
+                                </select>
+
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>Nome</label>
+                                <input class="form-control" type="text" id="txtNomeCliente" name="formNome" placeholder="Nome" style="text-transform: uppercase">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>Sobrenome</label>
+                                <input class="form-control" type="text" id="txtSobreNomeCliente" placeholder="Sobrenome" style="text-transform: uppercase">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>E-mail</label>
+                                <input class="form-control" type="text" id="txtEmailCliente" placeholder="Email" style="text-transform: uppercase">
+                            </div>
+
+                            <div class="col-md-2">
+                                <label>Telefone</label>
+                                <input class="form-control" type="text" id="txtTelefoneCliente" placeholder="Telefone" name="FormTelefone" style="text-transform: uppercase">
+                            </div>
+
+                            <div class="col-md-2">
+                                <label>Celular</label>
+                                <input class="form-control" type="text" id="txtCelularCliente" name="Celular" placeholder="Celular">
+                            </div>
+
+                            <div class="col-md-2">
+                                <label>Salario</label>
+                                <input class="form-control" type="text" id="txtSalarioCliente" placeholder="R$">
+                            </div>
+
+                            <div class="col-md-2">
+
+                                <label>Estado Cívil</label>
+                                <select class="form-control" id="dllEstadoCivilCliente">
+                                    <option></option>
+                                    <option value="S">SOLTEIRO(a)</option>
+                                    <option value="C">CASADO(a)</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="card">
+
+                    <div class="card-body">
+                        <div class="col-md-2">
+                            <div class="input-group margin">
+                                <input type="text" id="txtValorCep" class="form-control" placeholder="BUSCAR CEP">
+                                <span class="input-group-btn">
+                                    <button type="button" id="btnBuscarCep" class="btn btn-info btn-flat">Go!</button>
+                                </span>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label for="">UF</label>
+                                <select class="form-control" id="ddlUf">
+                                    <option></option>
+                                    <option value="SP">SP</option>
+                                    <option value="PR">PR</option>
+                                    <option value="RJ">RJ</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>Endereço</label>
+                                <input type="text" class="form-control" id="txtLogradouro" style="text-transform: uppercase">
+                            </div>
+
+                            <div class="col-md-2">
+                                <label>Número</label>
+                                <input type="text" class="form-control" id="txtNumero" style="text-transform: uppercase">
+                            </div>
+
+
+                            <div class="col-md-4">
+                                <label>CIDADE</label>
+                                <input type="text" class="form-control" id="txtCidade" style="text-transform: uppercase">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>Bairro</label>
+                                <input type="text" class="form-control" id="txtBairro" style="text-transform: uppercase">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>Complemento</label>
+                                <input type="text" class="form-control" id="txtComplemento" style="text-transform: uppercase">
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="~/Scripts/jsPaginas/jsCliente.js"></script>

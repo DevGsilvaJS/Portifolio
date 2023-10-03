@@ -117,7 +117,7 @@
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="/Produto">Produtos</a></li>
-                                <li><a style="color:red" href="/EntradaEstoque">Entrada de Estoque</a></li>
+                                <li><a href="/EntradaEstoque">Entrada de Estoque</a></li>
                                 <li><a style="color:red" href="email-compose.html">Saída de Estoque</a></li>
                                 <li><a href="/Fornecedor">Fornecedores</a></li>
                             </ul>
@@ -290,6 +290,31 @@
         //    });
         //}
 
+    </script>
+
+
+    <script>
+        function buscaCep(cep) {
+            $.ajax({
+                url: "https://viacep.com.br/ws/" + cep + "/json/",
+                dataType: "json",
+                success: function (data) {
+
+                    if (data.erro) {
+                        // Trate o caso em que o CEP informado é inválido
+                    } else {
+                        $("#txtLogradouro").val(data.logradouro);
+                        $("#txtBairro").val(data.bairro);
+                        $("#txtCidade").val(data.localidade);
+                        $("#ddlUf").val(data.uf);
+                        // Use os dados do endereço como quiser
+                    }
+                },
+                error: function (xhr, status, error) {
+                    // Trate os erros da requisição aqui
+                }
+            });
+        }
     </script>
 
 

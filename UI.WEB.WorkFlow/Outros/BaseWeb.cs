@@ -212,7 +212,7 @@ namespace UI.WEB.WorkFlow.Outros
         }
         public int RetornaSequencial(string SEQ)
         {
-            EntitiesCliente _usu = new EntitiesCliente();
+            EntityCliente _usu = new EntityCliente();
 
             SqlCommand command = new SqlCommand($"SELECT NEXT VALUE FOR SEQ_{SEQ.Substring(0, 3)}", _Conexao.MinhaConexao());
 

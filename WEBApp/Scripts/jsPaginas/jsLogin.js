@@ -6,8 +6,8 @@
 
 function jQueryInit() {
 
-    $("#edtUsuario").val("ADMIN");
-    $("#edtSenha").val("ADMIN");
+    $("#edtUsuario").val("GABRIELS19961@GMAIL.COM");
+    $("#edtSenha").val("123");
     
 }
 
