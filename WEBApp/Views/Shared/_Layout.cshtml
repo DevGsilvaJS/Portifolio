@@ -26,16 +26,20 @@
 <head>
 
     <meta charset="utf-8" />
+
     <title>Dashboard | Lexa - Admin & Dashboard Template</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
     <!-- App favicon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
     <link rel="shortcut icon" href="~/Template/assets/images/favicon.ico">
 
     <link href="~/Template/assets/css/bootstrap-dark.css" rel="stylesheet" />
     <link href="~/Template/assets/css/icons-rtl.min.css" rel="stylesheet" />
     <link href="~/Template/assets/css/app-dark.min.css" rel="stylesheet" />
+
+
 </head>
 
 
@@ -100,9 +104,9 @@
                                         <span>Tab.  auxiliares</span>
                                     </a>
                                     <ul class="sub-menu">
-                                        <li><a  href="/Convenio">Convenio</a></li>
-                                        <li><a  href="/Indicacao">Indicação</a></li>
-                                        <li><a  href="/TipoVenda">Tipo de Venda</a></li>
+                                        <li><a href="/Convenio">Convenio</a></li>
+                                        <li><a href="/Indicacao">Indicação</a></li>
+                                        <li><a href="/TipoVenda">Tipo de Venda</a></li>
                                         <li><a href="/Vendedor">Vendedor</a></li>
                                     </ul>
                                 </li>
@@ -243,6 +247,13 @@
     <script src="~/Template/assets/js/app.js"></script>
     <script src="~/Template/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sweetalert2.all.min.js"></script>
+
+
+
+
     <script>
         /*        function fnValidaSessao() {*/
 
@@ -317,6 +328,35 @@
         }
     </script>
 
+
+    <script>
+
+        function fnAlertRegistroSalvo() {
+
+            Swal.fire(
+                'Registro Salvo!',
+                'Click em OK para prosseguir!',
+                'success'
+            )
+        }
+
+
+        function fnAlertRegistroDeletado() {
+
+            Swal.fire({
+                title: 'Deseja excluir este registro?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Confirmar'
+
+            })
+        }
+
+
+
+    </script>
 
 
 

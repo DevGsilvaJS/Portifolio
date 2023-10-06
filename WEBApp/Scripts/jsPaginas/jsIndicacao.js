@@ -141,6 +141,8 @@ function fnSalvarDados() {
         success: function (result) {
             debugger;
 
+            fnAlertRegistroSalvo();
+
             result.retorno = "OK";
 
             fnListaDados();
@@ -201,25 +203,45 @@ function fnListaDados() {
 }
 
 function fnExcluirIndicacao(indid) {
+    debugger;
 
+    Swal.fire({
+        title: 'Deseja excluir este registro ?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Confirmar!'
+    }).then((result) => {
+        if (result.isConfirmed) {
 
-    $.ajax({
-        type: "GET",
-        contentType: "application/json",
-        url: "Indicacao/ExcluirIndicacao",
-        data: { indid: indid.id },
-        dataType: "JSON",
-        cache: false,
-        async: false,
-        beforeSend: function () {
-        },
-        success: function (result) {
-
-            fnListaDados();
-        },
-        error: function (jqXHR, exception) {
-        },
-        complete: function () {
+            $.ajax({
+                type: "GET",
+                contentType: "application/json",
+                url: "Indicacao/ExcluirIndicacao",
+                data: { indid: indid.id },
+                dataType: "JSON",
+                cache: false,
+                async: false,
+                beforeSend: function () {
+                    // Aqui você pode adicionar código para mostrar um indicador de carregamento
+                },
+                success: function (result) {
+                    // Trate o resultado da exclusão
+                    Swal.fire(
+                        'Registro excluído com sucesso!',
+                        'Clique em OK para prosseguir!',
+                        'success'
+                    );
+                    fnListaDados();
+                },
+                error: function (jqXHR, exception) {
+                    // Trate erros
+                },
+                complete: function () {
+                    // Aqui você pode adicionar código para remover o indicador de carregamento
+                }
+            });
         }
     });
 }

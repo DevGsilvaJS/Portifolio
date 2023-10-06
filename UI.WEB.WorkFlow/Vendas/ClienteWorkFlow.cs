@@ -41,56 +41,69 @@ namespace UI.WEB.WorkFlow.Vendas
             string sRetorno = "";
 
 
-            AddListaSalvar(_Cliente.TbPessoa);
-
-            _Cliente.PESID = _Cliente.TbPessoa.PESID;
-            _Cliente.CLISTATUS = "1";
-            _Cliente.CLISALARIO = _Cliente.CLISALARIO.Replace(',', '.');
-
-            AddListaSalvar(_Cliente);
-
-            string sEndereco = RetornaObjeto("TB_EDN_ENDERECO", "PESID", _Cliente.TbPessoa.PESID);
-
-            if (!string.IsNullOrEmpty(sEndereco))
+            if (_Cliente.CLIID > 0)
             {
-                AddListaAtualizar(_Cliente.TbEndereco);
+                AtualizarCliente(_Cliente);
             }
+
             else
             {
-                if (!string.IsNullOrEmpty(_Cliente.TbEndereco.EDNLOGRADOURO))
+                AddListaSalvar(_Cliente.TbPessoa);
+
+                _Cliente.PESID = _Cliente.TbPessoa.PESID;
+                _Cliente.CLISTATUS = "1";
+
+
+                if (_Cliente.CLISALARIO != null)
                 {
-                    _Cliente.TbEndereco.PESID = _Cliente.PESID;
-                    AddListaSalvar(_Cliente.TbEndereco);
+                    _Cliente.CLISALARIO = _Cliente.CLISALARIO.Replace(',', '.');
                 }
-            }
 
-            string sTelefone = RetornaObjeto("TB_TEL_TELEFONE", "PESID", _Cliente.TbPessoa.PESID);
+                AddListaSalvar(_Cliente);
 
-            if (!string.IsNullOrEmpty(sTelefone))
-            {
-                AddListaAtualizar(_Cliente.TbTelefone);
-            }
-            else
-            {
-                if (!string.IsNullOrEmpty(_Cliente.TbTelefone.TELNUMERO) || !string.IsNullOrEmpty(_Cliente.TbTelefone.TELCELULAR))
+                string sEndereco = RetornaObjeto("TB_EDN_ENDERECO", "PESID", _Cliente.TbPessoa.PESID);
+
+                if (!string.IsNullOrEmpty(sEndereco))
                 {
-                    _Cliente.TbTelefone.PESID = _Cliente.PESID;
-                    AddListaSalvar(_Cliente.TbTelefone);
+                    AddListaAtualizar(_Cliente.TbEndereco);
                 }
-            }
-
-            string sEmail = RetornaObjeto("TB_EML_EMAIL", "PESID", _Cliente.TbPessoa.PESID);
-
-            if (!string.IsNullOrEmpty(sEmail))
-            {
-                AddListaAtualizar(_Cliente.TbEmail);
-            }
-            else
-            {
-                if (!string.IsNullOrEmpty(_Cliente.TbEmail.EMLEMAIL))
+                else
                 {
-                    _Cliente.TbEmail.PESID = _Cliente.PESID;
-                    AddListaSalvar(_Cliente.TbEmail);
+                    if (!string.IsNullOrEmpty(_Cliente.TbEndereco.EDNLOGRADOURO))
+                    {
+                        _Cliente.TbEndereco.PESID = _Cliente.PESID;
+                        AddListaSalvar(_Cliente.TbEndereco);
+                    }
+                }
+
+                string sTelefone = RetornaObjeto("TB_TEL_TELEFONE", "PESID", _Cliente.TbPessoa.PESID);
+
+                if (!string.IsNullOrEmpty(sTelefone))
+                {
+                    AddListaAtualizar(_Cliente.TbTelefone);
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(_Cliente.TbTelefone.TELNUMERO) || !string.IsNullOrEmpty(_Cliente.TbTelefone.TELCELULAR))
+                    {
+                        _Cliente.TbTelefone.PESID = _Cliente.PESID;
+                        AddListaSalvar(_Cliente.TbTelefone);
+                    }
+                }
+
+                string sEmail = RetornaObjeto("TB_EML_EMAIL", "PESID", _Cliente.TbPessoa.PESID);
+
+                if (!string.IsNullOrEmpty(sEmail))
+                {
+                    AddListaAtualizar(_Cliente.TbEmail);
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(_Cliente.TbEmail.EMLEMAIL))
+                    {
+                        _Cliente.TbEmail.PESID = _Cliente.PESID;
+                        AddListaSalvar(_Cliente.TbEmail);
+                    }
                 }
             }
 
@@ -102,6 +115,51 @@ namespace UI.WEB.WorkFlow.Vendas
 
             return sRetorno;
         }
+        public string AtualizarCliente(EntityCliente _Cliente)
+        {
+            string sRetorno = "";
+
+
+            AddListaAtualizar(_Cliente.TbPessoa);
+            _Cliente.CLISALARIO = _Cliente.CLISALARIO.Replace(',', '.');
+            _Cliente.PESID = _Cliente.TbPessoa.PESID;
+            AddListaAtualizar(_Cliente);
+
+            if (_Cliente.TbEmail.EMLID > 0)
+            {
+                _Cliente.TbEmail.PESID = _Cliente.TbPessoa.PESID;
+                AddListaAtualizar(_Cliente.TbEmail);
+            }
+            else if (!string.IsNullOrEmpty(_Cliente.TbEmail.EMLEMAIL) && !(_Cliente.TbEmail.EMLID > 0))
+            {
+                _Cliente.TbEmail.PESID = _Cliente.TbPessoa.PESID;
+                AddListaSalvar(_Cliente.TbEmail);
+            }
+
+            if (_Cliente.TbTelefone.TELID > 0)
+            {
+                _Cliente.TbTelefone.PESID = _Cliente.TbPessoa.PESID;
+                AddListaAtualizar(_Cliente.TbTelefone);
+            }
+            else if (!string.IsNullOrEmpty(_Cliente.TbTelefone.TELNUMERO) || (!string.IsNullOrEmpty(_Cliente.TbTelefone.TELCELULAR)) && !(_Cliente.TbTelefone.TELID > 0))
+            {
+                _Cliente.TbTelefone.PESID = _Cliente.TbPessoa.PESID;
+                AddListaSalvar(_Cliente.TbTelefone);
+            }
+
+            if (_Cliente.TbEndereco.EDNID > 0)
+            {
+                _Cliente.TbEndereco.PESID = _Cliente.TbPessoa.PESID;
+                AddListaAtualizar(_Cliente.TbEndereco);
+            }
+            else if (!string.IsNullOrEmpty(_Cliente.TbEndereco.EDNLOGRADOURO) && !(_Cliente.TbEndereco.EDNID > 0))
+            {
+                _Cliente.TbEndereco.PESID = _Cliente.TbPessoa.PESID;
+                AddListaSalvar(_Cliente.TbEndereco);
+            }
+
+            return sRetorno;
+        }
         public EntityCliente GetClienteByID(int cliid)
         {
 
@@ -109,13 +167,13 @@ namespace UI.WEB.WorkFlow.Vendas
             ClienteQuery Query = new ClienteQuery();
 
             try
-            {               
+            {
 
                 SqlCommand _Comando = new SqlCommand(Query.EditarClienteQuery(), db.MinhaConexao());
 
                 SqlParameter parameter = new SqlParameter("@CLIID", cliid);
                 _Comando.Parameters.Add(parameter);
-                _Comando.CommandType = CommandType.Text;   
+                _Comando.CommandType = CommandType.Text;
 
                 SqlDataReader dr = _Comando.ExecuteReader();
 
@@ -124,12 +182,15 @@ namespace UI.WEB.WorkFlow.Vendas
                     while (dr.Read())
 
                     {
-
+                        _Cliente.TbEmail.EMLID = int.Parse(dr["EMLID"].ToString());
+                        _Cliente.TbEndereco.EDNID = int.Parse(dr["EDNID"].ToString());
+                        _Cliente.TbTelefone.TELID = int.Parse(dr["TELID"].ToString());
                         _Cliente.CLIID = int.Parse(dr["CLIID"].ToString());
                         _Cliente.CLISALARIO = dr["CLISALARIO"].ToString();
                         _Cliente.CLIESTADOCIVIL = dr["CLIESTADOCIVIL"].ToString();
                         _Cliente.CLISEXO = dr["CLISEXO"].ToString();
                         _Cliente.CLISTATUS = dr["CLISTATUS"].ToString();
+                        _Cliente.CLISEQUENCIAL = int.Parse(dr["CLISEQUENCIAL"].ToString());
                         _Cliente.TbPessoa.PESID = int.Parse(dr["PESID"].ToString());
                         _Cliente.TbPessoa.PESNOME = dr["PESNOME"].ToString();
                         _Cliente.TbPessoa.PESSOBRENOME = dr["PESSOBRENOME"].ToString();
@@ -184,11 +245,11 @@ namespace UI.WEB.WorkFlow.Vendas
                         EntityCliente _Cliente = new EntityCliente();
 
                         _Cliente.CLIID = int.Parse(dr["CLIID"].ToString());
-                        _Cliente.CLISEQUENCIAL = dr["CLISEQUENCIAL"].ToString();
+                        _Cliente.CLISEQUENCIAL = int.Parse(dr["CLISEQUENCIAL"].ToString());
                         _Cliente.TbPessoa.PESNOME = dr["PESNOME"].ToString();
                         _Cliente.TbPessoa.PESDOCESTADUAL = dr["PESDOCESTADUAL"].ToString();
                         _Cliente.TbPessoa.PESDOCFEDERAL = dr["PESDOCFEDERAL"].ToString();
-                        _Cliente.CLISEXO = dr["CLISEXO"].ToString();                       
+                        _Cliente.CLISEXO = dr["CLISEXO"].ToString();
 
                         lsClientes.Add(_Cliente);
 
@@ -203,6 +264,19 @@ namespace UI.WEB.WorkFlow.Vendas
             }
 
             return lsClientes;
+        }
+
+        public string ExcluirCliente(int cliid)
+        {
+
+            string sRetorno = "";
+            EntityCliente _Cliente = GetObjectFromTable<EntityCliente>("TB_CLI_CLIENTE", cliid);
+
+
+
+
+
+            return sRetorno;
         }
     }
 }

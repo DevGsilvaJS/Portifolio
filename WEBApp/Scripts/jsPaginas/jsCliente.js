@@ -25,7 +25,7 @@ $(document).ready(function () {
                 fnListaDados();
                 break;
             case 'ALTERACAO':
-                fnAtualizarVendedor();
+                fnSalvaDados();
                 $("#aLista").tab('show');
                 fnListaDados();
                 break;
@@ -80,25 +80,6 @@ function fnRetornaObjInclusao() {
 
 function DataFormatada(data) {
     dataFormatada = data.toLocalDateString('pt-BR', { timeZone: 'UTC' });
-}
-
-function fnStatusAlteracao() {
-
-    $.confirm({
-        title: 'Registro alterado com sucesso!',
-        buttons: {
-            SIM: function () {
-
-                $("#aLista").click();
-                $("#liLista").click();
-
-                fnListaDados();
-            },
-            //NÃO: function () {
-            //    $.alert('Canceled!');
-            //},
-        }
-    });
 }
 
 function fnStatusGravacao() {
@@ -205,7 +186,7 @@ function fnListaDados() {
                 for (var i = 0; i < Lista.length; i++) {
 
                     var btnEditar = '<button id="' + Lista[i].CLIID + '"  name="btnEdicao" type="button" class="btn  btn-primary" onClick="fnEditarCliente(this)">Editar</button>';
-                    var btnExcluir = '<button id="' + Lista[i].CLIID + '"  name="btnDeletar" type="button" class="btn  btn-danger" onClick="fnDeleteCliente(this)">Deletar</button>';
+                    var btnExcluir = '<button id="' + Lista[i].CLIID + '"  name="btnDeletar" type="button" class="btn  btn-danger" onClick="fnExcluirCiente(this)">Deletar</button>';
 
                     var Linha = [btnEditar + btnExcluir,
                     Lista[i].CLISEQUENCIAL,
@@ -226,19 +207,6 @@ function fnListaDados() {
         }
     });
 }
-
-$("#btnSalvar").click(function () {
-
-    if (STATUS == 'EDICAO') {
-        UpdateCliente();
-    }
-
-    else {
-        fnSalvaDados();
-    }
-
-
-});
 
 function fnSalvaDados() {
 
@@ -292,16 +260,7 @@ function fnSalvaDados() {
 
             fnListagem();
 
-            if (STATUS == 'EDICAO') {
-                fnStatusAlteracao();
-                return false;
-            }
-
-            if (STATUS == 'INCLUSAO') {
-
-            } {
-                fnStatusGravacao();
-            }
+            fnAlertRegistroSalvo();
 
 
 
@@ -332,31 +291,42 @@ function fnEditarCliente(cliid) {
             _Cliente = result.retorno;
 
 
-              $("#txtNomeCliente").val(_Cliente.TbPessoa.PESNOME);
-           $("#txtSobreNomeCliente").val(_Cliente.TbPessoa.PESSOBRENOME);
-           $("#txtSobreNomeCliente").val(_Cliente.TbPessoa.PESSOBRENOME);
-              $("#txtCpfCliente").val(_Cliente.TbPessoa.PESDOCFEDERAL);
-              $("#txtRgCliente").val(_Cliente.TbPessoa.PESDOCESTADUAL);
-              $("#dtNascimentoCliente").val(_Cliente.TbPessoa.PESDTNASCIMENTO);
+            $("#txtNomeCliente").val(_Cliente.TbPessoa.PESNOME);
+            $("#txtSobreNomeCliente").val(_Cliente.TbPessoa.PESSOBRENOME);
+            $("#txtSobreNomeCliente").val(_Cliente.TbPessoa.PESSOBRENOME);
+            $("#txtCpfCliente").val(_Cliente.TbPessoa.PESDOCFEDERAL);
+            $("#txtRgCliente").val(_Cliente.TbPessoa.PESDOCESTADUAL);
+    
 
-              $("#txtCodigoCliente").val(_Cliente.CLISEQUENCIAL);
-              $("#dllSexoCliente").val(_Cliente.CLISEXO);
-            $("#txtSalarioCliente").val(_Cliente.CLISALARIO);
-              $("#dllEstadoCivilCliente").val(_Cliente.CLIESTADOCIVIL);
+            $("#txtCodigoCliente").val(_Cliente.CLISEQUENCIAL);
+            $("#dtNascimentoCliente").val(_Cliente.CLINASCIMENTO);
+            $("#dllSexoCliente").val(_Cliente.CLISEXO);
+            var salario = parseFloat(_Cliente.CLISALARIO).toFixed(2).replace('.', ',');
+
+            $("#txtSalarioCliente").val(salario);
+            $("#dllEstadoCivilCliente").val(_Cliente.CLIESTADOCIVIL);
 
             $("#txtEmailCliente").val(_Cliente.TbEmail.EMLEMAIL);
 
 
-            $("#txtTelefoneCliente").val(_Cliente.TbTelefone.TELDDD + _Cliente.TbTelefone.TELNUMERO);
-            $("#txtTelefoneCliente").val(_Cliente.TbTelefone.TELDDDC + _Cliente.TbTelefone.TELCELULAR);
+            if (_Cliente.TbTelefone.TELDDD != 0 || _Cliente.TbTelefone.TELNUMERO != 0) {
+                $("#txtTelefoneCliente").val(_Cliente.TbTelefone.TELDDD + _Cliente.TbTelefone.TELNUMERO);
+            }
 
 
-             $("#txtValorCep").val(_Cliente.TbEndereco.EDNCEP);
-             $("#ddlUf").val(_Cliente.TbEndereco.EDNUF);
-             $("#txtCidade").val(_Cliente.TbEndereco.EDNCIDADE);
-             $("#txtLogradouro").val(_Cliente.TbEndereco.EDNLOGRADOURO);
-             $("#txtBairro").val(_Cliente.TbEndereco.EDNBAIRRO);
-             $("#txtNumero").val(_Cliente.TbEndereco.EDNNUMERO);
+            if (_Cliente.TbTelefone.TELDDDC != 0 || _Cliente.TbTelefone.TELCELULAR != 0) {
+                $("#txtTelefoneCliente").val(_Cliente.TbTelefone.TELDDDC + _Cliente.TbTelefone.TELCELULAR);
+            }
+
+       
+
+
+            $("#txtValorCep").val(_Cliente.TbEndereco.EDNCEP);
+            $("#ddlUf").val(_Cliente.TbEndereco.EDNUF);
+            $("#txtCidade").val(_Cliente.TbEndereco.EDNCIDADE);
+            $("#txtLogradouro").val(_Cliente.TbEndereco.EDNLOGRADOURO);
+            $("#txtBairro").val(_Cliente.TbEndereco.EDNBAIRRO);
+            $("#txtNumero").val(_Cliente.TbEndereco.EDNNUMERO);
             $("#txtComplemento").val(_Cliente.TbEndereco.EDNCOMPLEMENTO);
 
 
@@ -422,7 +392,7 @@ function UpdateCliente() {
     });
 }
 
-function fnDeleteCliente(idCliente) {
+function fnExcluirCiente(cliid) {
 
     debugger;
 
@@ -430,8 +400,8 @@ function fnDeleteCliente(idCliente) {
 
         type: "GET",
         //contentType: "application/json",
-        url: "Cliente/DeleteCliente",
-        data: { idCliente: idCliente.id },
+        url: "Cliente/ExcluirCliente",
+        data: { cliid: cliid.id },
         dataType: "JSON",
         cache: false,
         async: false,

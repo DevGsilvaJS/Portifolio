@@ -124,11 +124,13 @@ namespace UI.WEB.WorkFlow.Outros
 
                     if (propertyValue is string || propertyValue is DateTime)
                     {
+                        string stringValue = propertyValue.ToString();
+                        stringValue = stringValue.ToUpper();
+
                         updateCommand.Append("'");
-                        updateCommand.Append(propertyValue);
+                        updateCommand.Append(stringValue);
                         updateCommand.Append("'");
                         updateCommand.Append(",");
-
                     }
                     else
                     {
@@ -281,6 +283,53 @@ namespace UI.WEB.WorkFlow.Outros
             return sRetorno;
         }
 
+        public T GetObjectFromTable<T>(string tableName, int id) where T : new()
+        {
+            string ID = tableName.Substring(3, 3);
+
+
+            string sqlQuery = $"SELECT * FROM {tableName} WHERE {ID}ID = {id}";
+
+            using (SqlCommand command = new SqlCommand(sqlQuery, _Conexao.MinhaConexao()))
+            {
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        T result = new T();
+                        Type type = typeof(T);
+
+
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            string fieldName = reader.GetName(i);
+                            PropertyInfo property = type.GetProperty(fieldName, BindingFlags.Public | BindingFlags.Instance);
+
+                            if (property != null && !reader.IsDBNull(i))
+                            {
+                                object value = reader.GetValue(i);
+
+                                // Verifica se o valor é do tipo double
+                                if (value is double)
+                                {
+                                    // Converte o valor para string
+                                    value = ((double)value).ToString();
+                                }
+
+                                property.SetValue(result, value);
+                            }
+                        }
+
+                        return result;
+                    }
+                    else
+                    {
+                        return default(T);
+                    }
+                }
+            }
+        }
     }
 }
+
 

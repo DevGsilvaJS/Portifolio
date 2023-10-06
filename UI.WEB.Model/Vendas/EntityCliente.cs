@@ -13,11 +13,12 @@ namespace UI.WEB.WorkFlow.Vendas
     {
         public int CLIID { get; set; }
         public int PESID { get; set; }
+        public int CLISEQUENCIAL { get; set; }
         public string CLISEXO { get; set; }
         public string CLISTATUS { get; set; }
         public string CLIESTADOCIVIL { get; set; }
         public string CLISALARIO { get; set; }
-        public string CLISEQUENCIAL { get; set; }
+        public string CLINASCIMENTO { get; set; }
         public EntityPessoa TbPessoa { get; set; }
         public EntityEndereco TbEndereco { get; set; }
         public EntityEmail TbEmail { get; set; }

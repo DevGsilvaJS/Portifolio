@@ -49,7 +49,6 @@ namespace WEBApp.Controllers
                 retorno = retorno
             }, JsonRequestBehavior.AllowGet);
         }
-
         public JsonResult ListaDados()
         {
             List<EntityCliente> lsCliente = new List<EntityCliente>();
@@ -146,5 +145,17 @@ namespace WEBApp.Controllers
         //        retorno = retorno
         //    }, JsonRequestBehavior.AllowGet);
         //}
+
+        public JsonResult ExcluirCliente(int cliid)
+        {
+            string sRetorno = "NOTOK";
+
+            sRetorno = wf.ExcluirCliente(cliid);
+
+            return Json(new
+            {
+                objFornecedor = sRetorno
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }
