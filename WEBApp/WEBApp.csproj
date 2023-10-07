@@ -144,6 +144,7 @@
     <Compile Include="Controllers\LojasController.cs" />
     <Compile Include="Controllers\ProdutoController.cs" />
     <Compile Include="Controllers\ResetTablesController.cs" />
+    <Compile Include="Controllers\SaidaEstoqueController.cs" />
     <Compile Include="Controllers\TipoVendaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\VendaController.cs" />
@@ -192,6 +193,7 @@
     <Content Include="Scripts\jsPaginas\jsLojas.js" />
     <Content Include="Scripts\jsPaginas\jsProduto.js" />
     <Content Include="Scripts\jsPaginas\jsResetTables.js" />
+    <Content Include="Scripts\jsPaginas\jsSaidaEstoque.js" />
     <Content Include="Scripts\jsPaginas\jsSistema.js" />
     <Content Include="Scripts\jsPaginas\jsTipoVenda.js" />
     <Content Include="Scripts\jsPaginas\jsTransferenciaEstoque.js" />
@@ -1269,6 +1271,7 @@
     <Content Include="Views\Fornecedor\Index.cshtml" />
     <Content Include="Views\ResetTables\Index.cshtml" />
     <Content Include="Views\Indicacao\Index.cshtml" />
+    <Content Include="Views\SaidaEstoque\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

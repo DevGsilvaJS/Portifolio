@@ -12,7 +12,7 @@ namespace UI.WEB.Model.Estoque
     {
         public int MECID { get; set; }
         public int MATID { get; set; }
-        public int MECQUANTIDADE { get; set; }
+        public string MECQUANTIDADE { get; set; }
 
     }
 }

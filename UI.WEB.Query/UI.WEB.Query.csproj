@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Estoque\EntradaEstoqueQuery.cs" />
     <Compile Include="Estoque\ProdutoQuery.cs" />
+    <Compile Include="Estoque\SaidaEstoqueQuery.cs" />
     <Compile Include="Fiscal\EntityCfop.cs" />
     <Compile Include="Outros\ResetarTabelasSQLQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

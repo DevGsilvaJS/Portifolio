@@ -101,7 +101,7 @@ namespace UI.WEB.WorkFlow.Estoque
 
 
                 objProduto.TbMec.MATID = objProduto.MATID;
-                objProduto.TbMec.MECQUANTIDADE = 0;
+                objProduto.TbMec.MECQUANTIDADE = "0";
                 AddListaSalvar(objProduto.TbMec);
 
                 

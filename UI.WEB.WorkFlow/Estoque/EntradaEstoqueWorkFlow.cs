@@ -155,7 +155,7 @@ namespace UI.WEB.WorkFlow.Estoque
                 {
                     while (dr.Read())
                     {
-                        Estoque.MECQUANTIDADE = int.Parse(dr["MECQUANTIDADE"].ToString());       
+                        Estoque.MECQUANTIDADE = dr["MECQUANTIDADE"].ToString();       
 
                     }
                 }
