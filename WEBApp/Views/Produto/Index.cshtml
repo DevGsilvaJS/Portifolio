@@ -16,6 +16,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#tab2" id="aCadastro" data-toggle="tab">Registro</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#tab3" id="aMovimentacao" style="display:none" data-toggle="tab">Movimentações</a>
+                </li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="tab1">
@@ -72,7 +75,7 @@
                                         <input type="text" class="form-control" id="txtDescricao" style="text-transform: uppercase">
                                     </div>
                                 </div>
-         
+
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Descrição NF</label>
@@ -197,10 +200,30 @@
                     </div>
 
                 </div>
+
+                <div class="tab-pane" id="tab3">
+
+                    <div class="col-md-12">
+
+                        <table id="tbMovimentacoes" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                            <thead>
+                                <tr>
+                                    <th>Preço de custo</th>
+                                    <th>Markup</th>
+                                    <th>Preço de venda</th>
+                                    <th>Quantidade</th>
+                                    <th>Tipo de movimentação</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 
 

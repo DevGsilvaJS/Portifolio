@@ -101,5 +101,17 @@ namespace WEBApp.Controllers
                 retorno = retorno
             }, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult ListaMovimentacoes(int IDPRINCIPAL)
+        {
+
+            List<EntityItensEntrada> lista = new List<EntityItensEntrada>();
+            lista = wf.ListaMovimentacoes(IDPRINCIPAL);
+
+            return Json(new
+            {
+                lista = lista
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

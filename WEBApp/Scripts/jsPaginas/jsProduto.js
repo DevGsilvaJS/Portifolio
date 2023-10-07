@@ -1,8 +1,9 @@
 ﻿var oTabProduto = null;
+var oTabMovimentacoes = null;
 var _Produto = new Object();
 var _ProdutoCopia = new Object();
 var STATUS = 'CONSULTA';
-
+var IDPRINCIPAL = null;
 $(document).ready(function () {
     jQueryInit();
 });
@@ -20,6 +21,22 @@ $("#aCadastro").click(function () {
     fnDadosProduto();
     fnRetornaObjInclusao();
 });
+
+$("#aLista").click(function () {
+
+    $("#aMovimentacao").css("display", "none");
+    STATUS = "CONSULTA";
+})
+
+
+fnCriaGridMovimentacoes
+
+
+$("#aMovimentacao").click(function () {
+
+    fnCriaGridMovimentacoes();
+})
+
 
 $(document).ready(function () {
 
@@ -267,11 +284,16 @@ function fnEditarProduto(matid) {
         beforeSend: function () {
         },
         success: function (result) {
+            debugger;
+            $("#aMovimentacao").css("display", "block");
+
 
             fnlsFornecedorUpdate(result.Produto.IDFORNECEDOR);
             fnLsNCMsUpdate(result.Produto.IDNCM);
 
             _Produto = result.Produto
+
+            IDPRINCIPAL = _Produto.MATID;
 
             $("#ddlFornecedorID").val(_Produto.FORID);
             $("#txtSequencial").val(_Produto.MATSEQUENCIAL);
@@ -371,7 +393,7 @@ function fnSalvarProduto() {
 
         },
         success: function (result) {
-    
+
 
             if (result == "OK" || result.result == "OK") {
 
@@ -749,6 +771,92 @@ function fnDadosProduto() {
         }
     });
 }
+
+function fnCriaGridMovimentacoes() {
+
+    oTabMovimentacoes = $("#tbMovimentacoes").DataTable({
+        "oLanguage": {
+            "sProcessing": "Aguarde enquanto os dados são carregados ...",
+            "sLengthMenu": "Mostrar _MENU_ registros por pagina",
+            "sPaginationType": "bootstrap",
+            "sZeroRecords": "Nenhum registro correspondente ao critério encontrado",
+            "sInfoEmpty": "Exibindo 0 a 0 de 0 registros",
+            "sInfo": "Exibindo de _START_ a _END_ de _TOTAL_ registros",
+            "sInfoFiltered": "",
+            "sSearch": "Procurar",
+            "oPaginate": {
+                "sFirst": "Primeiro",
+                "sPrevious": "Anterior",
+                "sNext": "Próximo",
+                "sLast": "Último"
+            }
+        },
+
+        "iDisplayLength": 50,
+        "aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+        "bRetrieve": false,
+        "bFilter": true,
+        "bSortClasses": true,
+        "bLengthChange": false,
+        "bPaginate": true,
+        "bInfo": true,
+        "bJQueryUI": false,
+        "bAutoWidth": false,
+        "aaSorting": [[1, "asc"]],
+        "aoColumns": [
+            { sWidth: '10%', "bSortable": false },
+            { sWidth: '10%' },//Numero
+            { sWidth: '10%' },//Titulo
+            { sWidth: '10%' },
+            { sWidth: '10%' },//Titulo
+
+        ]
+    });
+    fnListaMovimentacoes(IDPRINCIPAL);
+}
+
+function fnListaMovimentacoes(IDPRINCIPAL) {
+    debugger;
+    $.ajax({
+        type: "GET",
+        contentType: "application/json",
+        url: "Produto/ListaMovimentacoes",
+        data: { IDPRINCIPAL: IDPRINCIPAL },
+        dataType: "JSON",
+        cache: false,
+        async: false,
+        beforeSend: function () {
+        },
+        success: function (result) {
+            debugger;
+
+            var Lista = result.lista;
+            oTabMovimentacoes.clear().draw();
+
+            var ListaProduto = new Array();
+            if (Lista.length > 0) {
+
+                for (var i = 0; i < Lista.length; i++) {
+                    var Linha = [
+                        Lista[i].MVMVALCUSTO,
+                        Lista[i].MVMMARKUP,
+                        Lista[i].MVMVALVENDA,
+                        Lista[i].MVMQUANTIDADE,
+                        Lista[i].MVMTIPO == ('E') ? "ENTRADA" : "SAÍDA",
+                    ]
+                    ListaProduto[i] = Linha;
+                }
+
+                oTabMovimentacoes.rows.add(ListaProduto).draw();
+            }
+        },
+        error: function (jqXHR, exception) {
+        },
+        complete: function () {
+        }
+    });
+}
+
 
 
 

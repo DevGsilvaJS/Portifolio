@@ -277,5 +277,37 @@ namespace UI.WEB.WorkFlow.Estoque
 
             return sRetorno;
         }
+        public List<EntityItensEntrada> ListaMovimentacoes(int matid)
+        {
+            List<EntityItensEntrada> lista = new List<EntityItensEntrada>();
+            ProdutoQuery Query = new ProdutoQuery();
+
+            SqlCommand _Comando = new SqlCommand(Query.MovimentacaoProdutoQuery(), db.MinhaConexao());
+
+            SqlParameter parameter = new SqlParameter("@MATID", matid);
+            _Comando.Parameters.Add(parameter);
+            _Comando.CommandType = CommandType.Text;
+            SqlDataReader dr = _Comando.ExecuteReader();
+
+            if (dr.HasRows)
+            {
+                while (dr.Read())
+                {
+                    EntityItensEntrada MVM = new EntityItensEntrada();
+
+                    MVM.MVMVALCUSTO = dr["MVMVALCUSTO"].ToString();
+                    MVM.MVMMARKUP = dr["MVMMARKUP"].ToString();
+                    MVM.MVMVALVENDA = dr["MVMVALVENDA"].ToString();
+                    MVM.MVMQUANTIDADE = dr["MVMQUANTIDADE"].ToString();
+                    MVM.MVMTIPO = dr["MVMTIPO"].ToString();
+
+                    lista.Add(MVM);
+                }
+            }
+
+
+            return lista;
+        }
+
     }
 }
