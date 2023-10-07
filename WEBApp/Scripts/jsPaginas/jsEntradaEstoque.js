@@ -56,8 +56,8 @@ function fnCriaTela() {
         "bAutoWidth": false,
         "aaSorting": [[1, "asc"]],
         "aoColumns": [
-            { sWidth: '12%', "bSortable": false },
-            { sWidth: '10%' },//Numero          
+            { sWidth: '15%', "bSortable": false },
+            { sWidth: '8%' },//Numero          
             { sWidth: '10%' },//Titulo
             { sWidth: '10%' },//Titulo
             { sWidth: '10%' },//Titulo
@@ -300,7 +300,7 @@ $(document).ready(function () {
 
 function fnSalvarEntrada() {
 
-    debugger;
+    ;
 
     for (var i = 0; i < _EntradaEstoque.ListaEntrada.length; i++) {
         _EntradaEstoque.ListaEntrada[i].MVMTIPO = "E";
@@ -329,10 +329,13 @@ function fnSalvarEntrada() {
         },
         success: function (result) {
 
+            debugger;
 
             result.retorno = "OK";
 
-            fnListaDados();
+            fnAlertRegistroSalvo();
+
+        
 
         },
         error: function (jqXHR, exception) {
@@ -529,7 +532,7 @@ function fnPopulaGrid(ProdutoSelecionado) {
 
 $("#btnAdicionarItemGrid").click(function () {
 
-    debugger;
+    ;
 
     if (IDPRINCIPAL == null) {
         return false;
@@ -548,7 +551,7 @@ $("#btnAdicionarItemGrid").click(function () {
 
 function fnPreencheGrid(mATID) {
 
-    debugger;
+    ;
 
 
     for (var i = 0; i < ListaItensPesquisa.length; i++) {

@@ -185,8 +185,8 @@ function fnListaDados() {
 
                 for (var i = 0; i < Lista.length; i++) {
 
-                    var btnEditar = '<button id="' + Lista[i].CLIID + '"  name="btnEdicao" type="button" class="btn  btn-primary" onClick="fnEditarCliente(this)">Editar</button>';
-                    var btnExcluir = '<button id="' + Lista[i].CLIID + '"  name="btnDeletar" type="button" class="btn  btn-danger" onClick="fnExcluirCiente(this)">Deletar</button>';
+                    var btnEditar = '<button id="' + Lista[i].TbPessoa.PESID + '"  name="btnEdicao" type="button" class="btn  btn-primary" onClick="fnEditarCliente(this)">Editar</button>';
+                    var btnExcluir = '<button id="' + Lista[i].TbPessoa.PESID + '"  name="btnDeletar" type="button" class="btn  btn-danger" onClick="fnExcluirCiente(this)">Deletar</button>';
 
                     var Linha = [btnEditar + btnExcluir,
                     Lista[i].CLISEQUENCIAL,
@@ -272,13 +272,13 @@ function fnSalvaDados() {
     });
 }
 
-function fnEditarCliente(cliid) {
+function fnEditarCliente(pesid) {
     debugger;
     $.ajax({
 
         type: "GET",
         url: "Cliente/GetClienteByID",
-        data: { cliid: cliid.id },
+        data: { pesid: pesid.id },
         dataType: "JSON",
         cache: false,
         async: false,
@@ -392,7 +392,7 @@ function UpdateCliente() {
     });
 }
 
-function fnExcluirCiente(cliid) {
+function fnExcluirCiente(pesid) {
 
     debugger;
 
@@ -401,7 +401,7 @@ function fnExcluirCiente(cliid) {
         type: "GET",
         //contentType: "application/json",
         url: "Cliente/ExcluirCliente",
-        data: { cliid: cliid.id },
+        data: { pesid: pesid.id },
         dataType: "JSON",
         cache: false,
         async: false,

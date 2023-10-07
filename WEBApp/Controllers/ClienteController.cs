@@ -61,10 +61,10 @@ namespace WEBApp.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetClienteByID(int cliid)
+        public JsonResult GetClienteByID(int pesid)
         {
             EntityCliente _Cliente = new EntityCliente();
-            _Cliente = wf.GetClienteByID(cliid);
+            _Cliente = wf.GetClienteByID(pesid);
 
             return Json(new
             {
@@ -146,11 +146,11 @@ namespace WEBApp.Controllers
         //    }, JsonRequestBehavior.AllowGet);
         //}
 
-        public JsonResult ExcluirCliente(int cliid)
+        public JsonResult ExcluirCliente(int pesid)
         {
             string sRetorno = "NOTOK";
 
-            sRetorno = wf.ExcluirCliente(cliid);
+            sRetorno = wf.ExcluirCliente(pesid);
 
             return Json(new
             {

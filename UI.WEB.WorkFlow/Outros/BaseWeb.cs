@@ -283,12 +283,36 @@ namespace UI.WEB.WorkFlow.Outros
             return sRetorno;
         }
 
-        public T GetObjectFromTable<T>(string tableName, int id) where T : new()
+        public string RetornaObjeto_(object entity)
         {
-            string ID = tableName.Substring(3, 3);
+            string sRetorno = "";
+
+            var tableAttribute = entity.GetType().GetCustomAttributes(typeof(TableAttribute), true).FirstOrDefault() as TableAttribute;
+            string tableName = tableAttribute?.Name ?? entity.GetType().Name;
 
 
-            string sqlQuery = $"SELECT * FROM {tableName} WHERE {ID}ID = {id}";
+
+            //EntityEndereco TB_EDN_ENDERECO = RetornaObjeto<EntityEndereco>("TB_EDN_ENDERECO", TB_CLI_CLIENTE.PESID);
+
+            return sRetorno;
+        }
+
+        public T RetornaObjeto<T>(string tableName, int id, string where = "") where T : new()
+        {
+            string idTable = tableName.Substring(3, 3) + "ID";
+            string sqlQuery = "";
+
+            if (where != "")
+            {
+                sqlQuery = $"SELECT * FROM {tableName} WHERE {where} = {id}";
+            }
+
+            else
+            {
+                sqlQuery = $"SELECT * FROM {tableName} WHERE {idTable} = {id}";
+            }
+
+
 
             using (SqlCommand command = new SqlCommand(sqlQuery, _Conexao.MinhaConexao()))
             {
@@ -298,6 +322,10 @@ namespace UI.WEB.WorkFlow.Outros
                     {
                         T result = new T();
                         Type type = typeof(T);
+
+                        string nomeDaClasse = type.Name;
+
+                        RetornaObjeto_(nomeDaClasse);
 
 
                         for (int i = 0; i < reader.FieldCount; i++)
@@ -314,6 +342,11 @@ namespace UI.WEB.WorkFlow.Outros
                                 {
                                     // Converte o valor para string
                                     value = ((double)value).ToString();
+                                }
+
+                                if (value is int && !(fieldName == idTable) && fieldName.Length > 5)
+                                {
+                                    value = ((int)value).ToString();
                                 }
 
                                 property.SetValue(result, value);

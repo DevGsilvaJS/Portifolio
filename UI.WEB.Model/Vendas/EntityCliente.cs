@@ -13,7 +13,7 @@ namespace UI.WEB.WorkFlow.Vendas
     {
         public int CLIID { get; set; }
         public int PESID { get; set; }
-        public int CLISEQUENCIAL { get; set; }
+        public string CLISEQUENCIAL { get; set; }
         public string CLISEXO { get; set; }
         public string CLISTATUS { get; set; }
         public string CLIESTADOCIVIL { get; set; }

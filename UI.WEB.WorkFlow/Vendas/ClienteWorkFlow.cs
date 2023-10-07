@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UI.WEB.Model.Outros;
 using UI.WEB.Query.Venda;
 using UI.WEB.WorkFlow.Outros;
 
@@ -160,7 +161,7 @@ namespace UI.WEB.WorkFlow.Vendas
 
             return sRetorno;
         }
-        public EntityCliente GetClienteByID(int cliid)
+        public EntityCliente GetClienteByID(int pesid)
         {
 
             EntityCliente _Cliente = new EntityCliente();
@@ -171,7 +172,7 @@ namespace UI.WEB.WorkFlow.Vendas
 
                 SqlCommand _Comando = new SqlCommand(Query.EditarClienteQuery(), db.MinhaConexao());
 
-                SqlParameter parameter = new SqlParameter("@CLIID", cliid);
+                SqlParameter parameter = new SqlParameter("@PESID", pesid);
                 _Comando.Parameters.Add(parameter);
                 _Comando.CommandType = CommandType.Text;
 
@@ -190,7 +191,7 @@ namespace UI.WEB.WorkFlow.Vendas
                         _Cliente.CLIESTADOCIVIL = dr["CLIESTADOCIVIL"].ToString();
                         _Cliente.CLISEXO = dr["CLISEXO"].ToString();
                         _Cliente.CLISTATUS = dr["CLISTATUS"].ToString();
-                        _Cliente.CLISEQUENCIAL = int.Parse(dr["CLISEQUENCIAL"].ToString());
+                        _Cliente.CLISEQUENCIAL = dr["CLISEQUENCIAL"].ToString();
                         _Cliente.TbPessoa.PESID = int.Parse(dr["PESID"].ToString());
                         _Cliente.TbPessoa.PESNOME = dr["PESNOME"].ToString();
                         _Cliente.TbPessoa.PESSOBRENOME = dr["PESSOBRENOME"].ToString();
@@ -244,8 +245,8 @@ namespace UI.WEB.WorkFlow.Vendas
 
                         EntityCliente _Cliente = new EntityCliente();
 
-                        _Cliente.CLIID = int.Parse(dr["CLIID"].ToString());
-                        _Cliente.CLISEQUENCIAL = int.Parse(dr["CLISEQUENCIAL"].ToString());
+                        _Cliente.TbPessoa.PESID = int.Parse(dr["PESID"].ToString());
+                        _Cliente.CLISEQUENCIAL = dr["CLISEQUENCIAL"].ToString();
                         _Cliente.TbPessoa.PESNOME = dr["PESNOME"].ToString();
                         _Cliente.TbPessoa.PESDOCESTADUAL = dr["PESDOCESTADUAL"].ToString();
                         _Cliente.TbPessoa.PESDOCFEDERAL = dr["PESDOCFEDERAL"].ToString();
@@ -265,16 +266,44 @@ namespace UI.WEB.WorkFlow.Vendas
 
             return lsClientes;
         }
-
-        public string ExcluirCliente(int cliid)
+        public string ExcluirCliente(int pesid)
         {
 
             string sRetorno = "";
-            EntityCliente _Cliente = GetObjectFromTable<EntityCliente>("TB_CLI_CLIENTE", cliid);
+            EntityCliente TB_CLI_CLIENTE = RetornaObjeto<EntityCliente>("TB_CLI_CLIENTE", pesid, "PESID");
+            EntityPessoa TB_PES_PESSOA = RetornaObjeto<EntityPessoa>("TB_PES_PESSOA", TB_CLI_CLIENTE.PESID);
+            EntityEndereco TB_EDN_ENDERECO = RetornaObjeto<EntityEndereco>("TB_EDN_ENDERECO", TB_CLI_CLIENTE.PESID, "PESID");
+            EntityEmail TB_EML_EMAIL = RetornaObjeto<EntityEmail>("TB_EML_EMAIL", TB_CLI_CLIENTE.PESID, "PESID");
+            EntityTelefone TB_TEL_TELEFONE = RetornaObjeto<EntityTelefone>("TB_TEL_TELEFONE", TB_CLI_CLIENTE.PESID, "PESID");
 
 
+            if (TB_EDN_ENDERECO != null)
+            {
+                string sQueryEndereco = RetornaQueryDelete("TB_EDN_ENDERECO", "PESID", pesid);
+                AddListaDeletar(sQueryEndereco);
+            }
 
+            if (TB_EML_EMAIL != null)
+            {
+                string sQueryEmail = RetornaQueryDelete("TB_EML_EMAIL", "PESID", pesid);
+                AddListaDeletar(sQueryEmail);
+            }
 
+            if (TB_TEL_TELEFONE != null)
+            {
+                string sQueryTelefone = RetornaQueryDelete("TB_TEL_TELEFONE", "PESID", pesid);
+                AddListaDeletar(sQueryTelefone);
+            }
+
+            string sQueryCliente = RetornaQueryDelete("TB_CLI_CLIENTE", "PESID", pesid);
+            string sQueryPessoa = RetornaQueryDelete("TB_PES_PESSOA", "PESID", pesid);
+
+            AddListaDeletar(sQueryCliente);
+            AddListaDeletar(sQueryPessoa);
+
+            ExecuteTransacao();
+
+            db.FechaConexao(db.MinhaConexao());
 
             return sRetorno;
         }

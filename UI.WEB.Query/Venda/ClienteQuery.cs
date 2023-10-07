@@ -46,7 +46,7 @@ namespace UI.WEB.Query.Venda
             sb.AppendLine(" LEFT JOIN TB_EML_EMAIL EML ON EML.PESID = PES.PESID                                      ");
             sb.AppendLine(" LEFT JOIN TB_EDN_ENDERECO EDN ON EDN.PESID = PES.PESID                                   ");
             sb.AppendLine(" LEFT JOIN TB_TEL_TELEFONE TEL ON TEL.PESID = PES.PESID                                   ");
-            sb.AppendLine("     WHERE CLI.CLIID = @CLIID                                                             ");
+            sb.AppendLine("     WHERE PES.PESID = @PESID                                                             ");
 
 
 
@@ -59,7 +59,7 @@ namespace UI.WEB.Query.Venda
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine(" SELECT                                                      ");
-            sb.AppendLine("     CLI.CLIID,                                              ");
+            sb.AppendLine("     PES.PESID,                                              ");
             sb.AppendLine("	    CLI.CLISEQUENCIAL,                                      ");
             sb.AppendLine("	    CONCAT(PES.PESNOME, ' ', PES.PESSOBRENOME) AS PESNOME,  ");
             sb.AppendLine("	    PES.PESDOCESTADUAL,                                     ");
