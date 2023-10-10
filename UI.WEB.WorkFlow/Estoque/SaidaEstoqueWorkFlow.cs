@@ -45,7 +45,7 @@ namespace UI.WEB.WorkFlow.Estoque
             return listaCfops;
         }
 
-        public List<EntityProduto> RetornaListaSaida (string produto)
+        public List<EntityProduto> RetornaListaSaida(string produto)
         {
 
             List<EntityProduto> lista = new List<EntityProduto>();
@@ -78,6 +78,67 @@ namespace UI.WEB.WorkFlow.Estoque
 
 
             return lista;
+        }
+
+        public string GravarSaidaEstoque(EntityNotaFiscal _SaidaEstoque)
+        {
+            string sRetorno = "";
+            EntradaEstoqueQuery Query = new EntradaEstoqueQuery();
+
+            _SaidaEstoque.FORID = null;
+
+            AddListaSalvar(_SaidaEstoque);
+
+            foreach (var item in _SaidaEstoque.ListaEntrada)
+            {
+                item.MVNID = _SaidaEstoque.MVNID;
+                AddListaSalvar(item);
+
+                EntityEstoque Estoque = new EntityEstoque();
+
+                SqlCommand _Comando = new SqlCommand(Query.retornaQuantidadeQuery(), db.MinhaConexao());
+
+                SqlParameter parametro = new SqlParameter("MATID", item.MATID);
+                _Comando.Parameters.Add(parametro);
+                _Comando.CommandType = CommandType.Text;
+
+                SqlDataReader dr = _Comando.ExecuteReader();
+
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        Estoque.MECQUANTIDADE = dr["MECQUANTIDADE"].ToString();
+
+                    }
+                }
+
+
+                Estoque.MATID = item.MATID;
+                Estoque.MECQUANTIDADE = (int.TryParse(Estoque.MECQUANTIDADE, out int mecQuantidade) && int.TryParse(item.MVMQUANTIDADE, out int mvmQuantidade))
+                                                     ? (mecQuantidade - mvmQuantidade).ToString()
+                                                     : Estoque.MECQUANTIDADE;
+
+                EntityEstoque TB_MEC_MATESTCONTROLE = RetornaObjeto<EntityEstoque>("TB_MEC_MATESTCONTROLE", item.MATID, "MATID");
+
+                if (TB_MEC_MATESTCONTROLE != null)
+                {
+                    Estoque.MECID = TB_MEC_MATESTCONTROLE.MECID;
+                    AddListaAtualizar(Estoque);
+                }
+
+                else
+                {
+                    AddListaSalvar(Estoque);
+                }
+            }
+
+
+
+            ExecuteTransacao();
+            db.FechaConexao(db.MinhaConexao());
+
+            return sRetorno;
         }
     }
 }

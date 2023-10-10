@@ -20,11 +20,13 @@ namespace UI.WEB.Query.Estoque
             sb.AppendLine("     ,   MPV.MPVPRECOVENDA                                           ");
             sb.AppendLine("     ,   ARG.ARGDESCRICAO                                            ");
             sb.AppendLine("     ,   MAT.MATDTCADASTRO                                           ");
+            sb.AppendLine("     ,   MEC.MECQUANTIDADE                                           ");
             sb.AppendLine("   FROM TB_MAT_MATERIAL MAT                                          ");
             sb.AppendLine("         JOIN TB_MPC_MATPRECOCUSTO MPC ON MPC.MATID = MAT.MATID      ");
             sb.AppendLine("         JOIN TB_MPV_MATPRECOVENDA MPV ON MPV.MATID = MAT.MATID      ");
             sb.AppendLine("         JOIN TB_AAT_ATRIBUTOS AAT ON AAT.MATID = MAT.MATID          ");
             sb.AppendLine("         JOIN TB_ARG_ATRGRIFE ARG ON ARG.ARGID = AAT.ARGID           ");
+            sb.AppendLine("         JOIN TB_MEC_MATESTCONTROLE MEC ON MEC.MATID = MAT.MATID     ");
 
 
             return sb.ToString();

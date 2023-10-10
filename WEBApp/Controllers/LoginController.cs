@@ -28,6 +28,8 @@ namespace WEBApp.Controllers
             if (_Usuario.TbEmail.EMLEMAIL != null && _Usuario.TbEmail.EMLEMAIL != "")
             {
                 Session.Add("_userLogado", true);
+                Session.Add("_userEmail", _Usuario.TbEmail.EMLEMAIL); // Guarda o e-mail na sessão
+
             }
 
 

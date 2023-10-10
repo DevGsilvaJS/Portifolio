@@ -14,7 +14,7 @@ namespace UI.WEB.Model.Estoque
     {
 
         public int MVNID { get; set; }
-        public int FORID { get; set; }
+        public int? FORID { get; set; }
         public string MVNDATAENTRADA { get; set; }
         public string MVNNUMNOTA { get; set; }
         public string MVNMODELONOTA { get; set; }

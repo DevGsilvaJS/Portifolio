@@ -125,6 +125,7 @@ function fnCriaTela() {
             { sWidth: '10%' },//Titulo
             { sWidth: '10%' },//Titulo     
             { sWidth: '10%' },//Titulo  
+            { sWidth: '10%' },//Titulo  
         ]
     });
 
@@ -257,6 +258,7 @@ function fnListaDados() {
                     Lista[i].TbMpv.MPVPRECOVENDA,
                     Lista[i].TbGrife.ARGDESCRICAO,
                     formatJSONDate(Lista[i].MATDTCADASTRO),
+                    Lista[i].TbMec.MECQUANTIDADE,
                     ];
                     ListaProduto[i] = Linha;
                 }

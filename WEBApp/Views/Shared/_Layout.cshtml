@@ -73,7 +73,13 @@
                             </span>
                         </a>
                     </div>
+
+
+                    <div>
+                        <label id="lblUsuario" style="margin-top: 50px; margin-bottom:50px; font-size: 16px; margin-left: 18px; color: black">Usuário: </label>
+                    </div>
                 </div>
+
             </div>
         </header>
 
@@ -122,7 +128,7 @@
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="/Produto">Produtos</a></li>
                                 <li><a href="/EntradaEstoque">Entrada de Estoque</a></li>
-                                <li><a style="color:red" href="/SaidaEstoque">Saída de Estoque</a></li>
+                                <li><a href="/SaidaEstoque">Saída de Estoque</a></li>
                                 <li><a href="/Fornecedor">Fornecedores</a></li>
                             </ul>
                         </li>
@@ -255,51 +261,54 @@
 
 
     <script>
-        /*        function fnValidaSessao() {*/
+        function fnSetUsuarioLogado() {
 
-        //    $.ajax({
-        //        type: "POST",
-        //        url: "/Login/NotLogado",
-        //        dataType: "JSON",
-        //        beforeSend: function () {
-        //        },
-        //        success: function (result) {
+            $.ajax({
+                type: "POST",
+                url: "/Home/SetUsuarioLogado",
+                data: {},
+                dataType: "JSON",
+                beforeSend: function () {
+                },
+                success: function (result) {
 
-        //            debugger;
+                    debugger;
 
-        //            if (result.isLogado == false) {
+                    if (result.isLogado == true) {
+                        $("#lblUsuario").text("Usuário: " + result.emailUsuario);
+                    }
 
-        //                window.location.href = "/Login"
+                    else {
+                        window.location.href = "/Login"
+                    }
 
-        //            } else {
-        //                continue
-        //            }
-        //        },
-        //        error: function (jqXHR, exception) {
+                    
+                },
+                error: function (jqXHR, exception) {
 
-        //            if (jqXHR.status === 0) {
-        //                alert('Not connect.n Verify Network.');
-        //            } else if (jqXHR.status == 404) {
-        //                alert('Requested page not found. [404]');
-        //            } else if (jqXHR.status == 500) {
-        //                alert('Internal Server Error [500].');
-        //            } else if (exception === 'parsererror') {
-        //                alert('Requested JSON parse failed.');
-        //                var Url = window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
-        //                window.location.href = Url + "/Login";
-        //            } else if (exception === 'timeout') {
-        //                alert('Time out error.');
-        //            } else if (exception === 'abort') {
-        //                alert('Ajax request aborted.');
-        //            } else {
-        //                alert('Uncaught Error.n' + jqXHR.responseText);
-        //            }
-        //        },
-        //        complete: function () {
+                    if (jqXHR.status === 0) {
+                        alert('Not connect.n Verify Network.');
+                    } else if (jqXHR.status == 404) {
+                        alert('Requested page not found. [404]');
+                    } else if (jqXHR.status == 500) {
+                        alert('Internal Server Error [500].');
+                    } else if (exception === 'parsererror') {
+                        alert('Requested JSON parse failed.');
+                        var Url = window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+                        window.location.href = Url + "/Login";
+                    } else if (exception === 'timeout') {
+                        alert('Time out error.');
+                    } else if (exception === 'abort') {
+                        alert('Ajax request aborted.');
+                    } else {
+                        alert('Uncaught Error.n' + jqXHR.responseText);
+                    }
+                },
+                complete: function () {
 
-        //        }
-        //    });
-        //}
+                }
+            });
+        }
 
     </script>
 

@@ -19,6 +19,7 @@ $(document).ready(function () {
 });
 
 function jQueryInit() {
+    fnSetUsuarioLogado();
     fnCriaTela();
     fnCriaGridItens();
     $("#btnSalvarFormulario").css('display', 'block');

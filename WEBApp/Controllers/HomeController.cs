@@ -44,6 +44,37 @@ namespace WEBApp.Controllers
             }
         }
 
+        public JsonResult SetUsuarioLogado()
+        {
+            bool isLogado = false;
+            string emailUsuario = "";
+
+
+            if (Session["_isLogado"] != null)
+            {
+                 emailUsuario = Session["_userEmail"].ToString();
+                 isLogado = (bool)Session["_isLogado"];
+
+            }
+
+
+            try
+            {
+                var resultado = new
+                {
+                    isLogado = isLogado,
+                    emailUsuario = emailUsuario
+                };
+
+                return Json(resultado, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+
 
         [HttpPost]
         public JsonResult Logoff()

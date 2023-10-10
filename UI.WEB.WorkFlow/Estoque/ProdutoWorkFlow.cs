@@ -166,6 +166,7 @@ namespace UI.WEB.WorkFlow.Estoque
                     Produto.TbMpv.MPVPRECOVENDA = dr["MPVPRECOVENDA"].ToString();
                     Produto.TbGrife.ARGDESCRICAO = dr["ARGDESCRICAO"].ToString();
                     Produto.MATDTCADASTRO = dr["MATDTCADASTRO"].ToString();
+                    Produto.TbMec.MECQUANTIDADE = dr["MECQUANTIDADE"].ToString();
 
                     lista.Add(Produto);
                 }

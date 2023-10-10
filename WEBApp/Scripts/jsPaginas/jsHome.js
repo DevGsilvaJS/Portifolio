@@ -7,7 +7,10 @@
 function jQueryInit() {
     debugger;
 
-    fnValidaSessao();
+    fnSetUsuarioLogado();
 }
+
+
+
 
 

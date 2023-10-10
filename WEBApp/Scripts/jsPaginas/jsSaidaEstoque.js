@@ -64,7 +64,7 @@ function fnCriaTela() {
     });
 
     fnRetornaObjInclusao();
-    fnRetornaListaSaida();
+    fnRetornaListaEntrada();
     fnSetDataAtual();
     fnRetornaComboCfops();
 
@@ -141,12 +141,12 @@ function fnRetornaObjInclusao() {
 
 }
 
-function fnRetornaListaSaida() {
+function fnRetornaListaEntrada() {
 
     $.ajax({
         type: "POST",
         contentType: "application/json",
-        url: "SaidaEstoque/RetornaListaSaida",
+        url: "SaidaEstoque/RetornaListaEntrada",
         dataType: "JSON",
         cache: false,
         async: false,
@@ -219,19 +219,15 @@ $(document).ready(function () {
 
 function fnSalvarSaida() {
 
-    ;
+    debugger;
 
-    for (var i = 0; i < _SaidaEstoque.ListaSaida.length; i++) {
-        _SaidaEstoque.ListaSaida[i].MVMTIPO = "E";
+    for (var i = 0; i < _SaidaEstoque.ListaEntrada.length; i++) {
+        _SaidaEstoque.ListaEntrada[i].MVMTIPO = "S";
     }
 
-    _SaidaEstoque.FORID = $("#sslFornecedor").val();
+    _SaidaEstoque.FORID = null;
     _SaidaEstoque.MVNDATAENTRADA = $("#dtDataMvm").val();
     _SaidaEstoque.MVNNUMNOTA = $("#txtNumeroNota").val();
-    _SaidaEstoque.MVNMODELONOTA = $("#sslTipoNf").val();
-    _SaidaEstoque.MVNSERIENOTA = $("#txtSerie").val();
-    _SaidaEstoque.MVNSUBSERIENOTA = $("#txtSubSerie").val();
-    _SaidaEstoque.MVNTOTALNOTA = $("#txtValorNota").val();
     _SaidaEstoque.TbItensSaida.COPID = $("#sslCFOP").val();
 
     $.ajax({
@@ -515,10 +511,10 @@ function fnLimpaGrid() {
 
 function fnExcluirItemGrid(id) {
 
-    for (var i = 0; i < _SaidaEstoque.ListaSaida.length; i++) {
-        if (_SaidaEstoque.ListaSaida[i].MATID == id.id) {
+    for (var i = 0; i < _SaidaEstoque.ListaEntrada.length; i++) {
+        if (_SaidaEstoque.ListaEntrada[i].MATID == id.id) {
 
-            _SaidaEstoque.ListaSaida.splice(i, 1);
+            _SaidaEstoque.ListaEntrada.splice(i, 1);
 
             oTabSaidaEstoque.row(i).remove().draw();
 

@@ -38,7 +38,6 @@ namespace WEBApp.Controllers
                 listaCfops = listaCfops
             }, JsonRequestBehavior.AllowGet);
         }
-
         public JsonResult RetornaEntityProduto(string produto)
         {
             List<EntityProduto> Produto = new List<EntityProduto>();
@@ -49,5 +48,17 @@ namespace WEBApp.Controllers
                 Produto = Produto
             }, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GravarSaidaEstoque(EntityNotaFiscal _SaidaEstoque)
+        {
+            string sRetorno = "";
+            sRetorno = wf.GravarSaidaEstoque(_SaidaEstoque);
+
+            return Json(new
+            {
+                Produto = sRetorno
+            }, JsonRequestBehavior.AllowGet);
+        }
+        
     }
 }
